@@ -1,0 +1,425 @@
+body{
+    font-family: 'Lato', sans-serif;
+}
+
+ul li{
+    list-style-type: none;
+}
+a:link{
+    text-decoration: none !important;
+}
+
+.container-menu{
+    
+    flex: 1;
+    margin: 0;
+    height: 120px;
+    padding: 0 90px;
+    position: absolute;
+    top: 0;
+    
+   
+}
+.listamenu{
+    
+    margin: 0 auto;
+    padding: 15px 0;
+}
+
+.item-menuprincipal{ 
+    font-family: 'Lato', sans-serif;
+    color: black;
+    width: 34%;
+    font-size: 12px;
+    text-align: center;
+    
+    padding-top: 2%;
+    margin: 5px;
+}
+
+.container-menumobile{
+    display: none !important;
+}
+
+.item-menuprincipal-whatsapp{ 
+    font-family: 'Lato', sans-serif;
+    color: white;
+    width: 40%;
+    font-size: 12px;
+    text-align: center;
+    height: 30px;
+    padding: 6px;
+    margin: 5px;
+    align-self: center;
+    background: #4DC479;
+    border-radius: 3px;
+}
+
+#logo-tyrraf{
+    width: 250px;
+    height: auto;
+}
+
+#colecao-outono-img{
+    flex: 1 1 400px;
+    width: 100%;
+    height: 100%;
+    padding: 6% 0;   
+}
+
+/*conteudo*/
+
+
+
+.conteudo-localizacao-1{
+    padding: 10px;
+    
+}
+
+.container-enderecos{
+    margin:0 260px;
+}
+
+.container-1 *{
+    font-family: 'Hind', sans-serif;
+}
+
+.container-1 h3{
+   
+    font-weight: bold;
+}
+.container-localizacao-1{
+    width: 75%;
+}
+
+.localizacao-1 h3{
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(46, 46, 45);
+}
+
+.endereco-1{
+    font-size: 14px;
+    color: rgb(46, 46, 45);
+    margin: 0 45px;
+}
+
+.redes-sociais h3{
+    padding: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    color: rgb(46, 46, 45);
+}
+.redes-pag-5 img{
+    height: 30px;
+    width: 40px;
+    margin-left: 4px;
+}
+
+.retangulo-1 {
+    background: #4DC479;
+    width: 40px;
+    height: 170px;
+    position: absolute;
+    top: 155%;
+    left: 0;
+
+}
+
+/*formlario*/
+
+.container-form-borda{
+    border: 10px solid;
+    border-radius: 30px;
+    border-color:#858282;
+    border-width: 1px;
+    border: none;
+    box-shadow: 0px 0px 5px #a19f9f;
+}
+
+.form-contato{
+    padding: 30px;
+}
+#form-inp{
+    margin: 10px;
+    width: 350px;
+    border-width: 1px;
+    border-radius: 20px;
+    height: 50px
+}
+
+#form-inp-msg{
+    margin: 10px;
+    width: 350px;
+    height: 100px;
+    border-width: 1px;  
+    border-radius: 20px;
+    
+}
+
+.btn-vejaagora{
+    padding: 4px;
+    border: none;
+    border-radius: 15px;
+    text-align: center;
+     background: #4DC479;
+     color: rgb(235, 241, 237);
+     width: 100px;
+     height: 30px;
+     margin-bottom: 26px;
+    margin-left: 45px;
+}
+
+/*footer*/
+
+.myfooter{
+    background: #4DC479;
+    margin-top: 180px;
+
+}
+  
+#logo-footer{
+    width: 270px;
+    height: 140px;
+    margin: -4px 0px;
+}
+
+.text-footer{
+    margin: 60px 20px;
+}
+.text-footer h4{
+   font-size: 15px;
+   color: aliceblue;
+   font-weight: bold;
+}
+
+.container-help p{
+    color: #FFF241;
+    font-size: 18px;
+}
+
+#icone-help{
+    width: 35px;
+    height: 35px;
+    margin: -10px 10px;
+}
+
+.txt-footer-2 p{
+    color: aliceblue;
+    font-size: 18px;
+    margin: 10px;
+}
+
+#rede-social-yellow{
+    width: 35px;
+    height: 35px;
+    margin: 10px;   
+}
+
+.txt-footer-2{
+    margin: 100px 0px;
+}
+.container-localizacao{
+    padding-left: 340px;
+    margin-top: -30px;
+}
+
+.localizacao h3{
+    font-size: 18px;
+    font-weight: bold;
+    color: #FFF241;
+}
+
+.endereco{
+    font-size: 14px;
+    color: aliceblue;
+}
+
+/*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*/
+/*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*/
+/*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*/
+/*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*//*MOBILE*/
+
+
+@media (max-width: 740px){
+    #menu-web{
+        display: none !important;
+    }
+
+    .retangulo-1 {
+        display: none !important;
+    }
+
+    .container-menumobile{
+        display: flex !important;
+    }    
+
+    .logomarca-mobile{
+        display: flex !important;
+       
+    
+    }
+    
+    .logomarca-mobile img{
+        width: 100px;
+        height: 70px;
+        position: absolute;
+        margin-top: 10%;
+        left: 10%;
+    }
+    
+    #nav-btn{
+        position: absolute;
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: all 0.4s linear;
+        left: 80%;
+        margin-top: 15%;
+    }
+    
+    #nav-btn.active{
+       border: 1px solid #4DC479;
+    }
+    
+    #nav-btn > div{
+        
+        width: 25px;
+        height: 3px;
+        background: #4DC479;
+        margin: 4px 0px;
+        transition: all 0.4s linear;
+    
+    }
+    
+    #nav-slide a{
+        color: white;
+    }
+    #nav-slide{
+        display: flex;
+        flex-direction: column;
+        margin-top: -50%;
+        width: 100%;
+        height: auto;
+        background: #4DC479;
+        transition: all 0.4s linear; 
+        text-decoration-color: aliceblue;
+        position: absolute;
+    }
+
+    /*fim menu mobile*/
+
+    #colecao-outono-img{
+        padding: 0 0;
+        margin-top: 35%;
+     }
+
+   
+
+    .container-1{
+        flex-direction: column;
+    }
+    .container-localizacao-1{
+        width: 100% !important;
+        padding: 1% 12%;
+        
+    }
+    .contaiener-form{
+        width: 100% !important;
+    }
+    .container-enderecos{
+        margin: 0 !important;
+        text-align: center;
+    }
+    .redes-sociais{
+        text-align: center;
+    }
+    .form-contato{
+        padding: 0;
+    }
+    .container-form{
+        width: 100% !important;
+    }
+    .container-form-borda{
+        margin: 10px;
+    }
+    .container-btn{
+        justify-content: center !important;
+    }
+
+    .btn-vejaagora{
+        padding: 4px;
+        border: none;
+        border-radius: 15px;
+        text-align: center;
+        background: #4DC479;
+         color: rgb(235, 241, 237);
+        width: 150px;
+        height: 30px;
+        margin: 10px 0;
+    }
+
+    /*footer*/
+
+    .myfooter{
+        flex-wrap: wrap !important;
+    }
+
+    .footer-logo{
+        width: 100% !important;
+    }
+
+    .container-txt-footer-2{
+        width: 100% !important;
+    }
+    .txt-footer-2{
+
+        display: block !important;
+        justify-content: center !important;
+        margin: 0;
+    }
+
+    .txt-footer-2 p {
+       padding: 10px;
+    }
+
+    #rede-social-yellow{
+        width: 35px;
+        height: 35px;
+        margin: -3px 24px;
+
+          
+    }
+    .container-localizacao {
+        padding-left: 10%;
+        margin-top: 10%;
+    }
+    
+
+}
+
+/*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*/
+/*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*/
+/*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*/
+/*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*//*TELA GRANDE*/
+
+
+@media (min-width: 1900px){
+    .retangulo-1 {
+        background: #4DC479;
+        width: 50px;
+        height: 190px;
+        position: absolute;
+        top: 135%;
+        left: 0;
+    
+    }
+    .container-enderecos{
+        margin:0 460px;
+    }
+
+    .container-form-borda{
+        margin-right: 300px;
+    }
+    
+}

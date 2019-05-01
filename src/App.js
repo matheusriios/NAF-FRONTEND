@@ -3,16 +3,44 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(props){
+    super(props)
+
+    this.state = {
+
+    }
+  }
+
+  componentDidMount() {
+    this.reqApi()
+  }
+
+  reqApi = async () => {
+    const objBody = {
+      grant_type: 'password',
+      client_id: '1',
+      client_secret: 'KREUhtWzcoPp8W4lXKl1esjuyqn3JettR5TLY5UX',
+      username: 'gerente@outlook.com',
+      password: 'secret',      
+      scope: ''
+    }
+     
+    const resp = await fetch('http://localhost:8000/oauth/token', {      
+      method: 'POST',
+      body: objBody,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json',        
+      }
+    });
+
+    console.log(resp)
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+       
       </div>
     );
   }

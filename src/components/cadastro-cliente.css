@@ -1,0 +1,76 @@
+.container-page-cadastro-cliente {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.container-form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    background: #6579ea;
+    height: 100%;
+}
+
+.container-form h1{
+    padding-bottom: 5%; 
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+}
+
+.form{    
+    display: flex;
+    width: 75%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-group{
+    display: flex;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.form .input-cadastro {
+    width: 100%;
+    margin: 5px;
+    padding: .375rem .75rem;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;    
+    color: #495057 ;  
+    font-size: .8rem;
+    line-height: 1.5;
+}
+
+.label{
+    text-align: left;
+    width: 100%;    
+}
+
+.container-button{
+    align-items: flex-end !important;
+}
+
+.button-send{
+    width: 50%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: red;    
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}

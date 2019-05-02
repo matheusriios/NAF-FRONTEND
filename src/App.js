@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+//Components
+import Login from './components/Login'
+
 
 class App extends Component {
   constructor(props){
@@ -16,31 +19,30 @@ class App extends Component {
   }
 
   reqApi = async () => {
-    const objBody = {
-      grant_type: 'password',
-      client_id: '1',
-      client_secret: 'KREUhtWzcoPp8W4lXKl1esjuyqn3JettR5TLY5UX',
-      username: 'gerente@outlook.com',
-      password: 'secret',      
-      scope: ''
-    }
-     
-    const resp = await fetch('http://localhost:8000/oauth/token', {      
+    var formData = new FormData();
+    formData.append('grant_type', 'password')
+    formData.append('client_id', '1')
+    formData.append('client_secret', 'KREUhtWzcoPp8W4lXKl1esjuyqn3JettR5TLY5UX')
+    formData.append('username', 'gerente@outlook.com')
+    formData.append('password', 'secret')
+    formData.append('scope', '' )
+      
+    const resp = await fetch('http://localhost:8000/oauth/token', {
       method: 'POST',
-      body: objBody,
+      body: formData,
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json',        
+        // 'Content-Type': 'application',
+        // 'Accept': 'application/json',        
       }
     });
-
-    console.log(resp)
+    const data = await resp.json()
+    console.log(data)
   }
 
   render() {
     return (
       <div className="App">
-       
+        <Login />
       </div>
     );
   }

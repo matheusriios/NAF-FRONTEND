@@ -1,0 +1,12 @@
+.dropdown-toggle::after{
+    margin-left: .455em;
+    vertical-align: .160em;
+}
+
+.container-nav-bar{
+    background-color: #2196f3;
+}
+
+.name-gerente{
+    color: white;
+}

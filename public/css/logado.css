@@ -1,0 +1,127 @@
+ul li{
+    list-style: none;
+}
+a{
+    text-decoration: none !important;
+}
+
+a:hover{
+    opacity: 0.8;
+}
+
+/***********************/
+.container-status{
+    position: absolute;
+    
+    top: 80%;
+}
+.title-status{
+    font-weight: bold;
+}
+.lista-status .item-status span{
+    font-size: 12px;
+}
+.lista-status .item-status .agendado{
+    color: #FFD700;
+}
+.lista-status .item-status .concluid{
+    color: green;
+}
+.lista-status .item-status .cancelado{
+    color: red;
+}
+/**********************/
+#app{
+    height: 100vh;
+    width: 100%;
+    background: white;
+}
+
+.title-naf{
+    border-bottom: 1px solid rgb(71, 82, 94, 0.2);
+    padding: 2em;
+}
+
+.title-naf h1{
+    margin-top: 2%;
+    color: white;
+    font-weight: bold;
+    font-size: 50px;
+    font-family: 'Lato', sans-serif;
+}
+/**************************/
+/* TELA LOGADO */
+.menu-lateral{
+    height: 100vh;
+    border-right: 1px solid rgb(71, 82, 94, 0.2);
+    width: 22%;
+    background-color: #007bff;
+}
+
+.menu-lateral ul{
+    list-style: none;
+}
+
+.dropdown-toggle::after{
+    margin-left: 8.255em;
+    color: white;
+}
+
+.item-menu-conta::after{
+    margin-left: 9.05em;
+    color: white;
+}
+
+.item-menu-agenda, .item-menu-conta{
+    margin-left: -2em;
+    border-bottom: 1px solid rgb(71, 82, 94, 0.2);
+    color: white;
+    margin-top: 5%;
+}
+/*********************/
+.title-reservas h1{
+    font-family: 'Lato', sans-serif;
+    color: #47525E;
+}
+
+.container-lists-horarios{
+    padding: 23px;
+}
+
+.lista-agendamento{
+    margin: 0px;
+    padding: 0px;
+}
+.lista-agendamento li{
+    border: 1px solid rgb(71, 82, 94, 0.2);    
+    margin: 0px !important;
+    margin-top: 15px !important;
+    padding: 5px;
+}
+.lista-agendamento li p{
+    margin: 0px;
+}
+.lista-agendamento li div i{
+    border-radius: 50%;
+}
+.lista-agendamento li div .concluido{
+    font-size: 24px;
+    color: green;
+}
+.lista-agendamento li div .agendado{
+    color: #FFD700;
+    font-size: 24px;
+}
+.lista-agendamento li div .cancelado{
+    color: red;
+    font-size: 24px;
+}
+
+.container-btn-agendar{
+    margin-top: 5%;
+}
+
+.btn-agendar-atendimento{
+    width: 39%;
+    height: 46px;    
+}

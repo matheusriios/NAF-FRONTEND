@@ -1,0 +1,66 @@
+/*Home*/
+#app{
+    height: auto;
+    width: 100%;
+    background-color: rgb(177, 188, 204, 0.3);
+}
+
+.title-naf h1{
+    margin-top: 2%;
+    color: #47525E;
+    font-weight: bold;
+    font-size: 50px;
+    font-family: 'Lato', sans-serif;
+}
+
+.content{
+    margin-top: 3%;
+    width: 100%;
+}
+
+/*Conteudos forms*/
+.content-form .container-form{
+    padding: 4em;
+    width: 75%;
+    border-radius: 5px !important;
+}
+
+.content-form input{
+    font-family: 'Lato', sans-serif;
+}
+
+.container-form p{
+    color: #8190A5;
+    font-size: 11px;
+    
+}
+.container-form h3{
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+
+.container-btn-login:hover{
+    text-decoration: white !important;
+}
+/******************************/
+/*Conteudo img*/
+.content-img{
+    position: relative;
+}
+.content-img img{
+    width: 70%;
+    position: absolute;
+    top: 32%;
+    left: 25%;
+}
+/**************************/
+/* TELA LOGADO */
+.menu-lateral{
+    height: auto;
+    border-right: 1px solid #8492A6;
+    width: 18%;
+}
+
+.menu-lateral ul{
+    list-style: none;
+}

@@ -1,6 +1,6 @@
 /*Home*/
 #app{
-    height: 100vh;
+    height: auto;
     width: 100%;
     background-color: rgb(177, 188, 204, 0.3);
 }
@@ -22,7 +22,7 @@
 .content-form .container-form{
     padding: 4em;
     width: 75%;
-    background-color: #fff;
+    border-radius: 5px !important;
 }
 
 .content-form input{
@@ -38,6 +38,10 @@
     font-family: 'Lato', sans-serif;
     font-weight: bold;
 }
+
+.container-btn-login:hover{
+    text-decoration: white !important;
+}
 /******************************/
 /*Conteudo img*/
 .content-img{
@@ -52,7 +56,7 @@
 /**************************/
 /* TELA LOGADO */
 .menu-lateral{
-    height: 100vh;
+    height: auto;
     border-right: 1px solid #8492A6;
     width: 18%;
 }

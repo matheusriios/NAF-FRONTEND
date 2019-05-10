@@ -32,7 +32,7 @@ a:hover{
 }
 /**********************/
 #app{
-    height: 100vh;
+    height: auto;
     width: 100%;
     background: white;
 }
@@ -52,7 +52,7 @@ a:hover{
 /**************************/
 /* TELA LOGADO */
 .menu-lateral{
-    height: 100vh;
+    height: auto;
     border-right: 1px solid rgb(71, 82, 94, 0.2);
     width: 22%;
     background-color: #007bff;
@@ -84,44 +84,7 @@ a:hover{
     color: #47525E;
 }
 
-.container-lists-horarios{
+.container-lists-reservas{
     padding: 23px;
 }
 
-.lista-agendamento{
-    margin: 0px;
-    padding: 0px;
-}
-.lista-agendamento li{
-    border: 1px solid rgb(71, 82, 94, 0.2);    
-    margin: 0px !important;
-    margin-top: 15px !important;
-    padding: 5px;
-}
-.lista-agendamento li p{
-    margin: 0px;
-}
-.lista-agendamento li div i{
-    border-radius: 50%;
-}
-.lista-agendamento li div .concluido{
-    font-size: 24px;
-    color: green;
-}
-.lista-agendamento li div .agendado{
-    color: #FFD700;
-    font-size: 24px;
-}
-.lista-agendamento li div .cancelado{
-    color: red;
-    font-size: 24px;
-}
-
-.container-btn-agendar{
-    margin-top: 5%;
-}
-
-.btn-agendar-atendimento{
-    width: 39%;
-    height: 46px;    
-}

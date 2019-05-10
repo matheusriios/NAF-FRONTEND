@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- CSS | Bootstrap CSS  | Font awesome  -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/logado.css">
+    <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
+
+
+    <title>Home</title>
+  </head>
+  <body>
+    
+    <div id="app" class="d-flex">
+
+        <div class="menu-lateral">
+            <div class="title-naf w-100 d-flex justify-content-center align-items-center">
+                <a href="logado.html"><h1 class="mt-4">N - A - F</h1></a>
+            </div>
+            <ul>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle item-menu-agenda" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Agenda
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="agendar.html">Agendar</a>
+                        <a class="dropdown-item" href="#">Modificar Agendamento</a>                                          
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle item-menu-conta " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Conta
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Alterar Dados</a>
+                        <a class="dropdown-item" href="#">Sair</a>                                                
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="w-100">
+            <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                <div class="title-reservas">
+                    <h1 class="mt-5">Reservas</h1>
+                </div>
+                
+                <div class="container-lists-reservas w-100 mt-4">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Serviço</td>
+                                <td>Atendente</td>
+                                <td>Cliente</td>
+                                <td>Status</td>
+                            </tr>      
+                        </thead>      
+                        <tbody id="body-reserva">
+                            <tr>
+                                <td>Serviço</td>
+                                <td>Atendente</td>
+                                <td>Cliente</td>
+                                <td>Status</td>
+                            </tr>      
+                        </tbody>                                                                                                                     
+                    </table>                                
+                </div>
+
+                <div class="title-reservas">
+                    <h1 class="mt-5">Atendentes</h1>
+                </div>
+                
+                <div class="container-lists-reservas w-100 mt-4">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Nome</td>
+                                <td>Email</td>
+                                <td>Celular</td>
+                                <td>Perfil</td>
+                                <td>Reservas</td>
+                            </tr>      
+                        </thead>      
+                        <tbody id="body-lista-atendentes"></tbody>                                                                                                                     
+                    </table>                                
+                </div>
+            </div>
+        </div>        
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>    
+    <script src="../bundle-.js"></script>
+  </body>
+</html>

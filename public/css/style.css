@@ -1,6 +1,6 @@
 /*Home*/
 #app{
-    height: auto;
+    height: 100vh;
     width: 100%;
     background-color: rgb(177, 188, 204, 0.3);
 }

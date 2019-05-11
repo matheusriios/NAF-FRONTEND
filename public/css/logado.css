@@ -88,3 +88,23 @@ a:hover{
     padding: 23px;
 }
 
+/******** Modal Reserva Atendente **********/
+.modalReservaAtendente {
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.container-modal{
+    max-width: 80%
+}
+
+.modal-header{
+    border-bottom: none !important;
+}
+
+.modal-footer {
+    border-top: none !important;
+}
+
+

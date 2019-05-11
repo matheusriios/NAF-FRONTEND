@@ -40,10 +40,12 @@ const login = () => {
                 }
             });
             const userAuth = await respAuthUser.json()
-
+            
             if(userAuth.atendente.perfil === 'G'){                
                 return window.location.href = 'http://localhost:8080/pages/tela-gerente.html'
-            }   
+            }
+            
+            alert('Só gerente tem acesso a essa zorra no momento')
             
         });    
     }

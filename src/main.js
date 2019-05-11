@@ -1,7 +1,9 @@
-import Atendente from './atendente'
+import atendente from './atendente'
+import login from './login'
 
-function main() {    
-    Atendente().listaAtendentes()
+function main() {     
+    login()    
+    atendente().listaAtendentes()
 }
 
 main()

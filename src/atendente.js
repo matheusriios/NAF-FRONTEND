@@ -4,7 +4,7 @@ const reserva = () => {
     
     
     const loadTodosAtendentes = async () => {
-        const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjA0N2ViMmM4MjNlZmRlMGJmMTU3MzRhY2QyMjI2NGIxMDIwYTUwNjliOWQyOGZjMGE5MWJlNWRiNTRiOWRkYmUwZmUxOTQ0NzU0YWRjYzQzIn0.eyJhdWQiOiIxIiwianRpIjoiMDQ3ZWIyYzgyM2VmZGUwYmYxNTczNGFjZDIyMjY0YjEwMjBhNTA2OWI5ZDI4ZmMwYTkxYmU1ZGI1NGI5ZGRiZTBmZTE5NDQ3NTRhZGNjNDMiLCJpYXQiOjE1NTc0NTQ3NjUsIm5iZiI6MTU1NzQ1NDc2NSwiZXhwIjoxNTU3NDU4MzY1LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.hxxtPeD0rE8btSVXaidxXYSW7cMok3R4ecihqOIV2lTDgQXedH2X6xzuY3uf0lXOyXSjeCkhafDtcFqqzK4dzSZYDbZT5dfyK0ZSC6ckOe27Cm_i4WAJxBOlchy-jjVISGrYLPa67ffPPdkLgZyczmDbWZvuIQb8yVjblpiuypEI0ZEaf8LVO6OjxkqiZd-2z3TroG7_kmuVRolEP_4WBd2c7LCHjRg1c0XDckfnb7Gt9pCTN6xWhEEzGOxCW3Wn4nJPjh_Edx3NadJuNloomsOyB1arq_FaybjMZ2qagww-AjZiQ0D7f-ceTOXnw6VewDE-iZd8q90D-v5q3pQ0HG6czyJ73SF_tNKDHLzOnEcZjG2xCmemtYsZ3nZY4O11N5C_UeGr_9xxufAkBWppARAxl9NmeWixZyxnb5Hxp_4k4xPlgDercQuWrq6oXPLLuyS3B1FopWI73CEBoDcSKdLIaEzWiSANshoWMNNolud6irkOnC8kmytcLiX1jRLepcmEkkrO5jTZYsjzJYl6t4kww-JL8RK46FezP9KDntCaztVXpAhLXheElZm8Fd9ExJXiNMTfb77x5sf0Uo3hYQm7tp9bHnqn04w9LdKdoyyrHJyIKHSAWhGUvS7S42RIsbfo7ruEo_zbaL9JAmluExpvV0zJ5YBrTtqLvGZdAYA'
+        const token = window.localStorage.getItem('token')
         const response = await fetch(`${baseUrl.listarAtendentes}`, {
             method: 'GET',
             headers: {
@@ -13,29 +13,96 @@ const reserva = () => {
             }
         })
         const body = await response.json()  
-
+        
         return body
     }
 
     const listaAtendentes = async () => {
-        const bodyListaAtendentes = document.getElementById('body-lista-atendentes')
-        let todosAtendentes = await loadTodosAtendentes()
-        
-        todosAtendentes.map(antendente => {
-            bodyListaAtendentes.innerHTML += `
-                <tr>
-                    <td>${antendente.user.name}</td>
-                    <td>${antendente.user.email}</td>
-                    <td>${antendente.celular}</td>
-                    <td>${antendente.perfil}</td>
-                    <td><button type="button" class="btn btn-secondary">Reservas</button></td>                    
-                </tr>  
-            `
-        })
-        
+        if(document.getElementById('body-lista-atendentes') !== null) {
+            const bodyListaAtendentes = document.getElementById('body-lista-atendentes')
+            let todosAtendentes = await loadTodosAtendentes()
+            
+            todosAtendentes.map((atendente, index) => {
+                bodyListaAtendentes.innerHTML += `
+                    <tr>
+                        <td>${atendente.user.name}</td>
+                        <td>${atendente.user.email}</td>
+                        <td>${atendente.celular}</td>
+                        <td>${atendente.perfil}</td>
+                        <td><button type="button" data-target="#modalReservaAtendente" data-toggle="modal" class="btn btn-secondary btn-modal-reserva">Reservas</button></td>                    
+                    </tr>  
+                `
+                document.querySelectorAll('.btn-modal-reserva')[index].setAttribute('id', `${atendente.id} modalReservaAtendente`)
+                document.querySelectorAll('.btn-modal-reserva')[index].setAttribute('idAtendente', `${atendente.id}`)
+            })    
+        }        
 
+        openModalReservasAtendente()
     }
 
+    const openModalReservasAtendente = () => {
+        const divModal = document.createElement('div'),
+              token    = window.localStorage.getItem('token') 
+        let idUser = ''        
+        
+        document.querySelectorAll('.btn-modal-reserva').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                e.preventDefault()
+                idUser = btn.getAttribute('idAtendente')                
+
+                const respUser = await fetch(`${baseUrl.getAtendente}/${idUser}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                const { reserva } = await respUser.json()
+
+                console.log(reserva)
+            })
+        })                
+
+
+        divModal.innerHTML = `
+            <div class="modal fade" id="modalReservaAtendente" tabindex="-1" role="dialog" aria-labelledby="modalReservaAtendente" aria-hidden="true">
+                <div class="modal-dialog container-modal" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="modalReservaAtendente">Reserva do Atendente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Cliente</td>
+                                        <td>Serviço</td>
+                                        <td>Horario</td>
+                                        <td>Status</td>
+                                        <td>Obs</td>
+                                    </tr>      
+                                </thead>      
+                                <tbody id="body-reserva-atendente">
+                                    <tr>
+                                        <td>Serviço</td>
+                                        <td>Atendente</td>
+                                        <td>Cliente</td>
+                                        <td>Status</td>
+                                        <td>Status</td>
+                                    </tr>      
+                                </tbody>
+                            </table>   
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `
+        document.body.appendChild(divModal)
+    }
 
     return {        
         listaAtendentes

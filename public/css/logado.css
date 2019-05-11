@@ -56,6 +56,7 @@ a:hover{
     border-right: 1px solid rgb(71, 82, 94, 0.2);
     width: 22%;
     background-color: #007bff;
+    min-height: 100vh;
 }
 
 .menu-lateral ul{
@@ -87,4 +88,24 @@ a:hover{
 .container-lists-reservas{
     padding: 23px;
 }
+
+/******** Modal Reserva Atendente **********/
+.modalReservaAtendente {
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.container-modal{
+    max-width: 80%
+}
+
+.modal-header{
+    border-bottom: none !important;
+}
+
+.modal-footer {
+    border-top: none !important;
+}
+
 

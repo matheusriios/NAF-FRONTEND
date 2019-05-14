@@ -1,3 +1,7 @@
+body.disable {
+    display: none;
+}
+
 /*Home*/
 #app{
     height: 100vh;

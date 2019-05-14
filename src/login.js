@@ -1,14 +1,13 @@
 import baseUrl from './service';
 import auth from './auth'
 
-
-const login = () => {    
-    auth()    
+const login = () => {        
+    auth(document.body)
     if(document.querySelector('.page-login') !== null) {        
         const btnLogin = document.querySelector('.btn-login');    
         btnLogin.addEventListener('click', async (e) => {
             e.preventDefault();
-    
+            
             const email = document.getElementById('email').value;
             const senha = document.getElementById('senha').value;
             const formData = new FormData()
@@ -28,7 +27,6 @@ const login = () => {
             if(respAuth.status !== 200) 
                 return alert("Verifique suas credenciais")            
             
-
             const bodyAuth = await respAuth.json()
             //Salva o token na memoria do navegador
             window.localStorage.setItem('token', `${bodyAuth.access_token}`)

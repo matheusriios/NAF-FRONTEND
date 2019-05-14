@@ -17,7 +17,38 @@ const reserva = () => {
         return body
     }
 
-    const listaAtendentes = async () => {
+    const loadTodasReservas = async () => {
+        const token = window.localStorage.getItem('token')
+        const response = await fetch(`${baseUrl.getReservas}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const body = await response.json()  
+        
+        return body
+    }
+
+    const listaReservas = async () => {
+        const bodyReservas = document.getElementById('body-reserva');
+        const todasReservas = await loadTodasReservas()
+
+        todasReservas.map((atendente, index) => {
+            // bodyListaAtendentes.innerHTML += `
+            //     <tr>
+            //         <td>${atendente.user.name}</td>
+            //         <td>${atendente.user.email}</td>
+            //         <td>${atendente.celular}</td>
+            //         <td>${atendente.perfil}</td>
+            //         <td><button type="button" data-target="#modalReservaAtendente" data-toggle="modal" class="btn btn-secondary btn-modal-reserva">Reservas</button></td>                    
+            //     </tr>  
+            // `            
+        })    
+    }
+
+    const listaAtendentes = async () => {        
         if(document.getElementById('body-lista-atendentes') !== null) {
             const bodyListaAtendentes = document.getElementById('body-lista-atendentes')
             let todosAtendentes = await loadTodosAtendentes()
@@ -104,8 +135,48 @@ const reserva = () => {
         document.body.appendChild(divModal)
     }
 
+    const createAtendente = () => {
+        if((document.getElementById('body-lista-atendentes') !== null) ) {
+
+            const btnCadastrarAtendente = document.querySelector('.btn-cadastrar-atendente')                
+            btnCadastrarAtendente.addEventListener('click', async (e) => {
+                e.preventDefault();
+                
+                const nomeAtendente = document.getElementById('nomeAtendente').value
+                const telFixo = document.getElementById('telAtendente').value
+                const celularAtendente = document.getElementById('celularAtendente').value
+                const emailAtendente = document.getElementById('emailAtendente').value
+                const senhaAtendente = document.getElementById('senhaAtendente').value
+                let perfilAtendente = document.getElementById('perfilAtendente');
+                perfilAtendente = perfilAtendente.options[perfilAtendente.selectedIndex].value;                            
+                const token = window.localStorage.getItem('token');
+    
+                const formData = new FormData();
+                formData.append('celular', `${celularAtendente}`)
+                formData.append('telefone', `${telFixo}`)
+                formData.append('perfil', `${perfilAtendente}`)
+                formData.append('name', `${nomeAtendente}`)
+                formData.append('email', `${emailAtendente}`)
+                formData.append('password', `${senhaAtendente}`)
+    
+                const respCreateAtendete = await fetch(`${baseUrl.createAtendente}`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                })
+    
+                console.log(await respCreateAtendete.json())
+            })
+        }
+    }
+
     return {        
-        listaAtendentes
+        listaAtendentes,
+        listaReservas,
+        createAtendente,
     }    
 }
 

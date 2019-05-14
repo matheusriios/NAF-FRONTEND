@@ -2,8 +2,10 @@ import atendente from './atendente'
 import login from './login'
 
 function main() {     
-    login()    
+    login()
     atendente().listaAtendentes()
+    atendente().createAtendente()
+    atendente().listaReservas()
 }
 
 main()

@@ -3,6 +3,7 @@ import auth from './auth'
 
 const login = () => {        
     auth(document.body)
+    
     if(document.querySelector('.page-login') !== null) {        
         const btnLogin = document.querySelector('.btn-login');    
         btnLogin.addEventListener('click', async (e) => {
@@ -41,15 +42,32 @@ const login = () => {
             
             if(userAuth.atendente.perfil === 'G'){                
                 return window.location.href = 'http://localhost:8080/pages/tela-gerente.html'
-            }
-            
-            alert('Só gerente tem acesso a essa zorra no momento')
-            
+            }                                    
         });    
-    }
-        
+    }            
 }
 
+const logout = () => {        
+    
+    if(document.querySelector('.page-login') !== null) 
+        return
+    
+    const btnLogout = document.querySelector('.btn-logout');
+    
+    btnLogout.addEventListener('click', async (e) => {
+        e.preventDefault();            
+        const respLogout = await fetch(`${baseUrl.logout}`, {
+            headers: {
+                'Authorization': `Bearer ${window.localStorage.getItem('token')}`
+            }
+        })
 
-export default login
+        window.location.reload(); // atualiza a página                    
+    })
+}
+
+export default {
+    login,
+    logout
+}
 

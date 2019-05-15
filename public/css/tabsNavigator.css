@@ -3,14 +3,18 @@
     justify-content: center;
     align-items: center;
     padding: 1%;
-    border-top: 1px solid #dee2e6;
+    border: none !important;
 }
-
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link {
+    color: white;
+}
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-    border: 1px solid #007bff;
-    background-color: #007bff;
-    color: white !important;
+    border: 1px solid white;
+    background-color: white;
+    color: black !important;
     border-radius: 5px;
+    width: 100%;
+    text-align: center;
 }
 
 .nav-tabs .nav-link:hover {

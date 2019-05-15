@@ -24,39 +24,21 @@
             <div class="title-naf w-100 d-flex justify-content-center align-items-center">
                 <a href="logado.html"><h1 class="mt-4">N - A - F</h1></a>
             </div>
-            <ul>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle item-menu-agenda" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Agenda
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="agendar.html">Agendar</a>
-                        <a class="dropdown-item" href="#">Modificar Agendamento</a>                                          
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle item-menu-conta " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Conta
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">                        
-                        <a class="dropdown-item btn-logout" href="#">Sair</a>
-                    </div>
-                </li>
-            </ul>
+            <nav>                    
+                <div class="nav nav-tabs flex-column" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="reservas-tab" data-toggle="tab" href="#reservas" role="tab" aria-controls="reservas" aria-selected="true">Reservas</a>
+                    <a class="nav-item nav-link" id="atendente-tab" data-toggle="tab" href="#atendente" role="tab" aria-controls="atendente" aria-selected="false">Atendentes</a>
+                    <a class="nav-item nav-link " id="cadastrar-reserva-tab" data-toggle="tab" href="#cadastrar-reserva" role="tab" aria-controls="cadastrar-reserva" aria-selected="false">Cadastrar Reserva</a>
+                    <a class="nav-item nav-link " id="cadastrar-servico-tab" data-toggle="tab" href="#cadastrar-servico" role="tab" aria-controls="cadastrar-servico" aria-selected="false">Cadastrar Serviço</a>
+                    <a class="nav-item nav-link " id="cadastrar-cliente-tab" data-toggle="tab" href="#cadastrar-cliente" role="tab" aria-controls="cadastrar-cliente" aria-selected="false">Cadastrar Cliente</a>
+                    <a class="nav-item nav-link " id="cadastrar-atendente-tab" data-toggle="tab" href="#cadastrar-atendente" role="tab" aria-controls="cadastrar-atendente" aria-selected="false">Cadastrar Atendente</a>                                                
+                    <a class="nav-item nav-link " id="cadastrar-horario-tab" data-toggle="tab" href="#cadastrar-horario" role="tab" aria-controls="cadastrar-horario" aria-selected="false">Cadastrar Horario</a>                                                                        
+                    <a class="nav-item nav-link " id="alterar-atendente-tab" data-toggle="tab" href="#alterar-atendente" role="tab" aria-controls="alterar-atendente" aria-selected="false">Alterar Atendente</a>                                                
+                </div>
+            </nav>
         </div>
         <div class="w-100">
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active " id="reservas-tab" data-toggle="tab" href="#reservas" role="tab" aria-controls="reservas" aria-selected="true">Reservas</a>
-                        <a class="nav-item nav-link" id="atendente-tab" data-toggle="tab" href="#atendente" role="tab" aria-controls="atendente" aria-selected="false">Atendentes</a>
-                        <a class="nav-item nav-link " id="cadastrar-reserva-tab" data-toggle="tab" href="#cadastrar-reserva" role="tab" aria-controls="cadastrar-reserva" aria-selected="false">Cadastrar Reserva</a>
-                        <a class="nav-item nav-link " id="cadastrar-servico-tab" data-toggle="tab" href="#cadastrar-servico" role="tab" aria-controls="cadastrar-servico" aria-selected="false">Cadastrar Serviço</a>
-                        <a class="nav-item nav-link " id="cadastrar-cliente-tab" data-toggle="tab" href="#cadastrar-cliente" role="tab" aria-controls="cadastrar-cliente" aria-selected="false">Cadastrar Cliente</a>
-                        <a class="nav-item nav-link " id="cadastrar-atendente-tab" data-toggle="tab" href="#cadastrar-atendente" role="tab" aria-controls="cadastrar-atendente" aria-selected="false">Cadastrar Atendente</a>                                                
-                        <a class="nav-item nav-link " id="cadastrar-horario-tab" data-toggle="tab" href="#cadastrar-horario" role="tab" aria-controls="cadastrar-horario" aria-selected="false">Cadastrar Horario</a>                                                
-                        <a class="nav-item nav-link " id="alterar-atendente-tab" data-toggle="tab" href="#alterar-atendente" role="tab" aria-controls="alterar-atendente" aria-selected="false">Alterar Atendente</a>                                                
-                    </div>
-                </nav>
+                
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="reservas" role="tabpanel" aria-labelledby="reservas-tab">
                         <div class="container-reservas w-100 d-flex align-items-center flex-column ">
@@ -153,8 +135,7 @@
                                 </div>                             
                             </div>
                         </div>
-                    </div>
-                        
+                    </div>                        
                     <div class="tab-pane" id="cadastrar-atendente" role="tabpanel" aria-labelledby="cadastrar-atendente-tab">
                         <div class="container-reservas w-100 d-flex align-items-center flex-column ">
                             <div class="title-reservas">

@@ -1,8 +1,7 @@
 import baseUrl from './service';
-
-const reserva = () => {
-    
-    
+import utils from './utils'
+const atendente = () => {
+        
     const loadTodosAtendentes = async () => {
         const token = window.localStorage.getItem('token')
         const response = await fetch(`${baseUrl.listarAtendentes}`, {
@@ -43,7 +42,7 @@ const reserva = () => {
         const body = await response.json()  
         
         return body
-    }
+    }    
 
     const loadTodosHorarios = async () => {
         const token = window.localStorage.getItem('token')
@@ -61,37 +60,40 @@ const reserva = () => {
 
     const loadTodasReservas = async () => {
         const token = window.localStorage.getItem('token')
-        const response = await fetch(`${baseUrl.getReservas}`, {
+        const response = await fetch(`${baseUrl.listaReservas}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
         })
-        const body = await response.json()  
-        
+        const body = await response.json()                 
         return body
     }
 
-    const listaReservas = async () => {
-        const bodyReservas = document.getElementById('body-reserva');
-        const todasReservas = await loadTodasReservas()
-        if(bodyReservas !== null) {
-            // todasReservas.map((atendente, index) => {
-            //     bodyReservas.innerHTML += `
-            //         <tr>
-            //             <td>${atendente.user.name}</td>
-            //             <td>${atendente.user.email}</td>
-            //             <td>${atendente.celular}</td>
-            //             <td>${atendente.perfil}</td>
-            //             <td><button type="button" data-target="#modalReservaAtendente" data-toggle="modal" class="btn btn-secondary btn-modal-reserva">Reservas</button></td>                    
-            //         </tr>  
-            //     `            
-            // })    
-        }        
+    const listaReservas = async () => {        
+        if(document.querySelector('.page-logado-gerente') !== null){
+            const bodyReservas = document.getElementById('body-reserva');
+            const todasReservas = await loadTodasReservas()     
+            
+            if(bodyReservas !== null) {                
+                todasReservas.map((reserva, index) => {                    
+                    bodyReservas.innerHTML += `
+                        <tr>
+                            <td>${reserva.servico.nome}</td>
+                            <td>${reserva.atendente !== null ? reserva.atendente.user.name 
+                                                           : 'Atendente removido' }</td>
+                            <td>${reserva.cliente !== null ? reserva.cliente.user.name 
+                                                           : 'Cliente removido' }</td>                            
+                            <td>${reserva.status}</td>                        
+                        </tr>  
+                    `            
+                })    
+            }        
+        }
     }
 
-    const listaAtendentes = async () => {        
+    const listaAtendentes = async () => {                
         if(document.getElementById('body-lista-atendentes') !== null) {
             const bodyListaAtendentes = document.getElementById('body-lista-atendentes')
             let todosAtendentes = await loadTodosAtendentes()
@@ -114,28 +116,8 @@ const reserva = () => {
         openModalReservasAtendente()
     }
 
-    const openModalReservasAtendente = () => {
-        const divModal = document.createElement('div'),
-              token    = window.localStorage.getItem('token') 
-        let idUser = ''        
-        
-        document.querySelectorAll('.btn-modal-reserva').forEach(btn => {
-            btn.addEventListener('click', async (e) => {
-                e.preventDefault()
-                idUser = btn.getAttribute('idAtendente')                
-
-                const respUser = await fetch(`${baseUrl.getAtendente}/${idUser}`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                })
-                const { reserva } = await respUser.json()
-
-                console.log(reserva)
-            })
-        })                
-
-
+    const openModalReservasAtendente = () => { 
+        const divModal = document.createElement('div')                       
         divModal.innerHTML = `
             <div class="modal fade" id="modalReservaAtendente" tabindex="-1" role="dialog" aria-labelledby="modalReservaAtendente" aria-hidden="true">
                 <div class="modal-dialog container-modal" role="document">
@@ -152,19 +134,13 @@ const reserva = () => {
                                     <tr>
                                         <td>Cliente</td>
                                         <td>Serviço</td>
-                                        <td>Horario</td>
+                                        <td>Data</td>
                                         <td>Status</td>
                                         <td>Obs</td>
                                     </tr>      
                                 </thead>      
                                 <tbody id="body-reserva-atendente">
-                                    <tr>
-                                        <td>Serviço</td>
-                                        <td>Atendente</td>
-                                        <td>Cliente</td>
-                                        <td>Status</td>
-                                        <td>Status</td>
-                                    </tr>      
+                                       
                                 </tbody>
                             </table>   
                         </div>
@@ -176,6 +152,38 @@ const reserva = () => {
             </div>
         `
         document.body.appendChild(divModal)
+        
+        const token    = window.localStorage.getItem('token')
+        const bodyReservaAtendente = document.getElementById('body-reserva-atendente')
+        let idUser = ''        
+        
+        document.querySelectorAll('.btn-modal-reserva').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                e.preventDefault()
+                idUser = btn.getAttribute('idAtendente')                
+
+                const respUser = await fetch(`${baseUrl.getAtendente}/${idUser}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                let { reserva } = await respUser.json()  
+                
+                if(reserva.length === 0)
+                    return bodyReservaAtendente.innerHTML = ``
+
+                    console.log(reserva)
+                reserva.forEach(r => {                                        
+                    bodyReservaAtendente.innerHTML += `
+                                <td>${r.cliente !== null ? r.cliente.user.name : 'Cliente removido'}</td>
+                                <td>${r.servico.nome}</td>
+                                <td>${r.horario.data}</td>
+                                <td>${r.status}</td>
+                                <td>${r.servico.descricao}</td>
+                    `
+                })                                
+            })            
+        })
     }
 
     const createCliente = () => {
@@ -191,7 +199,8 @@ const reserva = () => {
                 const celularCliente   = document.getElementById('celularCliente').value
                 const emailCliente     = document.getElementById('emailCliente').value
                 const senhaCliente     = document.getElementById('senhaCliente').value        
-                if(nomeCliente === '' || telFixoCliente === '' || celularCliente === '' || emailCliente === '' || senhaCliente === '' ) {
+                const cpfCliente     = document.getElementById('cpfCliente').value        
+                if(nomeCliente === '' || cpfCliente === '' || telFixoCliente === '' || celularCliente === '' || emailCliente === '' || senhaCliente === '' ) {
                     return alert('Todos os campos são obrigatorios')
                 }
 
@@ -201,6 +210,7 @@ const reserva = () => {
                 formData.append('celular', `${celularCliente}`)                
                 formData.append('email', `${celularCliente}`)
                 formData.append('password', `${senhaCliente}`)
+                formData.append('cpfCliente', `${cpfCliente}`)
 
                 const respCreateCliente = await fetch(`${baseUrl.createCliente}`, {
                     method: 'POST',
@@ -211,11 +221,15 @@ const reserva = () => {
                 })
                 
                 if(respCreateCliente.status === 200) {
-                    window.location.reload() //Atualiza a paginan
-                    return alert('Cliente cadastrado com sucesso!!')
-                }else {
-                    return alert('Houve um problema ao tentar cadastrar, tente novamente')
+                    alert('Serviço cadastrado com sucesso')
+                    utils.loadEvent()
+                    setTimeout(() => {
+                        window.location.reload() //Atualiza a pagina
+                    } , 2000)
+                    return 
                 }
+                
+                return alert('Houve um problema ao tentar cadastrar, tente novamente')                
             })
         }        
 
@@ -233,10 +247,11 @@ const reserva = () => {
                 const celularAtendente = document.getElementById('celularAtendente').value
                 const emailAtendente   = document.getElementById('emailAtendente').value
                 const senhaAtendente   = document.getElementById('senhaAtendente').value
+                const cpfAtendente   = document.getElementById('cpfAtendente').value
                 let perfilAtendente    = document.getElementById('perfilAtendente');
                 perfilAtendente        = perfilAtendente.options[perfilAtendente.selectedIndex].value;                            
                 const token            = window.localStorage.getItem('token');                    
-
+                
                 if(nomeAtendente === '' || celularAtendente === '' || emailAtendente === '' || senhaAtendente === '' || perfilAtendente === '' ) {
                     return alert('Todos os campos são obrigatorios')
                 }
@@ -248,7 +263,9 @@ const reserva = () => {
                 formData.append('name', `${nomeAtendente}`)
                 formData.append('email', `${emailAtendente}`)
                 formData.append('password', `${senhaAtendente}`)
-    
+                formData.append('cpf', `${cpfAtendente}`)
+                
+                formData.forEach(f => console.log(f))
                 const respCreateAtendete = await fetch(`${baseUrl.createAtendente}`, {
                     method: 'POST',
                     headers: {
@@ -257,11 +274,16 @@ const reserva = () => {
                     },
                     body: formData
                 })
-    
+                
                 if(respCreateAtendete.status === 200) {
-                    window.location.reload(); // atualiza a página                    
-                    return alert('Cliente cadastrado com sucesso')
+                    alert('Atendente cadastrado com sucesso')
+                    utils.loadEvent()
+                    setTimeout(() => {
+                        window.location.reload() //Atualiza a pagina
+                    }, 2000)
+                    return 
                 }
+                return alert('Houve um problema ao tentar cadastrar, tente novamente')
             })
         }
     }
@@ -280,8 +302,8 @@ const reserva = () => {
 
                 if(dia !== '' || mes !== '' || ano !== '' || horario !== '') {
                     const formData = new FormData()                
-                    formData.append('data', `${data} ${horario}`)                                                
-                    const respCreateHorario = await fetch(`${baseUrl.createCliente}`, {
+                    formData.append('data', `${data} ${horario}`)      
+                    const respCreateHorario = await fetch(`${baseUrl.createHorario}`, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',  
@@ -291,10 +313,12 @@ const reserva = () => {
                     })
 
                     if(respCreateHorario.status === 200){
-                        window.location.reload() //Atualiza a paginan
-                        return alert('Horario cadastrado com sucesso')
-                    }else {
-                        return alert('Não foi possível efetuar o cadastro, tente novamente')
+                        alert('Serviço cadastrado com sucesso')
+                        utils.loadEvent()
+                        setTimeout(() => {
+                            window.location.reload() //Atualiza a pagina
+                        }, 2000)
+                        return 
                     }
                 }                                
 
@@ -325,16 +349,18 @@ const reserva = () => {
                         },
                         body: formData
                     })
-                    console.log(await respCreateServico.json())
+                    
                     if(respCreateServico.status === 200){
-                        window.location.reload() //Atualiza a paginan
-                        return alert('Serviço cadastrado com sucesso')
-                    }else {
-                        return alert('Não foi possível efetuar o cadastro, tente novamente')
+                        alert('Serviço cadastrado com sucesso')
+                        utils.loadEvent()
+                        setTimeout(() => {
+                            window.location.reload() //Atualiza a pagina
+                        }, 2000)
+                        return 
                     }
-                }                                
-
-                return alert('Não foi possível efetuar o cadastro, tente novamente')
+                    
+                    return alert('Não foi possível efetuar o cadastro, tente novamente')                    
+                }                                                
             })
         }
     }
@@ -342,9 +368,9 @@ const reserva = () => {
     const createReserva = async () => {
         if((document.querySelector('.page-logado-gerente') !== null) ) {
             const loadAtendentes = await loadTodosAtendentes()
-            const loadHorarios = await loadTodosHorarios()
-            const loadServicos = await loadTodosServicos()
-            const loadClientes = await loadTodosClientes()
+            const loadHorarios   = await loadTodosHorarios()
+            const loadServicos   = await loadTodosServicos()
+            const loadClientes   = await loadTodosClientes()
             
             const selectAtendente = document.getElementById('selectAtendente')
             const selectDataHorario = document.getElementById('selectDataHorario')
@@ -383,7 +409,7 @@ const reserva = () => {
                 const selectedServico = selectServico.options[selectServico.selectedIndex].value                 
                 const selectedCliente = selectCliente.options[selectCliente.selectedIndex].value
                 const selectedStatus = selectStatus.options[selectStatus.selectedIndex].value                            
-                console.log(selectedStatus)
+                
                 const formData = new FormData()
                 formData.append('id_atendente', `${selectedAtendente}`)
                 formData.append('id_horario', `${selectedDataHorario}`)
@@ -400,11 +426,150 @@ const reserva = () => {
                     body: formData
                 })
 
-                console.log(respCreateReserva)
-                console.log(await respCreateReserva.json())
+                if(respCreateReserva.status !== 200)
+                    return alert('Não foi possível efetuar a reserva')
+
+                alert('Serviço cadastrado com sucesso')
+                utils.loadEvent()
+                setTimeout(() => {
+                    window.location.reload() //Atualiza a pagina
+                }, 2000)                
             })
         }
     }
+    
+    const deleteAtendente = async () => {
+        if(document.querySelector('.page-logado-gerente') !== null) {
+            const btnDeletarAtendente   = document.querySelector('.btn-deletar-atendente')    
+            const selectAtendenteDelete = document.getElementById('selectAtendenteDelete')                        
+            const todosAtendentes       = await loadTodosAtendentes()                    
+            todosAtendentes.forEach(atendente => {
+                selectAtendenteDelete.innerHTML += `<option value=${atendente.id} >${atendente.user.name}</option>                `
+            })
+            btnDeletarAtendente.addEventListener('click', async (e) => {
+                e.preventDefault()
+                const selectedAtendente = selectAtendenteDelete.options[selectAtendenteDelete.selectedIndex].value                           
+                
+                const respDeleteAtendente = await fetch(`${baseUrl.deleteAtendente}/${selectedAtendente}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }             
+                })
+                if(respDeleteAtendente.status !== 200)                    
+                    return alert('Não foi possível deletar o atendente, tente novamente')
+                
+                
+                alert('Serviço cadastrado com sucesso')
+                utils.loadEvent()
+                setTimeout(() => {
+                    window.location.reload() //Atualiza a pagina
+                }, 2000)
+                return 
+            })
+        }
+    }
+
+    const deleteReserva = async () => {        
+        if(document.querySelector('.page-logado-gerente') !== null) {
+            const btnDeletarReserva   = document.querySelector('.btn-deletar-reserva')    
+            const selectReservaDelete = document.getElementById('selectReservaDelete')                                                
+            const todasReservas = await loadTodasReservas()
+            
+            todasReservas.forEach(reserva => {            
+                selectReservaDelete.innerHTML += `<option value=${reserva.id}>${reserva.servico.nome}</option>`
+            })
+            btnDeletarReserva.addEventListener('click', async (e) => {
+                e.preventDefault()
+                const selectedReserva = selectReservaDelete.options[selectReservaDelete.selectedIndex].value    
+                
+                const respDeleteReserva = await fetch(`${baseUrl.deleteReserva}/${selectedReserva}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
+                        'Accept': 'application/json'
+                    }
+                })
+    
+                if(respDeleteReserva.status !== 200)    
+                    return alert('Não foi possível deletar a tarefa')
+                
+                alert('Reserva deletada com sucesso')
+                utils.loadEvent()
+                setTimeout(() => {
+                    window.location.reload() //Atualiza a pagina
+                }, 2000)
+            })
+        }
+    }
+
+    const deleteCliente = async () => {
+        if(document.querySelector('.page-logado-gerente') !== null) {
+            const btnDeletarReserva   = document.querySelector('.btn-deletar-cliente')    
+            const selectClienteDelete = document.getElementById('selectClienteDelete')                                                
+            const todosCliente = await loadTodosClientes()            
+            todosCliente.forEach(cliente => {            
+                selectClienteDelete.innerHTML += `<option value=${cliente.id}>${cliente.user.name}</option>`
+            })
+            btnDeletarReserva.addEventListener('click', async (e) => {
+                e.preventDefault()
+                const selectedCliente = selectClienteDelete.options[selectClienteDelete.selectedIndex].value    
+                
+                const respDeleteCliente = await fetch(`${baseUrl.deleteCliente}/${selectedCliente}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
+                        'Accept': 'application/json'
+                    }
+                })
+    
+                if(respDeleteCliente.status !== 200)    
+                    return alert('Não foi possível deletar a tarefa')
+                
+                alert('Cliente deletado com sucesso')
+                utils.loadEvent()
+                setTimeout(() => {
+                    window.location.reload() //Atualiza a pagina
+                }, 2000)
+            })
+        }
+    }
+
+    const deleteHorario = async () => {
+        if(document.querySelector('.page-logado-gerente') !== null) {
+            const btnDeletarReserva   = document.querySelector('.btn-deletar-horario')    
+            const selectHorarioDelete = document.getElementById('selectHorarioDelete')                                                
+            const todosHorarios = await loadTodosHorarios()
+            console.log(todosHorarios)
+            todosHorarios.forEach(horario => {            
+                selectHorarioDelete.innerHTML += `<option value=${horario.id}>${horario.data}</option>`
+            })
+            btnDeletarReserva.addEventListener('click', async (e) => {
+                e.preventDefault()
+                const selectedHarario = selectHorarioDelete.options[selectHorarioDelete.selectedIndex].value    
+                
+                const respDeleteHorario = await fetch(`${baseUrl.deleteHorario}/${selectedHarario}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
+                        'Accept': 'application/json'
+                    }
+                })
+    
+                if(respDeleteHorario.status !== 200)    
+                    return alert('Não foi possível deletar a tarefa')
+                
+                alert('Horario deletado com sucesso')
+                utils.loadEvent()
+                setTimeout(() => {
+                    window.location.reload() //Atualiza a pagina
+                }, 2000)
+            })
+        }
+    }
+
 
     return {        
         listaAtendentes,
@@ -413,9 +578,13 @@ const reserva = () => {
         createCliente,
         createHorario,
         createServico,
-        createReserva
+        createReserva,
+        deleteAtendente,
+        deleteReserva,
+        deleteCliente,
+        deleteHorario
     }    
 }
 
-export default reserva
+export default atendente
 

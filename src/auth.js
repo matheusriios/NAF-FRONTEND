@@ -1,7 +1,6 @@
 import { createBrowserHistory } from './history'
 import baseUrl from './service';
 
-
 const auth = async (content) => {        
     const history = createBrowserHistory();
     const location = history.location;
@@ -14,6 +13,7 @@ const auth = async (content) => {
                     'Authorization': `Bearer ${window.localStorage.getItem('token')}`
                 }
             });
+                        
             if(respAuth.status !== 200) {
                 return window.location.href = 'http://localhost:8080/'
             }                         

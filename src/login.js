@@ -1,5 +1,6 @@
 import baseUrl from './service';
 import auth from './auth'
+import utils from './utils'
 
 const login = () => {        
     auth(document.body)
@@ -24,7 +25,7 @@ const login = () => {
                 method: 'POST',
                 body: formData,                
             });        
-
+            
             if(respAuth.status !== 200) 
                 return alert("Verifique suas credenciais")            
             
@@ -38,11 +39,24 @@ const login = () => {
                     'Authorization': `Bearer ${window.localStorage.getItem('token')}`
                 }
             });
-            const userAuth = await respAuthUser.json()
+            console.log(await respAuthUser.json())
+            // const userAuth = await respAuthUser.json()
+            // utils.loadEvent()
             
-            if(userAuth.atendente.perfil === 'G'){                
-                return window.location.href = 'http://localhost:8080/pages/tela-gerente.html'
-            }                                    
+            // if(userAuth.atendente || userAuth.cliente !== null) {
+            //     if(userAuth.atendente.perfil === 'G'){    
+            //         setTimeout(() => {
+            //             return window.location.href = 'http://localhost:8080'
+            //         }, 3000)
+            //     }
+            // }
+            // if(userAuth.atendente !== null) {
+            //     if(userAuth.atendente.perfil === 'G'){    
+            //         setTimeout(() => {
+            //             return window.location.href = 'http://localhost:8080/pages/tela-gerente.html'
+            //         }, 3000)
+            //     }
+            // }
         });    
     }            
 }

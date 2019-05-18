@@ -54,12 +54,13 @@ a:hover{
     height: auto;
     border-right: 1px solid rgb(71, 82, 94, 0.2);
     width: 22%;
-    background-color: #007bff;
+    background-color: #2962ff;
     min-height: 100vh;
 }
 
 .menu-lateral ul{
     list-style: none;
+    padding-left: 0px;
 }
 
 .dropdown-toggle::after{

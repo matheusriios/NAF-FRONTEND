@@ -1,7 +1,10 @@
 import atendente from './atendente'
 import login from './login'
+import utils from './utils'
 
-function main() {     
+function main() {         
+    utils.openDropDownMenuAccount()
+    utils.exibeNomeUserMenu()    
     login.login()
     login.logout()
     atendente().listaAtendentes()
@@ -11,6 +14,10 @@ function main() {
     atendente().createHorario()
     atendente().createServico()
     atendente().createReserva()
+    atendente().deleteAtendente()
+    atendente().deleteReserva()
+    atendente().deleteCliente()
+    atendente().deleteHorario()
 }
 
 main()

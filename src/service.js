@@ -10,15 +10,22 @@ const endPoints = {
     listaServicos: `${baseUrl}/api/v1/servicos`,
     listaServicos: `${baseUrl}/api/v1/servicos`,
     listaClientes: `${baseUrl}/api/v1/clientes`,    
-    getReservas: `${baseUrl}/api/v1/reservas`,
+    listaReservas: `${baseUrl}/api/v1/reservas`,    
+
     //localhost:8000/api/v1/atendentes/;id
     getAtendente: `${baseUrl}/api/v1/atendentes`,
     
     createAtendente: `${baseUrl}/api/v1/atendentes`,
     createCliente: `${baseUrl}/api/v1/clientes`,
-    createCliente: `${baseUrl}/api/v1/horarios`,
+    createHorario: `${baseUrl}/api/v1/horarios`,
     createServico: `${baseUrl}/api/v1/servicos`,
     createReserva: `${baseUrl}/api/v1/reservas`,
+    
+    //localhost:8000/api/v1/atendentes/;id
+    deleteAtendente: `${baseUrl}/api/v1/atendentes`,
+    deleteReserva: `${baseUrl}/api/v1/reservas`,
+    deleteCliente: `${baseUrl}/api/v1/clientes`,
+    deleteHorario: `${baseUrl}/api/v1/horarios`
 }
 
 export default endPoints;

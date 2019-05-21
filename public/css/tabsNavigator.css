@@ -7,14 +7,14 @@
 }
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link {
     color: white;
+    width: 100%;    
+    text-align: left;
 }
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
     border: 1px solid white;
     background-color: white;
     color: black !important;
-    border-radius: 5px;
-    width: 100%;
-    text-align: center;
+    border-radius: 5px;    
 }
 
 .nav-tabs .nav-link:hover {

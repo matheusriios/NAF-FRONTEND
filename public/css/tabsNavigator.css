@@ -1,0 +1,23 @@
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+    border: none !important;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link {
+    color: white;
+    width: 100%;    
+    text-align: left;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    border: 1px solid white;
+    background-color: white;
+    color: black !important;
+    border-radius: 5px;    
+}
+
+.nav-tabs .nav-link:hover {
+    border: none !important;
+}
+

@@ -1,4 +1,8 @@
-import atendente from './atendente'
+import atendente from './atendente';
+import cliente from './cliente';
+import reservas from './reservas';
+import servicos from './servicos';
+import horario from './horarios';
 import login from './login'
 import utils from './utils'
 
@@ -9,15 +13,15 @@ function main() {
     login.logout()
     atendente().listaAtendentes()
     atendente().createAtendente()
-    atendente().listaReservas()
-    atendente().createCliente()
-    atendente().createHorario()
-    atendente().createServico()
-    atendente().createReserva()
+    reservas().listaReservas()
+    cliente().createCliente()
+    horario().createHorario()
+    servicos().createServico()
+    reservas().createReserva()
     atendente().deleteAtendente()
-    atendente().deleteReserva()
-    atendente().deleteCliente()
-    atendente().deleteHorario()
+    reservas().deleteReserva()
+    cliente().deleteCliente()
+    horario().deleteHorario()
     atendente().alterarAtendente()
 }
 

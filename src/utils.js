@@ -46,6 +46,6 @@ export default {
             </div>
         `        
         document.body.appendChild(divLoad)
-    },    
-    
+    },
+        
 }

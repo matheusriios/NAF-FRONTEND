@@ -33,7 +33,9 @@
                         <a class="nav-item nav-link " id="cadastrar-cliente-tab" data-toggle="tab" href="#cadastrar-cliente" role="tab" aria-controls="cadastrar-cliente" aria-selected="false">Cadastrar Cliente</a>
                         <a class="nav-item nav-link " id="cadastrar-atendente-tab" data-toggle="tab" href="#cadastrar-atendente" role="tab" aria-controls="cadastrar-atendente" aria-selected="false">Cadastrar Atendente</a>                                                
                         <a class="nav-item nav-link " id="cadastrar-horario-tab" data-toggle="tab" href="#cadastrar-horario" role="tab" aria-controls="cadastrar-horario" aria-selected="false">Cadastrar Horario</a>                                                                        
-                        <a class="nav-item nav-link " id="alterar-atendente-tab" data-toggle="tab" href="#alterar-atendente" role="tab" aria-controls="alterar-atendente" aria-selected="false">Alterar Atendente</a>                                                
+                        <a class="nav-item nav-link " id="alterar-atendente-tab" data-toggle="tab" href="#alterar-atendente" role="tab" aria-controls="alterar-atendente" aria-selected="false">Alterar Atendente</a>
+                        <a class="nav-item nav-link " id="alterar-atendente-tab" data-toggle="tab" href="#alterar-reserva" role="tab" aria-controls="alterar-reserva" aria-selected="false">Alterar Reservas</a>
+                        <a class="nav-item nav-link " id="alterar-atendente-tab" data-toggle="tab" href="#alterar-servico" role="tab" aria-controls="alterar-servico" aria-selected="false">Alterar Serviços</a>
                         <a class="nav-item nav-link " id="deletar-reserva-tab" data-toggle="tab" href="#deletar-reserva" role="tab" aria-controls="deletar-reserva" aria-selected="false">Deletar Reserva</a>
                         <a class="nav-item nav-link " id="deletar-atendente-tab" data-toggle="tab" href="#deletar-atendente" role="tab" aria-controls="deletar-atendente" aria-selected="false">Deletar Atendente</a>                        
                         <a class="nav-item nav-link " id="deletar-cliente-tab" data-toggle="tab" href="#deletar-cliente" role="tab" aria-controls="deletar-cliente" aria-selected="false">Deletar Cliente</a>                        
@@ -403,26 +405,48 @@
                         </div>
                     </div>
                 </div>  
-                <!--Fim Alterar dados dos atendentes-->
+                <!--Fim Alterar dados dos atendentes-->                
 
-                <!--Inicio Alterar serviço-->                  
-                <div class="tab-pane" id="alterar-atendente" role="tabpanel" aria-labelledby="alterar-atendente-tab">
+                <!--Inicio Alterar reserva-->                  
+                <div class="tab-pane" id="alterar-reserva" role="tabpanel" aria-labelledby="alterar-reserva-tab">
                     <div class="container-reservas w-100 d-flex align-items-center flex-column ">                
                         <div class="title-reservas">
-                            <h1 class="mt-5">Alterar dados dos Atendentes</h1>
+                            <h1 class="mt-5">Alterar reservas</h1>
                         </div>                
                         <div class="container-lists-reservas w-100 mt-4">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <td>Nome</td>
-                                        <td>CPF</td>
-                                        <td>Email</td>
-                                        <td>Celular</td>
-                                        <td>Perfil</td>
+                                        <td>Atendente</td>
+                                        <td>Serviço</td>
+                                        <td>Cliente</td>
+                                        <td>Data/Horario</td>
+                                        <td>Status</td>
                                     </tr>      
                                 </thead>      
-                                <tbody id="body-lista-atendentes-dados"></tbody>                                                                                                                     
+                                <tbody id="body-lista-reserva"></tbody>                                                                                                                     
+                            </table>                                
+                        </div>
+                    </div>
+                </div>  
+                <!--Fim Alterar reserva-->
+
+                <!--Inicio Alterar serviço-->                  
+                <div class="tab-pane" id="alterar-servico" role="tabpanel" aria-labelledby="alterar-servico-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">                
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Alterar Serviços</h1>
+                        </div>                
+                        <div class="container-lists-reservas w-100 mt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Nome do serviço:</td>
+                                        <td>Documentos necessários para o atendimento</td>
+                                        <td>Opção</td>
+                                    </tr>      
+                                </thead>      
+                                <tbody id="body-lista-servico"></tbody>                                                                                                                     
                             </table>                                
                         </div>
                     </div>

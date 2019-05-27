@@ -28,6 +28,8 @@ const endPoints = {
     deleteHorario: `${baseUrl}/api/v1/horarios`,
 
     alterarAtendente: `${baseUrl}/api/v1/atendentes`,
+    alterarServico: `${baseUrl}/api/v1/servicos`,
+    
 }
 
 export default endPoints;

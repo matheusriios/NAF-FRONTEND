@@ -14,8 +14,8 @@ const login = () => {
             const senha = document.getElementById('senha').value;
             const formData = new FormData()
             formData.append('grant_type', 'password')
-            formData.append('client_id', '1')
-            formData.append('client_secret', 'KREUhtWzcoPp8W4lXKl1esjuyqn3JettR5TLY5UX')
+            formData.append('client_id', '22')
+            formData.append('client_secret', 'JHOdqoBLbhQjkASoUjdAMElhQskj2DKMfdEy4NwF')
             formData.append('username', `${email}`)
             formData.append('password', `${senha}`)
             formData.append('scope', '')

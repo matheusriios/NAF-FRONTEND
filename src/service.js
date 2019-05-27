@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8000';
+const baseUrl = 'https://naf-unifacs.herokuapp.com';
 
 const endPoints = {
     usuarioAutenticado: `${baseUrl}/api/v1/auth/me`,

@@ -9,6 +9,7 @@
     color: white;
     width: 100%;    
     text-align: left;
+    margin: 1% 0;
 }
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
     border: 1px solid white;
@@ -21,7 +22,8 @@
     border: none !important;
 }
 
-.dropdown-menu .show{
+.dropdown-menu.show{
     width: 200px;
+    margin-left: 45%;
 }
 

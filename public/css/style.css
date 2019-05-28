@@ -7,7 +7,7 @@ body.disable {
 #app.login{
     height: 100vh;
     width: 100%;
-    background: #2962ff !important;
+    background-image: #2962ff !important;
 }
 
 .title-naf h1{

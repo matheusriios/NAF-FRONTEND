@@ -115,48 +115,12 @@ const atendente = () => {
 
         openModalReservasAtendente()
     }
-
-    const openModalReservasAtendente = () => { 
-        const divModal = document.createElement('div')                       
-        divModal.innerHTML = `
-            <div class="modal fade" id="modalReservaAtendente" tabindex="-1" role="dialog" aria-labelledby="modalReservaAtendente" aria-hidden="true">
-                <div class="modal-dialog container-modal" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="modalReservaAtendente">Reserva do Atendente</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <td>Cliente</td>
-                                        <td>Serviço</td>
-                                        <td>Data</td>
-                                        <td>Status</td>
-                                        <td>Obs</td>
-                                    </tr>      
-                                </thead>      
-                                <tbody id="body-reserva-atendente">
-                                       
-                                </tbody>
-                            </table>   
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>                        
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `
-        document.body.appendChild(divModal)
-        
+    
+    const openModalReservasAtendente = () => {                 
+        utils.modal()
         const token    = window.localStorage.getItem('token')
         const bodyReservaAtendente = document.getElementById('body-reserva-atendente')
-        let idUser = ''        
-        
+        let idUser = ''                
         document.querySelectorAll('.btn-modal-reserva').forEach(btn => {
             btn.addEventListener('click', async (e) => {
                 e.preventDefault()
@@ -171,8 +135,8 @@ const atendente = () => {
                 
                 if(reserva.length === 0)
                     return bodyReservaAtendente.innerHTML = ``
-
-                    console.log(reserva)
+                
+                bodyReservaAtendente.innerHTML = ''
                 reserva.forEach(r => {                                        
                     bodyReservaAtendente.innerHTML += `
                                 <td>${r.cliente !== null ? r.cliente.user.name : 'Cliente removido'}</td>
@@ -181,13 +145,12 @@ const atendente = () => {
                                 <td>${r.status}</td>
                                 <td>${r.servico.descricao}</td>
                     `
-                })                                
+                })
             })            
-        })
+        })        
     }
 
-    const createCliente = () => {
-        
+    const createCliente = () => {        
         if((document.querySelector('.page-logado-gerente') !== null) ) {            
             const btnCadastrarCliente = document.getElementById('btn-cadastrar-cliente')
             
@@ -221,7 +184,7 @@ const atendente = () => {
                 })
                 
                 if(respCreateCliente.status === 200) {
-                    alert('Serviço cadastrado com sucesso')
+                    alert('Cliente cadastrado com sucesso')
                     utils.loadEvent()
                     setTimeout(() => {
                         window.location.reload() //Atualiza a pagina
@@ -429,7 +392,7 @@ const atendente = () => {
                 if(respCreateReserva.status !== 200)
                     return alert('Não foi possível efetuar a reserva')
 
-                alert('Serviço cadastrado com sucesso')
+                alert('Reserva efetuada com sucesso')
                 utils.loadEvent()
                 setTimeout(() => {
                     window.location.reload() //Atualiza a pagina
@@ -462,7 +425,7 @@ const atendente = () => {
                     return alert('Não foi possível deletar o atendente, tente novamente')
                 
                 
-                alert('Serviço cadastrado com sucesso')
+                alert('Atendente deletado com sucesso cadastrado com sucesso')
                 utils.loadEvent()
                 setTimeout(() => {
                     window.location.reload() //Atualiza a pagina

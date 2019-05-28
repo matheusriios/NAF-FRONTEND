@@ -24,6 +24,7 @@ function main() {
     cliente().deleteCliente()
     horario().createHorario()
     horario().deleteHorario()
+    horario().alterarHorario()
 }
 
 main()

@@ -28,7 +28,10 @@ const endPoints = {
     deleteHorario: `${baseUrl}/api/v1/horarios`,
 
     alterarAtendente: `${baseUrl}/api/v1/atendentes`,
+    alterarCliente: `${baseUrl}/api/v1/clientes`,
     alterarServico: `${baseUrl}/api/v1/servicos`,
+    alterarReserva: `${baseUrl}/api/v1/reservas`,
+    alterarHorario: `${baseUrl}/api/v1/horarios`,
     
 }
 

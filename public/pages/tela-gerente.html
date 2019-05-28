@@ -35,6 +35,7 @@
                         <a class="nav-item nav-link " id="cadastrar-horario-tab" data-toggle="tab" href="#cadastrar-horario" role="tab" aria-controls="cadastrar-horario" aria-selected="false">Cadastrar Horario</a>                                                                        
                         <a class="nav-item nav-link " id="alterar-atendente-tab" data-toggle="tab" href="#alterar-atendente" role="tab" aria-controls="alterar-atendente" aria-selected="false">Alterar Atendente</a>
                         <a class="nav-item nav-link " id="alterar-atendente-tab" data-toggle="tab" href="#alterar-reserva" role="tab" aria-controls="alterar-reserva" aria-selected="false">Alterar Reservas</a>
+                        <a class="nav-item nav-link " id="alterar-atendente-tab" data-toggle="tab" href="#alterar-horario" role="tab" aria-controls="alterar-horario" aria-selected="false">Alterar Horarios</a>
                         <a class="nav-item nav-link " id="alterar-atendente-tab" data-toggle="tab" href="#alterar-servico" role="tab" aria-controls="alterar-servico" aria-selected="false">Alterar Serviços</a>
                         <a class="nav-item nav-link " id="deletar-reserva-tab" data-toggle="tab" href="#deletar-reserva" role="tab" aria-controls="deletar-reserva" aria-selected="false">Deletar Reserva</a>
                         <a class="nav-item nav-link " id="deletar-atendente-tab" data-toggle="tab" href="#deletar-atendente" role="tab" aria-controls="deletar-atendente" aria-selected="false">Deletar Atendente</a>                        
@@ -452,6 +453,28 @@
                     </div>
                 </div>  
                 <!--Fim Alterar serviço-->
+
+                <!--Inicio Alterar horario-->                  
+                <div class="tab-pane" id="alterar-horario" role="tabpanel" aria-labelledby="alterar-horario-tab">
+                    <div class="container-horario w-100 d-flex align-items-center flex-column ">                
+                        <div class="title-horario">
+                            <h1 class="mt-5">Alterar horario</h1>
+                        </div>                
+                        <div class="container-lists-horario w-100 mt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Data</td>
+                                        <td>Horario</td>
+                                        <td>Opção</td>
+                                    </tr>      
+                                </thead>      
+                                <tbody id="body-lista-horario"></tbody>                                                                                                                     
+                            </table>                                
+                        </div>
+                    </div>
+                </div>  
+                <!--Fim Alterar horario-->
 
                 <!--Inicio Deletar Cliente-->
                 <div class="tab-pane" id="deletar-atendente" role="tabpanel" aria-labelledby="deletar-atendente-tab">

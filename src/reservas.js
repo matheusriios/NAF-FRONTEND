@@ -3,6 +3,7 @@ import atendente from './atendente';
 import horario from './horarios';
 import servicos from './servicos';
 import cliente from './cliente';
+import utils from './utils';
 const reservas = () => {
     
     const loadTodasReservas = async () => {

@@ -1,4 +1,5 @@
 import baseUrl from './service';
+import utils from './utils';
 
 const horarios = ( ) => {
 
@@ -88,10 +89,134 @@ const horarios = ( ) => {
         }
     }
 
+    const alterarHorario = async () => { 
+        if(document.querySelector('.page-logado-gerente') !== null) {
+            const bodyListaServico = document.getElementById('body-lista-horario');
+            let todosHorarios = await loadTodosHorarios()
+            todosHorarios.map((horario, index) => {
+                const agendamento = horario.data.split(' ');
+                
+                bodyListaServico.innerHTML += `
+                    <tr>
+                        <td>${agendamento[0]}</td>
+                        <td>${agendamento[1]}</td>
+                        <td><button data-target="#modalHorario-${horario.id}" data-toggle="modal" idHorario="${horario.id}" class="btn btn-warning alterar-dados">Alterar</button></td>         
+                    </tr>  
+                `
+            }) 
+        }        
+
+        openModalHorario()
+    }
+
+    const openModalHorario = async () => { 
+        if(document.querySelector('.page-logado-gerente') !== null) {
+
+            let dadosHorarios = await loadTodosHorarios()
+    
+            dadosHorarios.map((horario) => {
+               const agendamento = horario.data.split(' ');
+               const data = agendamento[0].split('-');
+               console.log(data);
+               console.log(horario);
+                const divModal = document.createElement('div')                       
+                divModal.innerHTML = `
+                    <div class="modal fade" id="modalHorario-${horario.id}" tabindex="-1" role="dialog" aria-labelledby="modalHorario" aria-hidden="true">
+                        <div class="modal-dialog container-modal" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="modalReservaAtendente">${horario.data}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <label for="exampleInputEmail1">Dia</label>
+                                                <input type="text" class="form-control" id="alterarDiaHorario-${horario.id}" aria-describedby="emailHelp" placeholder="Dia" value="${data[2]}">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="exampleInputEmail1">Mes</label>
+                                                <input type="text" class="form-control" id="alterarMesHorario-${horario.id}" aria-describedby="emailHelp" placeholder="Mes" value="${data[1]}">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="exampleInputEmail1">Ano</label>
+                                                <input type="text" class="form-control" id="alterarAnoHorario-${horario.id}" aria-describedby="emailHelp" placeholder="Ano" value="${data[0]}">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="exampleInputEmail1">Horario</label>
+                                                <input type="text" class="form-control" id="alterarHorarioHorario-${horario.id}" aria-describedby="emailHelp" placeholder="Ano" value="${agendamento[1]}">
+                                            </div>
+                                        </div>                     
+                                        <button id="alterar-horario-${horario.id}" type="button" class="btn btn-primary">Alterar</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `          
+                document.body.appendChild(divModal);
+            });
+            
+            dadosHorarios.map( (horario) => {
+                var btn = document.querySelector(`#alterar-horario-${horario.id}`);
+                btn.addEventListener('click', async (e)=>{
+                    e.preventDefault()
+                 
+                    const dia      = document.getElementById(`alterarDiaHorario-${horario.id}`).value;
+                    const mes = document.getElementById(`alterarMesHorario-${horario.id}`).value;                        
+                    const ano      = document.getElementById(`alterarAnoHorario-${horario.id}`).value;
+                    const horas     = document.getElementById(`alterarHorarioHorario-${horario.id}`).value;
+                    const token     = window.localStorage.getItem('token'); 
+                   
+                    var data = "";
+                    data = `${ano}-${mes}-${dia} ${horas}`
+
+                    var formData = new FormData();
+
+                    if(data != "")
+                        formData.append('data', `${data}`);
+
+                                      
+                    var url = `${baseUrl.alterarHorario}/${horario.id}/editar`;
+                    
+                    const respCreateAtendete = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: formData
+                    })
+                    
+                    if(respCreateAtendete.status === 200) {
+                        alert('Horario alterado com sucesso')
+                        utils.loadEvent()
+                        setTimeout(() => {
+                            window.location.reload() //Atualiza a pagina
+                        }, 2000)
+                        return 
+                    }
+                    return alert('Houve um problema ao tentar alterar o Horario, tente novamente')
+                    
+                })
+            })
+
+        }
+    }
+
     return {
         loadTodosHorarios,
         createHorario,
-        deleteHorario
+        deleteHorario,
+        alterarHorario
     }
 }
 

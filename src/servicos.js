@@ -1,4 +1,5 @@
 import baseUrl from './service';
+import utils from './utils';
 
 const servicos = ( ) => {
 
@@ -59,7 +60,6 @@ const servicos = ( ) => {
             const bodyListaServico = document.getElementById('body-lista-servico')
             let todosServico = await loadTodosServicos()
             todosServico.map((servico, index) => {
-                console.log(servico)
                 bodyListaServico.innerHTML += `
                     <tr>
                         <td>${servico.nome}</td>
@@ -126,11 +126,13 @@ const servicos = ( ) => {
                     const descricaoServico = document.getElementById(`alterarDescricaoServico-${servico.id}`).value;                        
                     const token     = window.localStorage.getItem('token'); 
                     console.log(descricaoServico + " " + nomeServico);
+
                     var formData = new FormData();
-                    //if(nomeServico != "")
+
+                    if(nomeServico != "")
                         formData.append('nome', `${nomeServico}`);
 
-                    //if(descricaoServico != "")
+                    if(descricaoServico != "")
                         formData.append('descricao', `${descricaoServico}`);
                                       
                     var url = `${baseUrl.alterarServico}/${servico.id}/editar`;

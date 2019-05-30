@@ -92,9 +92,7 @@ export default {
         
         maskPhone.forEach(phone => {
             phone.addEventListener('change', (e) => {
-                e.preventDefault()
-                          
-                console.log(mascara.mTel(phone.value))
+                e.preventDefault()                          
             })
             
         })

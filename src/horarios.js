@@ -198,10 +198,9 @@ const horarios = ( ) => {
                     
                     if(respCreateAtendete.status === 200) {
                         alert('Horario alterado com sucesso')
+                        $(`#modalHorario-${horario.id}`).modal('hide')
                         utils.loadEvent()
-                        setTimeout(() => {
-                            window.location.reload() //Atualiza a pagina
-                        }, 2000)
+                        window.location.reload() //Atualiza a pagina
                         return 
                     }
                     return alert('Houve um problema ao tentar alterar o Horario, tente novamente')

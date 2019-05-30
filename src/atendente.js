@@ -555,7 +555,7 @@ const atendente = () => {
 
     const openModalDadosAtendente = async () => { 
         let dadosAtendentes = await loadTodosAtendentes()
-
+        
         dadosAtendentes.map((atendente) => {
             let status = "";
             if (atendente.perfil === "G") {

@@ -4,7 +4,8 @@ import utils from './utils'
 
 function main() {         
     utils.openDropDownMenuAccount()
-    utils.exibeNomeUserMenu()    
+    utils.exibeNomeUserMenu()   
+    utils.maskPhone() 
     login.login()
     login.logout()
     atendente().listaAtendentes()

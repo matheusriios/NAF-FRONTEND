@@ -13,6 +13,7 @@ export default {
     exibeNomeUserMenu: async () => {        
         if(document.querySelector('.page-logado') !== null) {
             const userLogado = document.querySelectorAll('.user-logado')   
+
             const emailUserLogado = document.querySelector('.email.user-logado')
             const respAuth = await fetch(`${baseUrl.usuarioAutenticado}`, {
                 headers: {
@@ -84,6 +85,20 @@ export default {
             </div>
         `        
         document.body.appendChild(divLoad)
-    },    
+    },   
+    
+    maskPhone: () => {
+        const maskPhone = document.querySelectorAll('.mask-phone')
+        
+        maskPhone.forEach(phone => {
+            phone.addEventListener('change', (e) => {
+                e.preventDefault()
+                          
+                console.log(mascara.mTel(phone.value))
+            })
+            
+        })
+        
+    }
     
 }

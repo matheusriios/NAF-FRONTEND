@@ -4,6 +4,7 @@ import horario from './horarios';
 import servicos from './servicos';
 import cliente from './cliente';
 import utils from './utils';
+
 const reservas = () => {
     
     const loadTodasReservas = async () => {
@@ -147,27 +148,29 @@ const reservas = () => {
         }
     }
 
-    const alterarAtendente = async () => { 
-        if(document.getElementById('body-lista-atendentes-dados') !== null) {
-            const bodyListaAtendentes = document.getElementById('body-lista-atendentes-dados')
-            let todosAtendentes = await loadTodosAtendentes()
-            todosAtendentes.map((atendente, index) => {
-                bodyListaAtendentes.innerHTML += `
-                    <tr data-target="#modalDadosAtendente-${atendente.id}" data-toggle="modal" idAtendente="${atendente.id} class="alterar-dados">
-                        <td>${atendente.user.name}</td>
-                        <td>${atendente.user.cpf}</td>
-                        <td>${atendente.user.email}</td>
-                        <td>${atendente.celular}</td>
-                        <td>${atendente.perfil}</td>               
+    const alterarReserva = async () => { 
+        if(document.getElementById('body-listar-reserva') !== null) {
+            const bodyListarReservas = document.getElementById('body-listar-reserva');
+            let todasReservas = await loadTodasReservas();
+            todasReservas.map((reservas, index) => {
+                console.log(reservas);
+                bodyListarReservas.innerHTML += `
+                    <tr>
+                        <td>${reservas.atendente.user.name}</td>
+                        <td>${reservas.servico.nome}</td>
+                        <td>${utils.validarUsuario(reservas)}</td>
+                        <td>${reservas.horario.data}</td>
+                        <td>${reservas.status}</td>
+                        <td>${reservas.obs}</td>
+                        <td><button data-target="#modalReservas-${reservas.id}" data-toggle="modal" idReservas="${reservas.id}" class="btn btn-warning alterar-dados">Alterar</button></td>                    
                     </tr>  
                 `
             })    
         }        
-
-        openModalDadosAtendente()
+        //openModalDadosReservas()
     }
 
-    const openModalDadosAtendente = async () => { 
+    const openModalDadosReservas = async () => { 
         if(document.querySelector('.page-logado-gerente') !== null) {
 
 
@@ -306,7 +309,8 @@ const reservas = () => {
         loadTodasReservas,
         listaReservas,
         createReserva,
-        deleteReserva
+        deleteReserva,
+        alterarReserva
     }
 }
 

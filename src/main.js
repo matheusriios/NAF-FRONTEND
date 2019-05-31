@@ -11,17 +11,24 @@ function main() {
     utils.exibeNomeUserMenu()    
     login.login()
     login.logout()
+
     atendente().listaAtendentes()
     atendente().createAtendente()
     atendente().alterarAtendente()
     atendente().deleteAtendente()
+
     servicos().createServico()
     servicos().alterarServico()
+
     reservas().listaReservas()
     reservas().createReserva()
     reservas().deleteReserva()
+    reservas().alterarReserva()
+
     cliente().createCliente()
     cliente().deleteCliente()
+    cliente().alterarClientes()
+
     horario().createHorario()
     horario().deleteHorario()
     horario().alterarHorario()

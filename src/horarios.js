@@ -61,7 +61,7 @@ const horarios = ( ) => {
             const btnDeletarReserva   = document.querySelector('.btn-deletar-horario')    
             const selectHorarioDelete = document.getElementById('selectHorarioDelete')                                                
             const todosHorarios = await loadTodosHorarios()
-            //console.log(todosHorarios)
+    
             todosHorarios.forEach(horario => {            
                 selectHorarioDelete.innerHTML += `<option value=${horario.id}>${horario.data}</option>`
             })
@@ -117,8 +117,6 @@ const horarios = ( ) => {
             dadosHorarios.map((horario) => {
                const agendamento = horario.data.split(' ');
                const data = agendamento[0].split('-');
-               console.log(data);
-               console.log(horario);
                 const divModal = document.createElement('div')                       
                 divModal.innerHTML = `
                     <div class="modal fade" id="modalHorario-${horario.id}" tabindex="-1" role="dialog" aria-labelledby="modalHorario" aria-hidden="true">

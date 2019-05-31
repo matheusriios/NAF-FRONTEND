@@ -23,6 +23,7 @@ function main() {
     reservas().listaReservas()
     reservas().createReserva()
     reservas().deleteReserva()
+    reservas().alterarReserva()
 
     cliente().createCliente()
     cliente().deleteCliente()

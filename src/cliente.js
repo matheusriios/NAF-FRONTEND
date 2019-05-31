@@ -34,13 +34,11 @@ const cliente = () => {
                     return alert('Todos os campos são obrigatorios')
                 }
 
-                console.log(cpfCliente);
-
                 const formData = new FormData();
                 formData.append('name', `${nomeCliente}`)
                 formData.append('telefone', `${telFixoCliente}`)
                 formData.append('celular', `${celularCliente}`)                
-                formData.append('email', `${celularCliente}`)
+                formData.append('email', `${emailCliente}`)
                 formData.append('password', `${senhaCliente}`)
                 formData.append('cpf', `${cpfCliente}`)
 
@@ -105,7 +103,6 @@ const cliente = () => {
             const bodyListaClientes = document.getElementById('body-lista-cliente-dados')
             let todosClietes = await loadTodosClientes()
             todosClietes.map((cliente, index) => {
-                console.log(cliente);
                 bodyListaClientes.innerHTML += `
                     <tr data-target="#modalDadosCliente-${cliente.id}" data-toggle="modal" idCliente="${cliente.id} class="alterar-dados">
                         <td>${cliente.user.name}</td>
@@ -123,7 +120,6 @@ const cliente = () => {
 
     const openModalDadosClientes = async () => { 
         if(document.querySelector('.page-logado-gerente') !== null) {
-
 
             let todosClietes = await loadTodosClientes()
     
@@ -197,9 +193,6 @@ const cliente = () => {
                     const senhaCliente   = document.getElementById(`alterarSenhaCliente-${cliente.id}`).value
                     const cpfCliente     = document.getElementById(`alterarCpfCliente-${cliente.id}`).value                       
                     const token            = window.localStorage.getItem('token');                    
-                    
-                    console.log(`${nomeCliente} ${telFixoCliente} ${celularCliente} 
-                    ${emailCliente} ${senhaCliente} ${cpfCliente}`)
                     
                     var formData = new FormData();
     

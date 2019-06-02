@@ -35,7 +35,7 @@ const reservas = () => {
                                                            : 'Atendente removido' }</td>
                             <td>${reserva.cliente !== null ? reserva.cliente.user.name 
                                                            : 'Cliente removido' }</td>                            
-                            <td>${reserva.status}</td>                        
+                            <td>${utils.tratamentoStatusAtendimento(reserva)}</td>                        
                         </tr>  
                     `            
                 })    
@@ -317,6 +317,7 @@ const reservas = () => {
             const userAuthenticated = await userAuth()                      
             const selectServico = document.getElementById('selectServico')                        
             const selectDataHorario = document.getElementById('selectDataHorario')
+            
             if(loadHorarios.length > 0){
                 loadHorarios.map(horario => {
                     selectDataHorario.innerHTML += `<option value='${horario.id}'>${horario.data}</option>   `
@@ -363,7 +364,7 @@ const reservas = () => {
     }
 
     const loadReservasCliente = async () => {
-        if(document.querySelector('.page-logado-cliente')){
+        if(document.querySelector('.page-logado-cliente') !== null){
             
             const token = window.localStorage.getItem('token')
             const bodyTableReservaCliente = document.getElementById('body-reserva-cliente')
@@ -375,6 +376,8 @@ const reservas = () => {
     
             const bodyAuth = await respAuth.json(),
                   idCliente = bodyAuth.cliente.id
+
+                  
     
             const responseCliente = await fetch(`${baseUrl.getCliente}/${idCliente}`, {
                 method: 'GET',
@@ -383,19 +386,25 @@ const reservas = () => {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            const bodyCliente = await responseCliente.json()  
+            if(responseCliente.status !== 200)
+                return alert('Listagem das reservas temporariamente fora do ar, tente novamente mais tarde')
+
+            const bodyCliente = await responseCliente.json()              
             const { reserva } = bodyCliente
-        
-            reserva.map(r => {
-                bodyTableReservaCliente.innerHTML += `
-                                        <tr>
-                                            <td>${r.servico.nome}</td>
-                                            <td>${r.atendente.user.name}</td>
-                                            <td>${r.horario.data}</td>
-                                            <td>${r.status}</td>
-                                        </tr>  
-                `
-            })
+            
+            if(reserva !== undefined) {
+                reserva.map(r => {
+                    console.log(r);
+                    bodyTableReservaCliente.innerHTML += `
+                        <tr>
+                            <td>${r.servico.nome}</td>
+                            <td>${r.atendente.user.name}</td>
+                            <td>${r.horario.data}</td>
+                            <td>${utils.tratamentoStatusAtendimento(r)}</td>
+                        </tr>  
+                    `
+                })
+            }
         }
         
     }
@@ -434,61 +443,7 @@ const reservas = () => {
         }        
     }
     
-    const createReservaAtendente = async () => {
-        if((document.querySelector('.page-logado-atendente') !== null) ) {    
-            const loadReservas      = await loadTodasReservas()                    
-            const loadHorarios      = await horario().loadTodosHorarios()
-            const loadServicos      = await servicos().loadTodosServicos()
-            const userAuthenticated = await userAuth()          
-            console.log(loadReservas)
-            const selectServico = document.getElementById('selectServico')            
-            const selectStatus = document.getElementById('selectStatus')
-
-            if(loadHorarios.length > 0){
-                loadHorarios.map(horario => {
-                    selectDataHorario.innerHTML += `<option value='${horario.id}'>${horario.data}</option>   `
-                })
-            }
-
-            if(loadServicos.length > 0){
-                loadServicos.map(servico => {
-                    selectServico.innerHTML += `<option value='${servico.id}'>${servico.nome}</option>   `
-                })
-            }            
-
-            const btnCadastrarReserva = document.querySelector('.btn-cadastrar-reserva')
-            btnCadastrarReserva.addEventListener('click', async (e) => {
-                const selectedDataHorario = selectDataHorario.options[selectDataHorario.selectedIndex].value
-                const selectedServico = selectServico.options[selectServico.selectedIndex].value                                                 
-                const selectedCliente = userAuthenticated.cliente.id
-                
-                const formData = new FormData()                
-                formData.append('id_horario', `${selectedDataHorario}`)
-                formData.append('id_servico', `${selectedServico}`)
-                formData.append('id_cliente', `${selectedCliente}`)      
-                formData.append('status', `A`)
-                
-                const respCreateReserva = await fetch(`${baseUrl.createReserva}`, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': `Bearer ${window.localStorage.getItem('token')}`
-                    },
-                    body: formData
-                })
-
-                if(respCreateReserva.status !== 200)
-                    return alert('Não foi possível efetuar a reserva')
-
-                alert('Reserva efetuada com sucesso')
-                utils.loadEvent()
-                setTimeout(() => {
-                    window.location.reload() //Atualiza a pagina
-                }, 2000)                
-            })
-        }
-        /* Atendente */
-    }
+    
 
     return {
         loadTodasReservas,
@@ -498,8 +453,7 @@ const reservas = () => {
         alterarReserva,
         loadReservasAtendente,
         createReservaCliente,
-        loadReservasCliente,
-        createReservaAtendente
+        loadReservasCliente,        
     }
 }
 

@@ -21,8 +21,7 @@ function main() {
     servicos().alterarServico()
 
     reservas().createReserva()
-    reservas().createReservaCliente()
-    reservas().createReservaAtendente()
+    reservas().createReservaCliente()    
     reservas().listaReservas()
     reservas().loadReservasCliente()
     reservas().loadReservasAtendente()

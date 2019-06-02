@@ -14,10 +14,14 @@ const login = () => {
             const senha = document.getElementById('senha').value;
             const formData = new FormData()
             formData.append('grant_type', 'password')
-            formData.append('client_id', '3')
-            formData.append('client_secret', 'rCGUX5xL7Unx1GeisW59R67XEnqoCOqLotp4C4Pk')
-            /*formData.append('client_id', '22')
-            formData.append('client_secret', 'JHOdqoBLbhQjkASoUjdAMElhQskj2DKMfdEy4NwF')*/
+            // formData.append('client_id', '3')
+            // formData.append('client_secret', 'rCGUX5xL7Unx1GeisW59R67XEnqoCOqLotp4C4Pk')
+            
+            //Cliente and secret heroku
+            formData.append('client_id', '22')
+            formData.append('client_secret', 'JHOdqoBLbhQjkASoUjdAMElhQskj2DKMfdEy4NwF')
+            //Cliente and secret heroku
+
             formData.append('username', `${email}`)
             formData.append('password', `${senha}`)
             formData.append('scope', '')
@@ -41,23 +45,25 @@ const login = () => {
                     'Authorization': `Bearer ${window.localStorage.getItem('token')}`
                 }
             });
-            // console.log(await respAuthUser.json())
             const userAuth = await respAuthUser.json()
+
             utils.loadEvent()            
-            if(userAuth.atendente !== null || userAuth.cliente !== null) {
-                if(userAuth.atendente.perfil === 'G'){    
-                    setTimeout(() => {
-                        return window.location.href = 'http://localhost:8080'
-                    }, 3000)
-                }
-            }
             if(userAuth.atendente !== null) {
                 if(userAuth.atendente.perfil === 'G'){    
                     setTimeout(() => {
                         return window.location.href = 'http://localhost:8080/pages/tela-gerente.html'
                     }, 3000)
+                }else if(userAuth.atendente.perfil === 'U') {
+                    setTimeout(() => {
+                        return window.location.href = 'http://localhost:8080/pages/tela-atendente.html'
+                    }, 3000)
                 }
+            }else if(userAuth.cliente !== null) {
+                setTimeout(() => {
+                    return window.location.href = 'http://localhost:8080/pages/tela-cliente.html'
+                }, 3000)
             }
+            
         });    
     }            
 }

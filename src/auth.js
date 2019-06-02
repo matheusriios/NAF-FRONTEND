@@ -17,9 +17,10 @@ const auth = async (content) => {
                         
             if(respAuth.status !== 200) {
                 return window.location.href = 'http://localhost:8080/'
-            }                         
+            }            
             
             content.classList.remove('disable')
+            return await respAuth.json();
         }    
     }        
 }

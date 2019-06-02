@@ -40,41 +40,7 @@ const atendente = () => {
     }
 
     const openModalReservasAtendente = () => { 
-        const divModal = document.createElement('div')                       
-        divModal.innerHTML = `
-            <div class="modal fade" id="modalReservaAtendente" tabindex="-1" role="dialog" aria-labelledby="modalReservaAtendente" aria-hidden="true">
-                <div class="modal-dialog container-modal" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="modalReservaAtendente">Reserva do Atendente</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <td>Cliente</td>
-                                        <td>Serviço</td>
-                                        <td>Data</td>
-                                        <td>Status</td>
-                                        <td>Obs</td>
-                                    </tr>      
-                                </thead>      
-                                <tbody id="body-reserva-atendente">
-                                       
-                                </tbody>
-                            </table>   
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>                        
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `
-        document.body.appendChild(divModal)
+        const divModal = utils.modal()                
         
         const token    = window.localStorage.getItem('token')
         const bodyReservaAtendente = document.getElementById('body-reserva-atendente')
@@ -95,7 +61,7 @@ const atendente = () => {
                 if(reserva.length === 0)
                     return bodyReservaAtendente.innerHTML = ``
 
-                    console.log(reserva)
+                bodyReservaAtendente.innerHTML = ''
                 reserva.forEach(r => {                                        
                     bodyReservaAtendente.innerHTML += `
                                 <td>${r.cliente !== null ? r.cliente.user.name : 'Cliente removido'}</td>
@@ -112,60 +78,66 @@ const atendente = () => {
     const createAtendente = () => {
         if((document.querySelector('.page-logado-gerente') !== null) ) {
 
-            const btnCadastrarAtendente = document.querySelector('.btn-cadastrar-atendente')                
-            btnCadastrarAtendente.addEventListener('click', async (e) => {
-                e.preventDefault();
-                
-                const nomeAtendente    = document.getElementById('nomeAtendente').value
-                const telFixo          = document.getElementById('telAtendente').value
-                const celularAtendente = document.getElementById('celularAtendente').value
-                const emailAtendente   = document.getElementById('emailAtendente').value
-                const senhaAtendente   = document.getElementById('senhaAtendente').value
-                const cpfAtendente   = document.getElementById('cpfAtendente').value
-                let perfilAtendente    = document.getElementById('perfilAtendente');
-                perfilAtendente        = perfilAtendente.options[perfilAtendente.selectedIndex].value;                            
-                const token            = window.localStorage.getItem('token');                    
-                
-                if(nomeAtendente === '' || celularAtendente === '' || emailAtendente === '' || senhaAtendente === '' || perfilAtendente === '' ) {
-                    return alert('Todos os campos são obrigatorios')
-                }
+            const btnCadastrarAtendente = document.querySelector('.btn-cadastrar-atendente') 
+            if(btnCadastrarAtendente !== null) {
 
-                const formData = new FormData();
-                formData.append('celular', `${celularAtendente}`)
-                formData.append('telefone', `${telFixo}`)
-                formData.append('perfil', `${perfilAtendente}`)
-                formData.append('name', `${nomeAtendente}`)
-                formData.append('email', `${emailAtendente}`)
-                formData.append('password', `${senhaAtendente}`)
-                formData.append('cpf', `${cpfAtendente}`)
-                
-                formData.forEach(f => console.log(f))
-                const respCreateAtendete = await fetch(`${baseUrl.createAtendente}`, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: formData
+                btnCadastrarAtendente.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    
+                    const nomeAtendente    = document.getElementById('nomeAtendente').value
+                    const telFixo          = document.getElementById('telAtendente').value
+                    const celularAtendente = document.getElementById('celularAtendente').value
+                    const emailAtendente   = document.getElementById('emailAtendente').value
+                    const senhaAtendente   = document.getElementById('senhaAtendente').value
+                    const cpfAtendente   = document.getElementById('cpfAtendente').value
+                    let perfilAtendente    = document.getElementById('perfilAtendente');
+                    perfilAtendente        = perfilAtendente.options[perfilAtendente.selectedIndex].value;                            
+                    const token            = window.localStorage.getItem('token');                    
+                    
+                    if(nomeAtendente === '' || celularAtendente === '' || emailAtendente === '' || senhaAtendente === '' || perfilAtendente === '' ) {
+                        return alert('Todos os campos são obrigatorios')
+                    }
+    
+                    const formData = new FormData();
+                    formData.append('celular', `${celularAtendente}`)
+                    formData.append('telefone', `${telFixo}`)
+                    formData.append('perfil', `${perfilAtendente}`)
+                    formData.append('name', `${nomeAtendente}`)
+                    formData.append('email', `${emailAtendente}`)
+                    formData.append('password', `${senhaAtendente}`)
+                    formData.append('cpf', `${cpfAtendente}`)
+                    
+                    formData.forEach(f => console.log(f))
+                    const respCreateAtendete = await fetch(`${baseUrl.createAtendente}`, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: formData
+                    })
+                    
+                    if(respCreateAtendete.status === 200) {
+                        alert('Atendente cadastrado com sucesso')
+                        utils.loadEvent()
+                        setTimeout(() => {
+                            window.location.reload() //Atualiza a pagina
+                        }, 2000)
+                        return 
+                    }
+                    return alert('Houve um problema ao tentar cadastrar, tente novamente')
                 })
-                
-                if(respCreateAtendete.status === 200) {
-                    alert('Atendente cadastrado com sucesso')
-                    utils.loadEvent()
-                    setTimeout(() => {
-                        window.location.reload() //Atualiza a pagina
-                    }, 2000)
-                    return 
-                }
-                return alert('Houve um problema ao tentar cadastrar, tente novamente')
-            })
+            }               
         }
     }
   
     const deleteAtendente = async () => {
         if(document.querySelector('.page-logado-gerente') !== null) {
             const btnDeletarAtendente   = document.querySelector('.btn-deletar-atendente')    
-            const selectAtendenteDelete = document.getElementById('selectAtendenteDelete')                        
+            const selectAtendenteDelete = document.getElementById('selectAtendenteDelete')   
+            if(selectAtendenteDelete === null) 
+                return 
+            
             const todosAtendentes       = await loadTodosAtendentes()                    
             todosAtendentes.forEach(atendente => {
                 selectAtendenteDelete.innerHTML += `<option value=${atendente.id} >${atendente.user.name}</option>                `

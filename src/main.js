@@ -20,10 +20,14 @@ function main() {
     servicos().createServico()
     servicos().alterarServico()
 
-    reservas().listaReservas()
     reservas().createReserva()
-    reservas().deleteReserva()
+    reservas().createReservaCliente()
+    reservas().createReservaAtendente()
+    reservas().listaReservas()
+    reservas().loadReservasCliente()
+    reservas().loadReservasAtendente()
     reservas().alterarReserva()
+    reservas().deleteReserva()
 
     cliente().createCliente()
     cliente().deleteCliente()

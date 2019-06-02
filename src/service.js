@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8000';
+const baseUrl = 'https://naf-unifacs.herokuapp.com';
 //const baseUrl = 'https://naf-unifacs.herokuapp.com';
 
 const endPoints = {
@@ -11,11 +11,12 @@ const endPoints = {
     listaServicos: `${baseUrl}/api/v1/servicos`,
     listaServicos: `${baseUrl}/api/v1/servicos`,
     listaClientes: `${baseUrl}/api/v1/clientes`,    
-    listaReservas: `${baseUrl}/api/v1/reservas`,    
+    listaReservas: `${baseUrl}/api/v1/reservas`,  
 
     //localhost:8000/api/v1/atendentes/;id
     getAtendente: `${baseUrl}/api/v1/atendentes`,
-    
+    getCliente: `${baseUrl}/api/v1/atendentes`,
+
     createAtendente: `${baseUrl}/api/v1/atendentes`,
     createCliente: `${baseUrl}/api/v1/clientes`,
     createHorario: `${baseUrl}/api/v1/horarios`,

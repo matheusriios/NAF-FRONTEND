@@ -20,39 +20,41 @@ const horarios = ( ) => {
     const createHorario = () => {
         if((document.querySelector('.page-logado-gerente') !== null) ) {
             const btnCadastrarHorario = document.querySelector('.btn-cadastrar-horario');
-            
-            btnCadastrarHorario.addEventListener('click', async (e) => {
-                e.preventDefault();
-                const dia = document.getElementById('dia').value
-                const mes = document.getElementById('mes').value
-                const ano = document.getElementById('ano').value
-                const horario = document.getElementById('horario').value            
-                const data = `${ano}-${mes}-${dia}`                                
+            if(btnCadastrarHorario !== null) {
 
-                if(dia !== '' || mes !== '' || ano !== '' || horario !== '') {
-                    const formData = new FormData()                
-                    formData.append('data', `${data} ${horario}`)      
-                    const respCreateHorario = await fetch(`${baseUrl.createHorario}`, {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',  
-                            'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
-                        },
-                        body: formData
-                    })
-
-                    if(respCreateHorario.status === 200){
-                        alert('Serviço cadastrado com sucesso')
-                        utils.loadEvent()
-                        setTimeout(() => {
-                            window.location.reload() //Atualiza a pagina
-                        }, 2000)
-                        return 
-                    }
-                }                                
-
-                return alert('Não foi possível efetuar o cadastro, tente novamente')
-            })
+                btnCadastrarHorario.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    const dia = document.getElementById('dia').value
+                    const mes = document.getElementById('mes').value
+                    const ano = document.getElementById('ano').value
+                    const horario = document.getElementById('horario').value            
+                    const data = `${ano}-${mes}-${dia}`                                
+    
+                    if(dia !== '' || mes !== '' || ano !== '' || horario !== '') {
+                        const formData = new FormData()                
+                        formData.append('data', `${data} ${horario}`)      
+                        const respCreateHorario = await fetch(`${baseUrl.createHorario}`, {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',  
+                                'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
+                            },
+                            body: formData
+                        })
+    
+                        if(respCreateHorario.status === 200){
+                            alert('Serviço cadastrado com sucesso')
+                            utils.loadEvent()
+                            setTimeout(() => {
+                                window.location.reload() //Atualiza a pagina
+                            }, 2000)
+                            return 
+                        }
+                    }                                
+    
+                    return alert('Não foi possível efetuar o cadastro, tente novamente')
+                })
+            }
         }
     }
 
@@ -61,7 +63,9 @@ const horarios = ( ) => {
             const btnDeletarReserva   = document.querySelector('.btn-deletar-horario')    
             const selectHorarioDelete = document.getElementById('selectHorarioDelete')                                                
             const todosHorarios = await loadTodosHorarios()
-    
+            if(selectHorarioDelete === null)
+                return
+                
             todosHorarios.forEach(horario => {            
                 selectHorarioDelete.innerHTML += `<option value=${horario.id}>${horario.data}</option>`
             })
@@ -92,18 +96,20 @@ const horarios = ( ) => {
     const alterarHorario = async () => { 
         if(document.querySelector('.page-logado-gerente') !== null) {
             const bodyListaServico = document.getElementById('body-lista-horario');
-            let todosHorarios = await loadTodosHorarios()
-            todosHorarios.map((horario, index) => {
-                const agendamento = horario.data.split(' ');
-                
-                bodyListaServico.innerHTML += `
-                    <tr>
-                        <td>${agendamento[0]}</td>
-                        <td>${agendamento[1]}</td>
-                        <td><button data-target="#modalHorario-${horario.id}" data-toggle="modal" idHorario="${horario.id}" class="btn btn-warning alterar-dados">Alterar</button></td>         
-                    </tr>  
-                `
-            }) 
+            if(bodyListaServico !== null) {
+                let todosHorarios = await loadTodosHorarios()
+                todosHorarios.map((horario, index) => {
+                    const agendamento = horario.data.split(' ');
+                    
+                    bodyListaServico.innerHTML += `
+                        <tr>
+                            <td>${agendamento[0]}</td>
+                            <td>${agendamento[1]}</td>
+                            <td><button data-target="#modalHorario-${horario.id}" data-toggle="modal" idHorario="${horario.id}" class="btn btn-warning alterar-dados">Alterar</button></td>         
+                        </tr>  
+                    `
+                }) 
+            }
         }        
 
         openModalHorario()

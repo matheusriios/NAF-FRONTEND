@@ -15,52 +15,54 @@ const cliente = () => {
         
         return body
     }
+    
 
     const createCliente = () => {
         
         if((document.querySelector('.page-logado-gerente') !== null) ) {            
             const btnCadastrarCliente = document.getElementById('btn-cadastrar-cliente')
-            
-            btnCadastrarCliente.addEventListener('click', async (e) => {
-                e.preventDefault()
-                
-                const nomeCliente      = document.getElementById('nomeCliente').value
-                const telFixoCliente   = document.getElementById('telCliente').value
-                const celularCliente   = document.getElementById('celularCliente').value
-                const emailCliente     = document.getElementById('emailCliente').value
-                const senhaCliente     = document.getElementById('senhaCliente').value        
-                const cpfCliente     = document.getElementById('cpfCliente').value        
-                if(nomeCliente === '' || cpfCliente === '' || telFixoCliente === '' || celularCliente === '' || emailCliente === '' || senhaCliente === '' ) {
-                    return alert('Todos os campos são obrigatorios')
-                }
-
-                const formData = new FormData();
-                formData.append('name', `${nomeCliente}`)
-                formData.append('telefone', `${telFixoCliente}`)
-                formData.append('celular', `${celularCliente}`)                
-                formData.append('email', `${emailCliente}`)
-                formData.append('password', `${senhaCliente}`)
-                formData.append('cpf', `${cpfCliente}`)
-
-                const respCreateCliente = await fetch(`${baseUrl.createCliente}`, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',                        
-                    },
-                    body: formData
+            if(btnCadastrarCliente !== null){
+                btnCadastrarCliente.addEventListener('click', async (e) => {
+                    e.preventDefault()
+                    
+                    const nomeCliente      = document.getElementById('nomeCliente').value
+                    const telFixoCliente   = document.getElementById('telCliente').value
+                    const celularCliente   = document.getElementById('celularCliente').value
+                    const emailCliente     = document.getElementById('emailCliente').value
+                    const senhaCliente     = document.getElementById('senhaCliente').value        
+                    const cpfCliente     = document.getElementById('cpfCliente').value        
+                    if(nomeCliente === '' || cpfCliente === '' || telFixoCliente === '' || celularCliente === '' || emailCliente === '' || senhaCliente === '' ) {
+                        return alert('Todos os campos são obrigatorios')
+                    }
+    
+                    const formData = new FormData();
+                    formData.append('name', `${nomeCliente}`)
+                    formData.append('telefone', `${telFixoCliente}`)
+                    formData.append('celular', `${celularCliente}`)                
+                    formData.append('email', `${emailCliente}`)
+                    formData.append('password', `${senhaCliente}`)
+                    formData.append('cpf', `${cpfCliente}`)
+    
+                    const respCreateCliente = await fetch(`${baseUrl.createCliente}`, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',                        
+                        },
+                        body: formData
+                    })
+                    
+                    if(respCreateCliente.status === 200) {
+                        alert('Cliente cadastrado com sucesso')
+                        utils.loadEvent()
+                        setTimeout(() => {
+                            window.location.reload() //Atualiza a pagina
+                        } , 2000)
+                        return 
+                    }
+                    
+                    return alert('Houve um problema ao tentar cadastrar, tente novamente')                
                 })
-                
-                if(respCreateCliente.status === 200) {
-                    alert('Serviço cadastrado com sucesso')
-                    utils.loadEvent()
-                    setTimeout(() => {
-                        window.location.reload() //Atualiza a pagina
-                    } , 2000)
-                    return 
-                }
-                
-                return alert('Houve um problema ao tentar cadastrar, tente novamente')                
-            })
+            }
         }        
 
     }
@@ -68,7 +70,9 @@ const cliente = () => {
     const deleteCliente = async () => {
         if(document.querySelector('.page-logado-gerente') !== null) {
             const btnDeletarReserva   = document.querySelector('.btn-deletar-cliente')    
-            const selectClienteDelete = document.getElementById('selectClienteDelete')                                                
+            const selectClienteDelete = document.getElementById('selectClienteDelete') 
+            if(selectClienteDelete === null)
+                return                                                
             const todosCliente = await loadTodosClientes()            
             todosCliente.forEach(cliente => {            
                 selectClienteDelete.innerHTML += `<option value=${cliente.id}>${cliente.user.name}</option>`
@@ -235,7 +239,7 @@ const cliente = () => {
         loadTodosClientes,
         createCliente,
         deleteCliente,
-        alterarClientes
+        alterarClientes,        
     }
 }
 export default cliente;

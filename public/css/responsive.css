@@ -1,0 +1,20 @@
+@media(max-width: 768px) {
+    #app {
+        flex-direction: column;
+    }
+    .menu-superior {
+        display: none;
+    }
+    .menu-lateral{
+        width: 100% !important;
+    }
+    .nav.nav-tabs a{
+        text-align: center;
+        font-size: 27px;
+        font-weight: bold;
+        color: white;
+    }
+    .menu-lateral ul{
+        margin-top: 10%;
+    }
+}

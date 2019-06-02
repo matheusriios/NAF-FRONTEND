@@ -19,14 +19,15 @@
   </head>
   <body>    
     <div id="app" class="d-flex page-logado page-logado-gerente">
+        <i class="fas fa-bars open-menu-mobile"></i>
         <div class="menu-lateral">
+            <i class="fas fa-times open-menu-mobile" style="color: white;"></i>
             <div class="title-naf w-100 d-flex justify-content-center align-items-center">
                 <a href="tela-gerente.html"><img src="../imagem/naf.png" style="width:200px;" ></a>
             </div>
             <ul>
                 <nav>                    
-                    <div class="nav nav-tabs flex-column" id="nav-tab" role="tablist">
-                       
+                    <div class="nav nav-tabs flex-column" id="nav-tab" role="tablist">                       
                         <a class="nav-item nav-link" id="reservas-tab" data-toggle="tab" href="#reservas" role="tab" aria-controls="reservas" aria-selected="true">Reservas</a>
                         <a class="nav-item nav-link" id="atendente-tab" data-toggle="tab" href="#atendente" role="tab" aria-controls="atendente" aria-selected="false">Atendentes</a>
 
@@ -69,7 +70,7 @@
                 </nav>                
             </ul>
         </div>
-        <div class="w-100">       
+        <div class="w-100 conteudo-app">       
             <div class="menu-superior w-100 ">
                 <div class="container-fluid d-flex justify-content-end">
                     <ul class="container-btn-drop-account">
@@ -107,7 +108,7 @@
                             <h1 class="mt-5">Reservas</h1>
                         </div>
                         
-                        <div class="container-lists-reservas w-100 mt-4">
+                        <div class="container-lists-reservas w-100 mt-4 table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -126,12 +127,12 @@
                 <!--Fim Reservas-->
 
                 <!--Inicio Atendentes-->
-                <div class="tab-pane fade" id="atendente" role="tabpanel" aria-labelledby="atendente-tab">
+                <div class="tab-pane fade list-atendente" id="atendente" role="tabpanel" aria-labelledby="atendente-tab">
                     <div class="container-reservas w-100 d-flex align-items-center flex-column ">                
                         <div class="title-reservas">
                             <h1 class="mt-5">Atendentes</h1>
                         </div>                
-                        <div class="container-lists-reservas w-100 mt-4">
+                        <div class="container-lists-reservas w-100 mt-4 table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>

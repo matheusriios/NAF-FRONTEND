@@ -9,6 +9,7 @@ import utils from './utils'
 function main() {         
     utils.openDropDownMenuAccount()
     utils.exibeNomeUserMenu()    
+    utils.menuMobile()
     login.login()
     login.logout()
 

@@ -48,7 +48,7 @@ export default {
                             <span aria-hidden="true">&times;</span>
                         </button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -107,6 +107,21 @@ export default {
             cliente= "Cliente Removido"
 
         return cliente
+    },
+
+    menuMobile: () => {
+        const app       = document.getElementById('app')
+        const openModalAndClose = document.querySelectorAll('.open-menu-mobile')
+        const conteudoApp = document.querySelector('.conteudo-app')
+        const menuLateral = document.querySelector('.menu-lateral')
+        openModalAndClose.forEach(m => {
+            m.addEventListener('click', e => {
+                menuLateral.classList.toggle('activeMenuMobile')
+                app.classList.toggle('activeMenuMobile')
+                conteudoApp.classList.toggle('activeMenuMobile')
+            })
+        })
+        
     }
     
 }

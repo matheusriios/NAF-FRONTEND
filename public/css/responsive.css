@@ -1,13 +1,46 @@
 @media(max-width: 768px) {
     #app {
+        position: relative;
+        justify-content: center;
+        align-items: center;
+    }
+    #app.activeMenuMobile {
         flex-direction: column;
+        min-height: 100vh;  
+    }
+    .conteudo-app.activeMenuMobile{
+        display: none
+    }
+    .conteudo-app {
+        transition: all ease-in-out .4s;
+    }
+    .tab-content {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .menu-superior {
         display: none;
     }
-    .menu-lateral{
-        width: 100% !important;
+    .menu-lateral {
+        display: none;
+        transform: translateX(-500px);        
     }
+    .menu-lateral.activeMenuMobile{        
+        display: block;
+        transform: translateX(0px);
+        width: 100% !important;
+        position: relative;
+    }
+    i.open-menu-mobile {
+        position: absolute;
+        font-size: 35px;
+        color: black;
+        cursor: pointer;
+        top: 2%;
+        left: 85%;
+    }    
     .nav.nav-tabs a{
         text-align: center;
         font-size: 27px;
@@ -16,5 +49,19 @@
     }
     .menu-lateral ul{
         margin-top: 10%;
+    }
+    #multiCollapseCadastrar a, #multiCollapseDeletar a, #multiCollapseAlterar a {
+        font-size: 18px;
+    }
+    .container-lists-reservas{
+        padding: 0px !important;
+    }
+
+    .list-atendente{ 
+        width: 89%;
+    }
+
+    .container-modal {
+        max-width: 100%;
     }
 }

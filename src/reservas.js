@@ -35,7 +35,7 @@ const reservas = () => {
                                                            : 'Atendente removido' }</td>
                             <td>${reserva.cliente !== null ? reserva.cliente.user.name 
                                                            : 'Cliente removido' }</td>                            
-                            <td>${reserva.status}</td>                        
+                            <td>${utils.tratamentoStatusAtendimento(reserva)}</td>                        
                         </tr>  
                     `            
                 })    
@@ -394,13 +394,14 @@ const reservas = () => {
             
             if(reserva !== undefined) {
                 reserva.map(r => {
+                    console.log(r);
                     bodyTableReservaCliente.innerHTML += `
-                                            <tr>
-                                                <td>${r.servico.nome}</td>
-                                                <td>${r.atendente.user.name}</td>
-                                                <td>${r.horario.data}</td>
-                                                <td>${r.status}</td>
-                                            </tr>  
+                        <tr>
+                            <td>${r.servico.nome}</td>
+                            <td>${r.atendente.user.name}</td>
+                            <td>${r.horario.data}</td>
+                            <td>${utils.tratamentoStatusAtendimento(r)}</td>
+                        </tr>  
                     `
                 })
             }

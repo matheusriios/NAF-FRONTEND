@@ -7,7 +7,7 @@ body.disable {
 #app.login{
     height: 100vh;
     width: 100%;
-    background: #2962ff !important;
+    background-image: #2962ff !important;
 }
 
 .title-naf h1{
@@ -16,6 +16,9 @@ body.disable {
     font-weight: bold;
     font-size: 50px;
     font-family: 'Lato', sans-serif;
+}
+.page-login{
+    background-image: url(../img/background.jpg);
 }
 
 .content{
@@ -28,10 +31,14 @@ body.disable {
     padding: 4em;
     width: 75%;
     border-radius: 5px !important;
+    background: #151F42 !important;
 }
 
 .content-form input{
     font-family: 'Lato', sans-serif;
+}
+.content-form{
+    margin-top: 5%;
 }
 
 .container-form p{
@@ -42,11 +49,25 @@ body.disable {
 .container-form h3{
     font-family: 'Lato', sans-serif;
     font-weight: bold;
+    color: white;
 }
 
-.container-btn-login:hover{
-    text-decoration: white !important;
+.container-btn-login button{
+    background: #72B34D;
+    color: white;
+    transition: all .2s ease-in;
+    opacity: .9;
 }
+.container-btn-login button:hover{
+    background: rgb(122, 209, 71);
+    color: white;
+    opacity: 1;
+}
+
+#btn-esqueceu{
+    color: #72B34D !important;
+}
+
 /******************************/
 /*Conteudo img*/
 .content-img{
@@ -74,8 +95,9 @@ body.disable {
 /*Menu Superior*/
 .menu-superior {
     padding: 1.5%;
-    background: #2962ff;
+    background-image: url(../img/bgmenu.jpg);
     box-shadow: 1px 1px 15px rgba(0,0,0,.1);
+    background-size: cover;
 }
 
 .menu-superior .container-btn-drop-account {
@@ -131,7 +153,7 @@ body.disable {
 .header-down-acount{
     padding-bottom: 12%;
     padding-left: 10%;
-    background: #2962ff;
+    background: rgb(8, 43, 124);
 } 
 
 .nome.user-logado{
@@ -141,6 +163,7 @@ body.disable {
 .btn-logout, .btn-configurar-conta{
     color: #212529;
     transition: all ease-in-out .2s;
+    cursor: pointer;
 }
 
 .btn-logout:hover, .btn-configurar-conta:hover {
@@ -148,5 +171,9 @@ body.disable {
 }
 .btn-logout i {
     margin-right: 5px;
+}
+.btn-primary{
+      border: none;
+    background: #151F42;
 }
 /*Menu Superior*/

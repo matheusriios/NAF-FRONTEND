@@ -1,9 +1,11 @@
-import baseUrl from './service';
-import atendente from './atendente';
-import horario from './horarios';
-import servicos from './servicos';
-import cliente from './cliente';
-import utils from './utils';
+import baseUrl from './service'
+import atendente from './atendente'
+import horario from './horarios'
+import servicos from './servicos'
+import cliente from './cliente'
+import utils from './utils'
+import userAuth from './userAuth'
+
 const reservas = () => {
     
     const loadTodasReservas = async () => {
@@ -21,10 +23,10 @@ const reservas = () => {
 
     const listaReservas = async () => {        
         if(document.querySelector('.page-logado-gerente') !== null){
-            const bodyReservas = document.getElementById('body-reserva');
+            const bodyReservas = document.getElementById('body-reserva')
             const todasReservas = await loadTodasReservas()     
-            
-            if(bodyReservas !== null) {                
+                        
+            if(bodyReservas !== null) {   
                 todasReservas.map((reserva, index) => {                    
                     bodyReservas.innerHTML += `
                         <tr>
@@ -113,12 +115,15 @@ const reservas = () => {
             })
         }
     }
-    
+      
     const deleteReserva = async () => {        
         if(document.querySelector('.page-logado-gerente') !== null) {
             const btnDeletarReserva   = document.querySelector('.btn-deletar-reserva')    
             const selectReservaDelete = document.getElementById('selectReservaDelete')                                                
             const todasReservas = await loadTodasReservas()
+
+            if(selectReservaDelete === null)
+                return 
             
             todasReservas.forEach(reserva => {            
                 selectReservaDelete.innerHTML += `<option value=${reserva.id}>${reserva.servico.nome}</option>`
@@ -147,34 +152,35 @@ const reservas = () => {
         }
     }
 
-    const alterarAtendente = async () => { 
-        if(document.getElementById('body-lista-atendentes-dados') !== null) {
-            const bodyListaAtendentes = document.getElementById('body-lista-atendentes-dados')
-            let todosAtendentes = await loadTodosAtendentes()
-            todosAtendentes.map((atendente, index) => {
-                bodyListaAtendentes.innerHTML += `
-                    <tr data-target="#modalDadosAtendente-${atendente.id}" data-toggle="modal" idAtendente="${atendente.id} class="alterar-dados">
-                        <td>${atendente.user.name}</td>
-                        <td>${atendente.user.cpf}</td>
-                        <td>${atendente.user.email}</td>
-                        <td>${atendente.celular}</td>
-                        <td>${atendente.perfil}</td>               
+    const alterarReserva = async () => { 
+        if(document.getElementById('body-listar-reserva') !== null) {
+            const bodyListarReservas = document.getElementById('body-listar-reserva')
+            let todasReservas = await loadTodasReservas()
+            todasReservas.map((reservas, index) => {                
+                bodyListarReservas.innerHTML += `
+                    <tr>
+                        <td>${reservas.atendente.user.name}</td>
+                        <td>${reservas.servico.nome}</td>
+                        <td>${utils.validarUsuario(reservas)}</td>
+                        <td>${reservas.horario.data}</td>
+                        <td>${reservas.status}</td>
+                        <td>${reservas.obs}</td>
+                        <td><button data-target="#modalReservas-${reservas.id}" data-toggle="modal" idReservas="${reservas.id}" class="btn btn-warning alterar-dados">Alterar</button></td>                    
                     </tr>  
                 `
             })    
         }        
-
-        openModalDadosAtendente()
+        //openModalDadosReservas()
     }
 
-    const openModalDadosAtendente = async () => { 
+    const openModalDadosReservas = async () => { 
         if(document.querySelector('.page-logado-gerente') !== null) {
 
 
             let dadosAtendentes = await loadTodosAtendentes()
     
             dadosAtendentes.map((atendente) => {
-                let status = "";
+                let status = ""
                 if (atendente.perfil === "G") {
                     status = "Gerente"
                 } else {
@@ -188,7 +194,7 @@ const reservas = () => {
                                 <div class="modal-header">
                                 <h5 class="modal-title" id="modalReservaAtendente">Dados do Atendente ${atendente.user.name}</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                                    <span aria-hidden="true">&times;</span>
+                                    <span aria-hidden="true">&times</span>
                                 </button>
                                 </div>
                                 <div class="modal-body">
@@ -241,11 +247,11 @@ const reservas = () => {
                         </div>
                     </div>
                 `          
-                document.body.appendChild(divModal);
-            });
+                document.body.appendChild(divModal)
+            })
             
             dadosAtendentes.map( (atendente) => {
-                var btn = document.querySelector(`#alterar-dados-atendente-${atendente.id}`);
+                var btn = document.querySelector(`#alterar-dados-atendente-${atendente.id}`)
                 btn.addEventListener('click', async (e)=>{
                     e.preventDefault()
                  
@@ -255,13 +261,13 @@ const reservas = () => {
                     const emailAtendente   = document.getElementById(`alterarEmail-${atendente.id}`).value
                     const senhaAtendente   = document.getElementById(`alterarSenha-${atendente.id}`).value
                     const cpfAtendente     = document.getElementById(`alterarCpf-${atendente.id}`).value
-                    let perfilAtendente    = document.getElementById(`alterarPerfilAtendente-${atendente.id}`);
-                    perfilAtendente        = perfilAtendente.options[perfilAtendente.selectedIndex].value;                            
-                    const token            = window.localStorage.getItem('token');                    
+                    let perfilAtendente    = document.getElementById(`alterarPerfilAtendente-${atendente.id}`)
+                    perfilAtendente        = perfilAtendente.options[perfilAtendente.selectedIndex].value                            
+                    const token            = window.localStorage.getItem('token')                    
                     
                     //console.log(`${nomeAtendente} ${telFixo} ${celularAtendente} ${emailAtendente} ${senhaAtendente} ${cpfAtendente} ${perfilAtendente}`)
                     
-                    var formData = new FormData();
+                    var formData = new FormData()
     
                     if(senhaAtendente != "")
                         formData.append('password', `${senhaAtendente}`)
@@ -275,7 +281,7 @@ const reservas = () => {
                     formData.append('email', `${emailAtendente}`)
                     formData.append('cpf', `${cpfAtendente}`)
                    
-                    var url = `${baseUrl.alterarAtendente}/${atendente.id}/editar`;
+                    var url = `${baseUrl.alterarAtendente}/${atendente.id}/editar`
                     
                     const respCreateAtendete = await fetch(url, {
                         method: 'POST',
@@ -302,12 +308,199 @@ const reservas = () => {
         }
     }
 
+
+    /* Cliente */
+    const createReservaCliente = async () => {
+        if((document.querySelector('.page-logado-cliente') !== null) ) {            
+            const loadHorarios      = await horario().loadTodosHorarios()
+            const loadServicos      = await servicos().loadTodosServicos()
+            const userAuthenticated = await userAuth()                      
+            const selectServico = document.getElementById('selectServico')                        
+            const selectDataHorario = document.getElementById('selectDataHorario')
+            if(loadHorarios.length > 0){
+                loadHorarios.map(horario => {
+                    selectDataHorario.innerHTML += `<option value='${horario.id}'>${horario.data}</option>   `
+                })
+            }
+
+            if(loadServicos.length > 0){
+                loadServicos.map(servico => {
+                    selectServico.innerHTML += `<option value='${servico.id}'>${servico.nome}</option>   `
+                })
+            }            
+
+            const btnCadastrarReserva = document.querySelector('.btn-cadastrar-reserva')
+            btnCadastrarReserva.addEventListener('click', async (e) => {
+                const selectedDataHorario = selectDataHorario.options[selectDataHorario.selectedIndex].value
+                const selectedServico = selectServico.options[selectServico.selectedIndex].value                                                 
+                const selectedCliente = userAuthenticated.cliente.id
+                
+                const formData = new FormData()                
+                formData.append('id_horario', `${selectedDataHorario}`)
+                formData.append('id_servico', `${selectedServico}`)
+                formData.append('id_cliente', `${selectedCliente}`)      
+                formData.append('status', `A`)
+                
+                const respCreateReserva = await fetch(`${baseUrl.createReserva}`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${window.localStorage.getItem('token')}`
+                    },
+                    body: formData
+                })
+
+                if(respCreateReserva.status !== 200)
+                    return alert('Não foi possível efetuar a reserva')
+
+                alert('Reserva efetuada com sucesso')
+                utils.loadEvent()
+                setTimeout(() => {
+                    window.location.reload() //Atualiza a pagina
+                }, 2000)                
+            })
+        }
+    }
+
+    const loadReservasCliente = async () => {
+        if(document.querySelector('.page-logado-cliente')){
+            
+            const token = window.localStorage.getItem('token')
+            const bodyTableReservaCliente = document.getElementById('body-reserva-cliente')
+            const respAuth = await fetch(`${baseUrl.usuarioAutenticado}`, {
+                headers: {
+                    'Authorization': `Bearer ${window.localStorage.getItem('token')}`
+                }
+            });
+    
+            const bodyAuth = await respAuth.json(),
+                  idCliente = bodyAuth.cliente.id
+    
+            const responseCliente = await fetch(`${baseUrl.getCliente}/${idCliente}`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            const bodyCliente = await responseCliente.json()  
+            const { reserva } = bodyCliente
+        
+            reserva.map(r => {
+                bodyTableReservaCliente.innerHTML += `
+                                        <tr>
+                                            <td>${r.servico.nome}</td>
+                                            <td>${r.atendente.user.name}</td>
+                                            <td>${r.horario.data}</td>
+                                            <td>${r.status}</td>
+                                        </tr>  
+                `
+            })
+        }
+        
+    }
+    /* Cliente */
+
+    /* Atendente */
+    const loadReservasAtendente = async () => {
+        if(document.querySelector('.page-logado-atendente') !== null) {
+            
+            const token = window.localStorage.getItem('token')
+            const bodyTableReservaAtendente = document.getElementById('body-reservas-atendente')
+            const respAuth = await userAuth()
+            
+            const idAtendente = respAuth.atendente.id                        
+    
+            const responseAtendente = await fetch(`${baseUrl.getAtendente}/${idAtendente}`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            const bodyAtendente = await responseAtendente.json()  
+            const {reserva}     = bodyAtendente
+                                
+            reserva.map(r => {
+                bodyTableReservaAtendente.innerHTML += `
+                                        <tr>
+                                            <td>${r.servico.nome}</td>
+                                            <td>${r.cliente.user.name}</td>
+                                            <td>${r.horario.data}</td>
+                                            <td>${r.status}</td>
+                                        </tr>  
+                `
+            })
+        }        
+    }
+    
+    const createReservaAtendente = async () => {
+        if((document.querySelector('.page-logado-atendente') !== null) ) {    
+            const loadReservas      = await loadTodasReservas()                    
+            const loadHorarios      = await horario().loadTodosHorarios()
+            const loadServicos      = await servicos().loadTodosServicos()
+            const userAuthenticated = await userAuth()          
+            console.log(loadReservas)
+            const selectServico = document.getElementById('selectServico')            
+            const selectStatus = document.getElementById('selectStatus')
+
+            if(loadHorarios.length > 0){
+                loadHorarios.map(horario => {
+                    selectDataHorario.innerHTML += `<option value='${horario.id}'>${horario.data}</option>   `
+                })
+            }
+
+            if(loadServicos.length > 0){
+                loadServicos.map(servico => {
+                    selectServico.innerHTML += `<option value='${servico.id}'>${servico.nome}</option>   `
+                })
+            }            
+
+            const btnCadastrarReserva = document.querySelector('.btn-cadastrar-reserva')
+            btnCadastrarReserva.addEventListener('click', async (e) => {
+                const selectedDataHorario = selectDataHorario.options[selectDataHorario.selectedIndex].value
+                const selectedServico = selectServico.options[selectServico.selectedIndex].value                                                 
+                const selectedCliente = userAuthenticated.cliente.id
+                
+                const formData = new FormData()                
+                formData.append('id_horario', `${selectedDataHorario}`)
+                formData.append('id_servico', `${selectedServico}`)
+                formData.append('id_cliente', `${selectedCliente}`)      
+                formData.append('status', `A`)
+                
+                const respCreateReserva = await fetch(`${baseUrl.createReserva}`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${window.localStorage.getItem('token')}`
+                    },
+                    body: formData
+                })
+
+                if(respCreateReserva.status !== 200)
+                    return alert('Não foi possível efetuar a reserva')
+
+                alert('Reserva efetuada com sucesso')
+                utils.loadEvent()
+                setTimeout(() => {
+                    window.location.reload() //Atualiza a pagina
+                }, 2000)                
+            })
+        }
+        /* Atendente */
+    }
+
     return {
         loadTodasReservas,
         listaReservas,
         createReserva,
-        deleteReserva
+        deleteReserva,
+        alterarReserva,
+        loadReservasAtendente,
+        createReservaCliente,
+        loadReservasCliente,
+        createReservaAtendente
     }
 }
 
-export default reservas;
+export default reservas

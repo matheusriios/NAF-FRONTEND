@@ -1,5 +1,6 @@
 import { createBrowserHistory } from './history'
 import baseUrl from './service';
+import utils   from './utils'
 
 const auth = async (content) => {        
     const history = createBrowserHistory();
@@ -16,8 +17,10 @@ const auth = async (content) => {
                         
             if(respAuth.status !== 200) {
                 return window.location.href = 'http://localhost:8080/'
-            }                         
+            }            
+            
             content.classList.remove('disable')
+            return await respAuth.json();
         }    
     }        
 }

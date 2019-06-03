@@ -116,8 +116,8 @@ a:hover{
    color: white;
 }
 
-.btn-alterar-atd {
-    width: 100%;   
+.open-menu-mobile{
+    display: none !important;
 }
 
 .icon-alterar-atendimento {

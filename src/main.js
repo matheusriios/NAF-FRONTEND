@@ -32,6 +32,9 @@ function main() {
     cliente().createCliente()
     cliente().deleteCliente()
     cliente().alterarClientes()
+    cliente().listarCliente();
+    cliente().alterarCliente();
+    cliente().excluirContarCliente();
 
     horario().createHorario()
     horario().deleteHorario()

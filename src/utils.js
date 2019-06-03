@@ -107,6 +107,7 @@ export default {
             cliente= "Cliente Removido"
 
         return cliente
+
     },
 
     menuMobile: () => {
@@ -122,6 +123,27 @@ export default {
             })
         })
         
+    }, 
+
+    tratamentoStatusAtendimento: ( data ) => {
+        switch (data.status) {
+            case "A":
+                return "Em Atendimento"
+                break;
+            case "E":
+                return "Lista de espera"
+                break;
+            case "C":
+                return "Cancelado"
+                break;
+            case "F":
+                return "Finalizado"
+                break;
+            default:
+                break;
+        }
     }
+
+
     
 }

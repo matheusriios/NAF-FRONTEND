@@ -64,4 +64,18 @@
     .container-modal {
         max-width: 100%;
     }
+
+    .content-form .container-form{ 
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .content-form{
+        width: 100% !important;
+    }
+
+    .form-login {
+        width: 100% !important;
+    }    
+
 }

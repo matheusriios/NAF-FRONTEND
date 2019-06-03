@@ -5,188 +5,251 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
     <!-- CSS | Bootstrap CSS  | Font awesome  -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/loader.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/logado.css">
+    <link rel="stylesheet" href="/css/tabsNavigator.css">
+    <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
-
-
-    <title>Home</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <title>N A F</title>
   </head>
-  <body>
-    
-    <div id="app" class="d-flex">
+  <body>    
+    <div id="app" class="d-flex page-logado page-logado-gerente">
+        <i class="fas fa-bars open-menu-mobile"></i>
         <div class="menu-lateral">
+            <i class="fas fa-times open-menu-mobile" style="color: white;"></i>
             <div class="title-naf w-100 d-flex justify-content-center align-items-center">
-                <a href="logado.html"><h1 class="mt-4">N - A - F</h1></a>
+                <a href="tela-gerente.html"><img src="../imagem/naf.png" style="width:200px;" ></a>
             </div>
             <ul>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle item-menu-agenda" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Agenda
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="agendar.html">Agendar</a>
-                        <a class="dropdown-item" href="#">Modificar Agendamento</a>                                          
+                <nav>                    
+                    <div class="nav nav-tabs flex-column" id="nav-tab" role="tablist">                       
+                        <a class="nav-item nav-link" id="reservas-tab" data-toggle="tab" href="#reservas" role="tab" aria-controls="reservas" aria-selected="true">Reservas</a>
+                        <a class="nav-item nav-link" id="atendente-tab" data-toggle="tab" href="#atendente" role="tab" aria-controls="atendente" aria-selected="false">Atendentes</a>
+
+                        <!--Cadastrar-->
+                        <a class="nav-item nav-link" data-toggle="collapse" href="#multiCollapseCadastrar" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Cadastrar</a>
+                        <div class="collapse nav nav-tabs multi-collapse collapse-tab" id="multiCollapseCadastrar">
+                                                        
+                            <a class="nav-item nav-link" id="cadastrar-atendente-tab" data-toggle="tab" href="#cadastrar-atendente" role="tab" aria-controls="cadastrar-atendente" aria-selected="false">Cadastrar Atendente</a>
+                            <a class="nav-item nav-link" id="cadastrar-cliente-tab" data-toggle="tab" href="#cadastrar-cliente" role="tab" aria-controls="cadastrar-cliente" aria-selected="false">Cadastrar Cliente</a>
+                            <a class="nav-item nav-link" id="cadastrar-servico-tab" data-toggle="tab" href="#cadastrar-servico" role="tab" aria-controls="cadastrar-servico" aria-selected="false">Cadastrar Serviços</a>
+                            <a class="nav-item nav-link" id="cadastrar-reserva-tab" data-toggle="tab" href="#cadastrar-reserva" role="tab" aria-controls="cadastrar-reserva" aria-selected="false">Cadastrar Reserva</a>
+                            <a class="nav-item nav-link" id="cadastrar-horario-tab" data-toggle="tab" href="#cadastrar-horario" role="tab" aria-controls="cadastrar-horario" aria-selected="false">Cadastrar Horario</a> 
+
+                        </div>
+                                               
+                        <!--Deletar-->
+                        <a class="nav-item nav-link" data-toggle="collapse" href="#multiCollapseDeletar" role="button" aria-expanded="false" aria-controls="multiCollapseDeletar">Deletar</a>
+                        <div class="collapse nav nav-tabs multi-collapse collapse-tab" id="multiCollapseDeletar">
+                            
+                            <a class="nav-item nav-link " id="deletar-atendente-tab" data-toggle="tab" href="#deletar-atendente" role="tab" aria-controls="deletar-atendente" aria-selected="false">Deletar Atendente</a>                        
+                            <a class="nav-item nav-link " id="deletar-cliente-tab" data-toggle="tab" href="#deletar-cliente" role="tab" aria-controls="deletar-cliente" aria-selected="false">Deletar Cliente</a>                        
+                            <a class="nav-item nav-link " id="deletar-reserva-tab" data-toggle="tab" href="#deletar-reserva" role="tab" aria-controls="deletar-reserva" aria-selected="false">Deletar Reserva</a>
+                            <a class="nav-item nav-link " id="deletar-reserva-tab" data-toggle="tab" href="#deletar-servico" role="tab" aria-controls="deletar-servico" aria-selected="false">Deletar Serviço</a>
+                            <a class="nav-item nav-link " id="deletar-data-tab" data-toggle="tab" href="#deletar-data" role="tab" aria-controls="deletar-data" aria-selected="false">Deletar Data</a> 
+                            
+                        </div>
+
+                        <!--Alterar-->
+                        <a class="nav-item nav-link" data-toggle="collapse" href="#multiCollapseAlterar" role="button" aria-expanded="false" aria-controls="multiCollapseDeletar">Alterar</a>
+                        <div class="collapse nav nav-tabs multi-collapse collapse-tab" id="multiCollapseAlterar">
+
+                            <a class="nav-item nav-link " id="alterar-atendente-tab" data-toggle="tab" href="#alterar-atendente" role="tab" aria-controls="alterar-atendente" aria-selected="false">Alterar Atendente</a>
+                            <a class="nav-item nav-link " id="alterar-cliente-tab" data-toggle="tab" href="#alterar-cliente" role="tab" aria-controls="alterar-cliente" aria-selected="false">Alterar Cliente</a>
+                            <a class="nav-item nav-link " id="alterar-atendente-tab" data-toggle="tab" href="#alterar-servico" role="tab" aria-controls="alterar-servico" aria-selected="false">Alterar Serviços</a>
+                            <a class="nav-item nav-link " id="alterar-atendente-tab" data-toggle="tab" href="#alterar-reserva" role="tab" aria-controls="alterar-reserva" aria-selected="false">Alterar Reservas</a>
+                            <a class="nav-item nav-link " id="alterar-atendente-tab" data-toggle="tab" href="#alterar-horario" role="tab" aria-controls="alterar-horario" aria-selected="false">Alterar Horarios</a>
+
+                        </div>
+
                     </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle item-menu-conta " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Conta
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Alterar Dados</a>
-                        <a class="dropdown-item" href="#">Sair</a>                                                
-                    </div>
-                </li>
+                </nav>                
             </ul>
         </div>
-        <div class="w-100">
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active " id="reservas-tab" data-toggle="tab" href="#reservas" role="tab" aria-controls="reservas" aria-selected="true">Reservas</a>
-                        <a class="nav-item nav-link" id="atendente-tab" data-toggle="tab" href="#atendente" role="tab" aria-controls="atendente" aria-selected="false">Atendentes</a>
-                        <a class="nav-item nav-link " id="cadastrar-cliente-tab" data-toggle="tab" href="#cadastrar-cliente" role="tab" aria-controls="cadastrar-cliente" aria-selected="false">Cadastrar Cliente</a>
-                        <a class="nav-item nav-link " id="cadastrar-atendente-tab" data-toggle="tab" href="#cadastrar-atendente" role="tab" aria-controls="cadastrar-atendente" aria-selected="false">Cadastrar Atendente</a>                                                
-                    </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="reservas" role="tabpanel" aria-labelledby="reservas-tab">
-                        <div class="container-reservas w-100 d-flex align-items-center flex-column ">
-                            <div class="title-reservas">
-                                <h1 class="mt-5">Reservas</h1>
+        <div class="w-100 conteudo-app">       
+            <div class="menu-superior w-100 ">
+                <div class="container-fluid d-flex justify-content-end">
+                    <ul class="container-btn-drop-account">
+                        <div class="container-btn-open-option-acount">
+                            <a href=""><span class="user-logado btn-open-option-acount">MINHA CONTA</span></a>
+                            <i class="fas fa-angle-down btn-open-option-acount"></i>
+                        </div>
+                        <ul class="drop-down-acount">
+                            <div class="header-down-acount container d-flex justify-content-start flex-column align-items-start">
+                                <span class="nome user-logado">MINHA CONTA</span>
+                                <span class="email user-logado">MINHA CONTA</span>
                             </div>
-                            
-                            <div class="container-lists-reservas w-100 mt-4">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <td>Serviço</td>
-                                            <td>Atendente</td>
-                                            <td>Cliente</td>
-                                            <td>Status</td>
-                                        </tr>      
-                                    </thead>      
-                                    <tbody id="body-reserva">
-                                        <tr>
-                                            <td>Serviço</td>
-                                            <td>Atendente</td>
-                                            <td>Cliente</td>
-                                            <td>Status</td>
-                                        </tr>      
-                                    </tbody>                                                                                                                     
-                                </table>                                
+                            <div class="body-down-acount container d-flex justify-content-start flex-column align-items-start">
+                                    <li class="btn-configurar-conta">
+                                        <i class="fas fa-cog"></i>
+                                        <span>Alterar dados</span>
+                                    </li>
+                                </div>
+                            <div class="footer-down-acount container d-flex justify-content-start flex-column align-items-start">
+                                <li class="btn-logout">
+                                    <i class="fas fa-power-off"></i>
+                                    <span>Sair</span>
+                                </li>
                             </div>
+                        </ul>
+                    </ul>
+                </div>
+            </div>        
+            <div class="tab-content" id="nav-tabContent">
+
+                <!--Incio Reservas-->
+                <div class="tab-pane fade show active" id="reservas" role="tabpanel" aria-labelledby="reservas-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Reservas</h1>
+                        </div>
+                        
+                        <div class="container-lists-reservas w-100 mt-4 table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Serviço</td>
+                                        <td>Atendente</td>
+                                        <td>Cliente</td>
+                                        <td>Status</td>
+                                    </tr>      
+                                </thead>      
+                                <tbody id="body-reserva">                                             
+                                </tbody>                                                                                                                     
+                            </table>                                
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="atendente" role="tabpanel" aria-labelledby="atendente-tab">
-                        <div class="container-reservas w-100 d-flex align-items-center flex-column ">                
-                            <div class="title-reservas">
-                                <h1 class="mt-5">Atendentes</h1>
-                            </div>                
-                            <div class="container-lists-reservas w-100 mt-4">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <td>Nome</td>
-                                            <td>Email</td>
-                                            <td>Celular</td>
-                                            <td>Perfil</td>
-                                            <td>Reservas</td>
-                                        </tr>      
-                                    </thead>      
-                                    <tbody id="body-lista-atendentes"></tbody>                                                                                                                     
-                                </table>                                
-                            </div>
+                </div>
+                <!--Fim Reservas-->
+
+                <!--Inicio Atendentes-->
+                <div class="tab-pane fade list-atendente" id="atendente" role="tabpanel" aria-labelledby="atendente-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">                
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Atendentes</h1>
+                        </div>                
+                        <div class="container-lists-reservas w-100 mt-4 table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Nome</td>
+                                        <td>Email</td>
+                                        <td>Celular</td>
+                                        <td>Perfil</td>
+                                        <td>Reservas</td>
+                                    </tr>      
+                                </thead>      
+                                <tbody id="body-lista-atendentes"></tbody>                                                                                                                     
+                            </table>                                
                         </div>
-                    </div> 
-                    <div class="tab-pane" id="cadastrar-cliente" role="tabpanel" aria-labelledby="reservas-tab">
-                        <div class="container-reservas w-100 d-flex align-items-center flex-column ">
-                            <div class="title-reservas">
-                                <h1 class="mt-5">Cadastrar Cliente</h1>
-                            </div>
-                            
-                            <div class="container-lists-reservas w-100 mt-4">
-                                <div class="container">
-                                    <form action="">
-                                        <div class="form-group row">
+                    </div>
+                </div>
+                <!--Fim Atendentes-->
+
+                <!--Inicio Cadastrar Cliente-->
+                <div class="tab-pane" id="cadastrar-cliente" role="tabpanel" aria-labelledby="reservas-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Cadastrar Cliente</h1>
+                        </div>
+                        
+                        <div class="container-lists-reservas w-100 mt-4">
+                            <div class="container">
+                                <form action="">
+                                    <div class="form-group row">
                                         <label for="staticEmail" class="col-sm-2 col-form-label">Nome:</label>
                                         <div class="col-sm-10">
-                                            <input type="text"  class="form-control"  value="email@example.com">
+                                            <input type="text"  class="form-control" id="nomeCliente"  placeholder="José Pereira Nunes">
                                         </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-2 col-form-label">CPF:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text"  class="form-control" id="cpfCliente"  placeholder="99855988505">
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-2 col-form-label">Tel Fixo.:</label>
-                                            <div class="col-sm-10">
-                                            <input type="text"  class="form-control"  value="(00) 3333-3333">
-                                            </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-2 col-form-label">Tel Fixo.:</label>
+                                        <div class="col-sm-10">
+                                        <input type="text"  class="form-control" id="telCliente"  placeholder="(00) 3333-3333">
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-2 col-form-label">WhatsApp:</label>
-                                            <div class="col-sm-10">
-                                            <input type="text" class="form-control"  value="(00) 9-9999-9999">
-                                            </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-2 col-form-label">Celular:</label>
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="celularCliente" placeholder="(00) 99999-9999">
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-2 col-form-label">Email:</label>
-                                            <div class="col-sm-10">
-                                            <input type="email" class="form-control"  value="email@example.com">
-                                            </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-2 col-form-label">Email:</label>
+                                        <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="emailCliente" placeholder="josepereira@gmail.com">
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="inputPassword" class="col-sm-2 col-form-label">Senha</label>
-                                            <div class="col-sm-10">
-                                                <input type="password" class="form-control" id="inputPassword" placeholder="Senha">
-                                            </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Senha</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" class="form-control" id="senhaCliente" placeholder="********">
                                         </div>
-                                        <div class="form-group w-100 d-flex justify-content-end pr-3">
-                                            <button type="button" class="btn btn-primary w-25 ">Enviar</button>
-                                        </div>
-                                    </form>
-                                </div>                             
-                            </div>
+                                    </div>
+                                    <div class="form-group w-100 d-flex justify-content-end pr-3">
+                                        <button type="button" class="btn btn-primary w-25" id="btn-cadastrar-cliente">Enviar</button>
+                                    </div>
+                                </form>
+                            </div>                             
                         </div>
                     </div>
-                        
-                    <div class="tab-pane" id="cadastrar-atendente" role="tabpanel" aria-labelledby="cadastrar-atendente-tab">
-                        <div class="container-reservas w-100 d-flex align-items-center flex-column ">
-                            <div class="title-reservas">
-                                <h1 class="mt-5">Cadastrar Atendente</h1>
-                            </div> 
+                </div>
+                <!--Fim Cadastrar Cliente-->
+
+                <!--Inicio Cadastrar Atendente-->                  
+                <div class="tab-pane" id="cadastrar-atendente" role="tabpanel" aria-labelledby="cadastrar-atendente-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Cadastrar Atendente</h1>
+                        </div> 
                         <div class="container-lists-reservas w-100 mt-4">
                             <div class="container">
                                 <form action="">
                                     <div class="form-group row">
                                         <label for="nomeAtendente" class="col-sm-2 col-form-label">Nome:</label>
                                         <div class="col-sm-10">
-                                            <input type="text"  class="form-control" id="nomeAtendente">
+                                            <input type="text"  class="form-control" id="nomeAtendente" placeholder="Pedro José Santos">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-2 col-form-label">CPF:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text"  class="form-control" id="cpfAtendente"  placeholder="99855988505">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="telAtendente" class="col-sm-2 col-form-label">Tel Fixo.:</label>
                                         <div class="col-sm-10">
-                                            <input type="text"  class="form-control" id="telAtendente">
+                                            <input type="text"  class="form-control" id="telAtendente" placeholder="(75) 3223-2545">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="celularAtendente" class="col-sm-2 col-form-label">Celular:</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="celularAtendente">
+                                            <input type="text" class="form-control" id="celularAtendente" placeholder="(75) 98145-2211">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="emailAtendente" class="col-sm-2 col-form-label">Email:</label>
                                             <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="emailAtendente">
+                                        <input type="email" class="form-control" id="emailAtendente" placeholder="josesantos@gmail.com">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="senhaAtendente" class="col-sm-2 col-form-label">Senha</label>
                                         <div class="col-sm-10">
-                                            <input type="password" class="form-control" id="senhaAtendente">
+                                            <input type="password" class="form-control" id="senhaAtendente" placeholder="**********">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -199,17 +262,416 @@
                                             </select>
                                         </div>
                                     </div>
-                                        <div class="form-group w-100 d-flex justify-content-end pr-3">
-                                            <button type="button" class="btn btn-primary w-25 btn-cadastrar-atendente">Enviar</button>
-                                        </div>
+                                    <div class="form-group w-100 d-flex justify-content-end pr-3">
+                                        <button type="button" class="btn btn-primary w-25 btn-cadastrar-atendente">Enviar</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                </div>            
-        </div>        
-    </div>
+                </div>
+                <!--Fim Cadastrar Atendente-->
 
+                <!--Inicio Cadastrar Horario-->               
+                <div class="tab-pane" id="cadastrar-horario" role="tabpanel" aria-labelledby="cadastrar-horario-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Cadastrar Horario</h1>
+                        </div>
+                        <div class="container-lists-reservas w-100 mt-4">
+                            <div class="container">
+                                <form action="">
+                                    <div class="form-group row">
+                                        <label for="nomeAtendente" class="col-sm-2 col-form-label">Dia:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text"  class="form-control" id="dia" placeholder="25">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="nomeAtendente" class="col-sm-2 col-form-label">Mes:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text"  class="form-control" id="mes" placeholder="11">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="nomeAtendente" class="col-sm-2 col-form-label">Ano:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text"  class="form-control" id="ano" placeholder="2019">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="nomeAtendente" class="col-sm-2 col-form-label">Horario:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text"  class="form-control" id="horario" placeholder="11:35">
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-100 d-flex justify-content-end pr-3">
+                                        <button type="button" class="btn btn-primary w-25 btn-cadastrar-horario">Enviar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <!--Fim Cadastrar Horario-->
+                
+                <!--Incio Cadastrar Serviço-->
+                <div class="tab-pane" id="cadastrar-servico" role="tabpanel" aria-labelledby="cadastrar-servico-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Cadastrar Serviço</h1>
+                        </div>
+                        <div class="container-lists-reservas w-100 mt-4">
+                            <div class="container">
+                                <form action="">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Nome do serviço:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text"  class="form-control" id="nameServico" placeholder="Auxílio à consulta à situação fiscal">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Documentos necessários para o atendimento</label>
+                                        <div class="col-sm-8">
+                                            <input type="text"  class="form-control" id="documentos" placeholder="RG, CPF, COMPROVANTE MEI">
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-100 d-flex justify-content-end pr-3">
+                                        <button type="button" class="btn btn-primary w-25 btn-cadastrar-servico">Enviar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <!--Fim Cadastrar Serviço-->
+
+                <!--Inicio Cadastrar Reserva-->
+                <div class="tab-pane" id="cadastrar-reserva" role="tabpanel" aria-labelledby="cadastrar-reserva-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Cadastrar Reserva</h1>
+                        </div>
+                        <div class="container-lists-reservas w-100 mt-4">
+                            <div class="container">
+                                <form action="">
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Atendente</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectAtendente" class="custom-select">
+                                                    <option selected>Selecione o Atendente</option>                                                        
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Data/Horario</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectDataHorario" class="custom-select">
+                                                    <option selected>Selecione a data/hora</option>                                                        
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Serviço</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectServico" class="custom-select">
+                                                    <option selected>Selecione o serviço</option>                                                        
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Cliente</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectCliente" class="custom-select">
+                                                    <option selected>Selecione o cliente</option>                                                        
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Status</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectStatus" class="custom-select">
+                                                    <option selected>Selecione o status do atendimento</option>
+                                                    <option value="E">Lista de espera</option>
+                                                    <option value="A">Em Atendimento</option>
+                                                    <option value="C">Cancelado</option>
+                                                    <option value="F">Finalizado</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-100 d-flex justify-content-end pr-3">
+                                        <button type="button" class="btn btn-primary w-25 btn-cadastrar-reserva">Enviar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Fim Cadastrar Reserva-->
+
+                <!--Inicio Alterar dados dos atendentes-->                  
+                <div class="tab-pane" id="alterar-atendente" role="tabpanel" aria-labelledby="alterar-atendente-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">                
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Alterar dados dos Atendentes</h1>
+                        </div>                
+                        <div class="container-lists-reservas w-100 mt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Nome</td>
+                                        <td>CPF</td>
+                                        <td>Email</td>
+                                        <td>Celular</td>
+                                        <td>Perfil</td>
+                                    </tr>      
+                                </thead>      
+                                <tbody id="body-lista-atendentes-dados"></tbody>                                                                                                                     
+                            </table>                                
+                        </div>
+                    </div>
+                </div>  
+                <!--Fim Alterar dados dos atendentes-->
+
+                <!--Inicio Alterar dados dos Clientes-->                  
+                <div class="tab-pane" id="alterar-cliente" role="tabpanel" aria-labelledby="alterar-cliente-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">                
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Alterar dados dos Atendentes</h1>
+                        </div>                
+                        <div class="container-lists-reservas w-100 mt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Nome</td>
+                                        <td>CPF</td>
+                                        <td>Email</td>
+                                        <td>Tel Fixo</td>
+                                        <td>Celular</td>
+                                    </tr>      
+                                </thead>      
+                                <tbody id="body-lista-cliente-dados"></tbody>                                                                                                                     
+                            </table>                                
+                        </div>
+                    </div>
+                </div>  
+                <!--Fim Alterar dados dos Clientes-->                 
+
+                <!--Inicio Alterar reserva-->                  
+                <div class="tab-pane" id="alterar-reserva" role="tabpanel" aria-labelledby="alterar-reserva-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">                
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Alterar reservas</h1>
+                        </div>                
+                        <div class="container-lists-reservas w-100 mt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Atendente</td>
+                                        <td>Serviço</td>
+                                        <td>Cliente</td>
+                                        <td>Data/Horario</td>
+                                        <td>Status</td>
+                                        <td>Observação</td>
+                                        <td>Ação</td>
+                                    </tr>      
+                                </thead>      
+                                <tbody id="body-listar-reserva"></tbody>                                                                                                                     
+                            </table>                                
+                        </div>
+                    </div>
+                </div>  
+                <!--Fim Alterar reserva-->
+
+                <!--Inicio Alterar serviço-->                  
+                <div class="tab-pane" id="alterar-servico" role="tabpanel" aria-labelledby="alterar-servico-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">                
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Alterar Serviços</h1>
+                        </div>                
+                        <div class="container-lists-reservas w-100 mt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Nome do serviço:</td>
+                                        <td>Documentos necessários para o atendimento</td>
+                                        <td>Opção</td>
+                                    </tr>      
+                                </thead>      
+                                <tbody id="body-lista-servico"></tbody>                                                                                                                     
+                            </table>                                
+                        </div>
+                    </div>
+                </div>  
+                <!--Fim Alterar serviço-->
+
+                <!--Inicio Alterar horario-->                  
+                <div class="tab-pane" id="alterar-horario" role="tabpanel" aria-labelledby="alterar-horario-tab">
+                    <div class="container-horario w-100 d-flex align-items-center flex-column ">                
+                        <div class="title-horario">
+                            <h1 class="mt-5">Alterar horario</h1>
+                        </div>                
+                        <div class="container-lists-horario w-100 mt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Data</td>
+                                        <td>Horario</td>
+                                        <td>Opção</td>
+                                    </tr>      
+                                </thead>      
+                                <tbody id="body-lista-horario"></tbody>                                                                                                                     
+                            </table>                                
+                        </div>
+                    </div>
+                </div>  
+                <!--Fim Alterar horario-->
+
+                <!--Inicio Deletar Cliente-->
+                <div class="tab-pane" id="deletar-atendente" role="tabpanel" aria-labelledby="deletar-atendente-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Deletar Cliente</h1>
+                        </div>
+                        <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                            <div class="container mt-4">
+                                <form action="">                                    
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Atendente</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectAtendenteDelete" class="custom-select">
+                                                <option selected>Selecione o atendente</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-100 d-flex justify-content-end pr-3">
+                                        <button type="button" class="btn btn-primary w-25 btn-deletar-atendente">Deletar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--Fim Deletar Cliente-->
+
+                <!--Incio Deletar Reserva-->
+                <div class="tab-pane" id="deletar-reserva" role="tabpanel" aria-labelledby="deletar-reserva-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Deletar Reserva</h1>
+                        </div>
+                        <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                            <div class="container mt-4">
+                                <form action="">                                    
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Reserva</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectReservaDelete" class="custom-select">
+                                                <option>Selecione a reserva</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-100 d-flex justify-content-end pr-3">
+                                        <button type="button" class="btn btn-primary w-25 btn-deletar-reserva">Deletar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>  
+                <!--Fim Deletar Reserva-->
+
+                <!--Inicio Deletar Cliente-->
+                <div class="tab-pane" id="deletar-cliente" role="tabpanel" aria-labelledby="deletar-cliente-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Deletar Cliente</h1>
+                        </div>
+                        <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                            <div class="container mt-4">
+                                <form action="">                                    
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Cliente</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectClienteDelete" class="custom-select">
+                                                <option>Selecione o cliente</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-100 d-flex justify-content-end pr-3">
+                                        <button type="button" class="btn btn-primary w-25 btn-deletar-cliente">Deletar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Fim Deletar Cliente-->
+
+                <!--Inicio Deletar Data-->   
+                <div class="tab-pane" id="deletar-data" role="tabpanel" aria-labelledby="deletar-data-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Deletar Data</h1>
+                        </div>
+                        <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                            <div class="container mt-4">
+                                <form action="">                                    
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Data/Horario</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectHorarioDelete" class="custom-select">
+                                                <option>Selecione a data/horario</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-100 d-flex justify-content-end pr-3">
+                                        <button type="button" class="btn btn-primary w-25 btn-deletar-horario">Deletar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--Fim Deletar Data-->
+
+                <!--Inicio Deletar Serviço-->   
+                <div class="tab-pane" id="deletar-servico" role="tabpanel" aria-labelledby="deletar-data-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Deletar Serviço</h1>
+                        </div>
+
+                        <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                            <div class="container mt-4">
+                                <form action="">                                    
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Serviço</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectServicoDelete" class="custom-select">
+                                                <option>Selecione o servico</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-100 d-flex justify-content-end pr-3">
+                                        <button type="button" class="btn btn-primary w-25 btn-deletar-servico">Deletar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--Fim Deletar Serviço-->
+
+            </div>           
+        </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

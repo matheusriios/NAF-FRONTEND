@@ -37,9 +37,8 @@ a:hover{
     background: white;
 }
 
-.title-naf{
-    border-bottom: 1px solid rgb(71, 82, 94, 0.2);
-    padding: 2em;
+.title-naf{    
+    padding: 2em
 }
 
 .title-naf h1{
@@ -55,12 +54,14 @@ a:hover{
     height: auto;
     border-right: 1px solid rgb(71, 82, 94, 0.2);
     width: 22%;
-    background-color: #007bff;
+    background-image: url(../img/bgmenu.jpg);
+    background-size: cover;
     min-height: 100vh;
 }
 
 .menu-lateral ul{
     list-style: none;
+    padding-left: 0px;
 }
 
 .dropdown-toggle::after{
@@ -106,6 +107,13 @@ a:hover{
 
 .modal-footer {
     border-top: none !important;
+}
+
+.container-lists-reservas table thead{
+    background: rgb(8, 43, 124);
+}
+.container-lists-reservas table thead tr td{
+   color: white;
 }
 
 

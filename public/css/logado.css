@@ -116,4 +116,12 @@ a:hover{
    color: white;
 }
 
+.btn-alterar-atd {
+    width: 100%;   
+}
 
+.icon-alterar-atendimento {
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+}

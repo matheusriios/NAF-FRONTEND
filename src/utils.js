@@ -142,8 +142,5 @@ export default {
             default:
                 break;
         }
-    }
-
-
-    
+    }    
 }

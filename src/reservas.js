@@ -429,17 +429,135 @@ const reservas = () => {
             const bodyAtendente = await responseAtendente.json()  
             const {reserva}     = bodyAtendente
                                 
-            reserva.map(r => {
+            reserva.map((r, index) => {                
                 bodyTableReservaAtendente.innerHTML += `
                                         <tr>
                                             <td>${r.servico.nome}</td>
                                             <td>${r.cliente.user.name}</td>
                                             <td>${r.horario.data}</td>
-                                            <td>${r.status}</td>
+                                            <td>${utils.tratamentoStatusAtendimento(r)}</td>
+                                            <td>${r.obs}</td>
+                                            <td class="text-center">
+                                                <button data-target="#modalAlterarReserva" data-toggle="modal" type="button" class="btn btn-warning btn-alterar-atd">
+                                                    <i class="fas fa-cog icon-alterar-atendimento"></i>
+                                                </button>                                                
+                                            </td>
                                         </tr>  
-                `
+                `                
+                document.querySelectorAll('.btn-alterar-atd')[index].setAttribute('idReserva', `${r.id}`)  
+                alterarAtendimentoAtendente()              
             })
         }        
+    }
+
+    const modalAlterarAtendimentoAtendente = () => {
+        const divModal = document.createElement('div')                       
+        divModal.innerHTML = `
+            <div class="modal fade" id="modalAlterarReserva" tabindex="-1" role="dialog" aria-labelledby="modalAlterarReserva" aria-hidden="true">
+                <div class="modal-dialog container-modal" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="modalAlterarReserva">Altere a reserva</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>                                    
+                                        <td>Status</td>
+                                        <td>Obs</td>
+                                    </tr>      
+                                </thead>      
+                                <tbody id="body-alterar-reserva-atendente">
+                                    <tr>          
+                                        <td>                                
+                                            <select id="selectStatus" class="custom-select">
+                                                <option selected>Selecione o status</option>
+                                                <option value="E">Lista de Espera</option>
+                                                <option value="A">Em atendimento</option>
+                                                <option value="C">Cancelado</option>
+                                                <option value="F">Finalizado</option>
+                                            </select>
+                                        </td>
+                                        <td><input class="form-control" id="obs-modal" /></td>
+                                    </tr>   
+                                </tbody>
+                            </table>   
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-alter-atd-atendente close-modal" data-dismiss="modal">Salvar</button>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `                    
+        document.body.appendChild(divModal)        
+    }
+
+    const alterarAtendimentoAtendente = async () => {
+        const btnAlterarAtendimento = document.querySelectorAll('.btn-alterar-atd')
+        btnAlterarAtendimento.forEach(btn => {            
+            btn.addEventListener('click', async e =>{             
+                const btnAlterAtdAtendente = document.querySelector('.btn-alter-atd-atendente')
+                const idReserva          = btn.getAttribute('idreserva')                
+                const reservaSelecionado = await getReserva(idReserva)                                                                
+                btnAlterAtdAtendente.addEventListener('click', async (e) => {
+                    const selectStatus   = document.getElementById('selectStatus')
+                    const selectedStatus = selectStatus.options[selectStatus.selectedIndex].value                            
+                    const obs            = document.getElementById('obs-modal').value
+                    
+                    const formData = new FormData()
+                    formData.append('status', `${selectedStatus}`)
+                    formData.append('id_cliente', `${reservaSelecionado.id_cliente}`)
+                    formData.append('id_atendente', `${reservaSelecionado.id_atendente}`)
+                    formData.append('id_horario', `${reservaSelecionado.id_horario}`)
+                    formData.append('id_servico', `${reservaSelecionado.id_servico}`)                    
+                    formData.append('obs', `${obs}`)
+
+                    const url = `${baseUrl.alterarReserva}/${idReserva}/editar`
+                    const token = window.localStorage.getItem('token')
+                    const respReq = await fetch(url, {
+                        method: 'POST',                    
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+                    
+                    if(respReq.status !== 200) {
+                        return alert('Não foi possível alteral, tente novamente mais tarde')
+                    }
+
+                    alert('Reserva alterada com sucesso')
+                    utils.loadEvent()
+                    setTimeout(() => {
+                        window.location.reload() //Atualiza a pagina
+                    }, 2000)
+
+                })
+                
+            })
+        })
+    }
+
+    const getReserva = async (id) => {
+        const url   = `${baseUrl.getReserva}/${id}`
+        const token = window.localStorage.getItem('token')
+        
+        const respReq = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        const respGetReserva = await respReq.json()
+
+        return respGetReserva
     }
     
     
@@ -451,7 +569,8 @@ const reservas = () => {
         alterarReserva,
         loadReservasAtendente,
         createReservaCliente,
-        loadReservasCliente,        
+        loadReservasCliente,            
+        modalAlterarAtendimentoAtendente            
     }
 }
 

@@ -18,8 +18,7 @@ const cliente = () => {
         return body
     }
     
-    const createCliente = () => {
-        
+    const createCliente = () => {        
         if((document.querySelector('.page-logado-gerente') !== null) ) {            
             const btnCadastrarCliente = document.getElementById('btn-cadastrar-cliente')
             if(btnCadastrarCliente !== null){
@@ -281,10 +280,9 @@ const cliente = () => {
                 </tr>  
             `
             
-        }
+        }        
         
-        openModalConfirmarExclusao()
-       
+        openModalConfirmarExclusao()       
     }
 
     const openModalConfirmarExclusao = async ( ) =>{
@@ -330,8 +328,7 @@ const cliente = () => {
                 const token            = window.localStorage.getItem('token');        
                 var url = `${baseUrl.deleteCliente}/${cliente.id}`;
 
-                if(cpfCliente == cliente.user.cpf ){
-                    console.log(cliente);
+                if(cpfCliente == cliente.user.cpf ){                    
                     const respExcluirCliente = await fetch(url, {
                         method: 'DELETE',
                         headers: {
@@ -352,10 +349,8 @@ const cliente = () => {
                 } else {
                     alert('Cpf incorreto, tente novamente');
                 }
-
             })
         }
-
     }
 
     const eventoClickAlterarCliente = async ( cliente ) => {

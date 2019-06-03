@@ -116,4 +116,8 @@ a:hover{
    color: white;
 }
 
+.open-menu-mobile{
+    display: none !important;
+}
+
 

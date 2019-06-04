@@ -16,6 +16,7 @@ const endPoints = {
     //localhost:8000/api/v1/atendentes/;id
     getAtendente: `${baseUrl}/api/v1/atendentes`,
     getCliente: `${baseUrl}/api/v1/clientes`,
+    getReserva: `${baseUrl}/api/v1/reservas`,
 
     createAtendente: `${baseUrl}/api/v1/atendentes`,
     createCliente: `${baseUrl}/api/v1/clientes`,

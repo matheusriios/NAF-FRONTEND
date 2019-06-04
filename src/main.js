@@ -9,7 +9,7 @@ import utils from './utils'
 function main() {         
     utils.openDropDownMenuAccount()
     utils.exibeNomeUserMenu()    
-    utils.menuMobile()
+    utils.menuMobile()    
     login.login()
     login.logout()
 
@@ -17,6 +17,7 @@ function main() {
     atendente().createAtendente()
     atendente().alterarAtendente()
     atendente().deleteAtendente()
+    atendente().listaClientes()
 
     servicos().createServico()
     servicos().alterarServico()
@@ -27,7 +28,8 @@ function main() {
     reservas().listaReservas()
     reservas().loadReservasCliente()
     reservas().loadReservasAtendente()
-    reservas().alterarReserva()
+    reservas().alterarReserva()    
+    reservas().modalAlterarAtendimentoAtendente()
     reservas().deleteReserva()
 
     cliente().createCliente()

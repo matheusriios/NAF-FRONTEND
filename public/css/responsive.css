@@ -3,10 +3,12 @@
         position: relative;
         justify-content: center;
         align-items: center;
+        padding-bottom: 145px;
     }
     #app.activeMenuMobile {
         flex-direction: column;
-        min-height: 100vh;  
+        min-height: 100vh; 
+        padding-bottom: 80px; 
     }
     .conteudo-app.activeMenuMobile{
         display: none
@@ -76,6 +78,45 @@
 
     .form-login {
         width: 100% !important;
+<<<<<<< HEAD
+    }
+    
+    .form-group {
+        margin: 0;
+        margin-top: 3px;
+    }
+
+    .title-reservas {
+        padding: 0;
+        margin: -4px;
+        width: 293px;
+    }
+
+    .title-reservas h1{
+        font-size: 33px;
+    }
+
+    .btn-primary{
+        margin-top: 23px;
+    }
+    .tb2{
+        margin-left: 223px;
+    }
+
+    .tb3{
+        margin-left: 305px;
+    }
+
+    .tb4{
+        margin-left: 265px;  
+    }
+    .open-menu-mobile{
+        display: block !important;
+    }
+}
+
+=======
     }    
 
 }
+>>>>>>> feda03d818092a1331024fac9d0b6a4ffee32114

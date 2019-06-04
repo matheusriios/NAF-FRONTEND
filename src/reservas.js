@@ -50,17 +50,10 @@ const reservas = () => {
             const loadServicos   = await servicos().loadTodosServicos()
             const loadClientes   = await cliente().loadTodosClientes()
             
-            const selectAtendente = document.getElementById('selectAtendente')
             const selectDataHorario = document.getElementById('selectDataHorario')
             const selectServico = document.getElementById('selectServico')
             const selectCliente = document.getElementById('selectCliente')
             const selectStatus = document.getElementById('selectStatus')
-
-            if(loadAtendentes.length > 0){
-                loadAtendentes.map(atendente => {
-                    selectAtendente.innerHTML += `<option value='${atendente.id}'>${atendente.user.name}</option>   `
-                })
-            }
 
             if(loadHorarios.length > 0){
                 loadHorarios.map(horario => {
@@ -82,14 +75,12 @@ const reservas = () => {
 
             const btnCadastrarReserva = document.querySelector('.btn-cadastrar-reserva')
             btnCadastrarReserva.addEventListener('click', async (e) => {
-                const selectedAtendente = selectAtendente.options[selectAtendente.selectedIndex].value                           
                 const selectedDataHorario = selectDataHorario.options[selectDataHorario.selectedIndex].value
                 const selectedServico = selectServico.options[selectServico.selectedIndex].value                 
                 const selectedCliente = selectCliente.options[selectCliente.selectedIndex].value
                 const selectedStatus = selectStatus.options[selectStatus.selectedIndex].value                            
                 
                 const formData = new FormData()
-                formData.append('id_atendente', `${selectedAtendente}`)
                 formData.append('id_horario', `${selectedDataHorario}`)
                 formData.append('id_servico', `${selectedServico}`)
                 formData.append('id_cliente', `${selectedCliente}`)
@@ -155,16 +146,16 @@ const reservas = () => {
     const alterarReserva = async () => { 
         if(document.getElementById('body-listar-reserva') !== null) {
             const bodyListarReservas = document.getElementById('body-listar-reserva')
-            let todasReservas = await loadTodasReservas()
-            todasReservas.map((reservas, index) => {                
+            let todasReservas = await loadTodasReservas()            
+            todasReservas.map((reservas, index) => {                                       
                 bodyListarReservas.innerHTML += `
                     <tr>
-                        <td>${reservas.atendente.user.name}</td>
+                        <td>${reservas.atendente !== null ? reservas.atendente.user.name : 'Atendente removido'}</td>
                         <td>${reservas.servico.nome}</td>
                         <td>${utils.validarUsuario(reservas)}</td>
                         <td>${reservas.horario.data}</td>
                         <td>${reservas.status}</td>
-                        <td>${reservas.obs}</td>
+                        <td>${reservas.obs !== null ? reservas.obs : 'Nenhuma observação'}</td>
                         <td><button data-target="#modalReservas-${reservas.id}" data-toggle="modal" idReservas="${reservas.id}" class="btn btn-warning alterar-dados">Alterar</button></td>                    
                     </tr>  
                 `
@@ -195,7 +186,7 @@ const reservas = () => {
                                         <div class="form-group row">
                                             <label for="inputPassword" class="col-sm-2 col-form-label">Atendente</label>
                                             <div class="col-sm-10">
-                                                <label>${reserva.atendente.user.name}</label>
+                                                <label>${reserva.atendente !== null ? reserva.atendente.user.name : 'Atendente removido'}</label>
                                                 <select id="selectAlterarAtendente-${reserva.id}" class="custom-select">
                                                     <option selected>Selecione o Atendente</option>                                                        
                                                 </select>
@@ -222,7 +213,7 @@ const reservas = () => {
                                         <div class="form-group row">
                                             <label for="inputPassword" class="col-sm-2 col-form-label">Cliente</label>
                                             <div class="col-sm-10">
-                                                <label>${reserva.cliente.user.name}</label>
+                                                <label>${reserva.cliente !== null ? reserva.cliente.user.name : 'Cliente removido'}</label>
                                                 <select id="selectAlterarCliente-${reserva.id}" class="custom-select">
                                                     <option selected>Selecione o cliente</option>                                                        
                                                 </select>
@@ -246,7 +237,7 @@ const reservas = () => {
                                             <textarea class="form-control" id="textareaAlterarObservacao-${reserva.id}" rows="3">${reserva.obs}</textarea>
                                         </div>
                                         <div class="form-group w-100 d-flex justify-content-end pr-3">
-                                            <button id="btnModalAlterarReserva-${reserva.id}" type="button" class="btn btn-primary w-25 btn-cadastrar-reserva">Enviar</button>
+                                            <button id="btnModalAlterarReserva-${reserva.id}" type="button" data-dismiss="modal" class="btn btn-primary w-25 btn-cadastrar-reserva">Enviar</button>
                                         </div>
                                     </form>
                                 </div>
@@ -308,13 +299,6 @@ const reservas = () => {
                     const textAreaObservacao    = document.getElementById(`textareaAlterarObservacao-${reserva.id}`).value
                     const token            = window.localStorage.getItem('token') 
 
-                    console.log(selectedAtendente)
-                    console.log(selectedDataHorario)
-                    console.log(selectedServico)
-                    console.log(selectedCliente)
-                    console.log(selectedStatus)
-                    console.log(textAreaObservacao)
-
                     const formData = new FormData()
                     if(selectedAtendente != "Selecione o Atendente")
                         formData.append('id_atendente', `${selectedAtendente}`)
@@ -345,16 +329,15 @@ const reservas = () => {
                         body: formData
                     })
                     
-                    if(respCreateAtendete.status === 200) {
-                        alert('reserva alterado com sucesso')
-                        utils.loadEvent()
-                        setTimeout(() => {
-                            window.location.reload() //Atualiza a pagina
-                        }, 2000)
-                        return 
+                    if(respCreateAtendete.status !== 200) {
+                        return alert('Houve um problema ao tentar alterar a reserva, tente novamente')                        
                     }
-                    return alert('Houve um problema ao tentar alterar a reserva, tente novamente')
-                    
+
+                    alert('reserva alterado com sucesso')
+                    utils.loadEvent()
+                    setTimeout(() => {
+                        window.location.reload() //Atualiza a pagina
+                    }, 2000)                                    
                 })
             })
 
@@ -402,7 +385,10 @@ const reservas = () => {
                     },
                     body: formData
                 })
-
+                if(respCreateReserva.status === 422){
+                    const responseHorarioIndisponiveis = await respCreateReserva.json()                    
+                    return alert(responseHorarioIndisponiveis.error)
+                }
                 if(respCreateReserva.status !== 200)
                     return alert('Não foi possível efetuar a reserva')
 
@@ -481,17 +467,135 @@ const reservas = () => {
             const bodyAtendente = await responseAtendente.json()  
             const {reserva}     = bodyAtendente
                                 
-            reserva.map(r => {
+            reserva.map((r, index) => {                
                 bodyTableReservaAtendente.innerHTML += `
                                         <tr>
                                             <td>${r.servico.nome}</td>
                                             <td>${r.cliente.user.name}</td>
                                             <td>${r.horario.data}</td>
-                                            <td>${r.status}</td>
+                                            <td>${utils.tratamentoStatusAtendimento(r)}</td>
+                                            <td>${r.obs}</td>
+                                            <td class="text-center">
+                                                <button data-target="#modalAlterarReserva" data-toggle="modal" type="button" class="btn btn-warning btn-alterar-atd">
+                                                    <i class="fas fa-cog icon-alterar-atendimento"></i>
+                                                </button>                                                
+                                            </td>
                                         </tr>  
-                `
+                `                
+                document.querySelectorAll('.btn-alterar-atd')[index].setAttribute('idReserva', `${r.id}`)  
+                alterarAtendimentoAtendente()              
             })
         }        
+    }
+
+    const modalAlterarAtendimentoAtendente = () => {
+        const divModal = document.createElement('div')                       
+        divModal.innerHTML = `
+            <div class="modal fade" id="modalAlterarReserva" tabindex="-1" role="dialog" aria-labelledby="modalAlterarReserva" aria-hidden="true">
+                <div class="modal-dialog container-modal" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="modalAlterarReserva">Altere a reserva</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>                                    
+                                        <td>Status</td>
+                                        <td>Obs</td>
+                                    </tr>      
+                                </thead>      
+                                <tbody id="body-alterar-reserva-atendente">
+                                    <tr>          
+                                        <td>                                
+                                            <select id="selectStatus" class="custom-select">
+                                                <option selected>Selecione o status</option>
+                                                <option value="E">Lista de Espera</option>
+                                                <option value="A">Em atendimento</option>
+                                                <option value="C">Cancelado</option>
+                                                <option value="F">Finalizado</option>
+                                            </select>
+                                        </td>
+                                        <td><input class="form-control" id="obs-modal" /></td>
+                                    </tr>   
+                                </tbody>
+                            </table>   
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-alter-atd-atendente close-modal" data-dismiss="modal">Salvar</button>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `                    
+        document.body.appendChild(divModal)        
+    }
+
+    const alterarAtendimentoAtendente = async () => {
+        const btnAlterarAtendimento = document.querySelectorAll('.btn-alterar-atd')
+        btnAlterarAtendimento.forEach(btn => {            
+            btn.addEventListener('click', async e =>{             
+                const btnAlterAtdAtendente = document.querySelector('.btn-alter-atd-atendente')
+                const idReserva          = btn.getAttribute('idreserva')                
+                const reservaSelecionado = await getReserva(idReserva)                                                                
+                btnAlterAtdAtendente.addEventListener('click', async (e) => {
+                    const selectStatus   = document.getElementById('selectStatus')
+                    const selectedStatus = selectStatus.options[selectStatus.selectedIndex].value                            
+                    const obs            = document.getElementById('obs-modal').value
+                    
+                    const formData = new FormData()
+                    formData.append('status', `${selectedStatus}`)
+                    formData.append('id_cliente', `${reservaSelecionado.id_cliente}`)
+                    formData.append('id_atendente', `${reservaSelecionado.id_atendente}`)
+                    formData.append('id_horario', `${reservaSelecionado.id_horario}`)
+                    formData.append('id_servico', `${reservaSelecionado.id_servico}`)                    
+                    formData.append('obs', `${obs}`)
+
+                    const url = `${baseUrl.alterarReserva}/${idReserva}/editar`
+                    const token = window.localStorage.getItem('token')
+                    const respReq = await fetch(url, {
+                        method: 'POST',                    
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+                    
+                    if(respReq.status !== 200) {
+                        return alert('Não foi possível alteral, tente novamente mais tarde')
+                    }
+
+                    alert('Reserva alterada com sucesso')
+                    utils.loadEvent()
+                    setTimeout(() => {
+                        window.location.reload() //Atualiza a pagina
+                    }, 2000)
+
+                })
+                
+            })
+        })
+    }
+
+    const getReserva = async (id) => {
+        const url   = `${baseUrl.getReserva}/${id}`
+        const token = window.localStorage.getItem('token')
+        
+        const respReq = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        const respGetReserva = await respReq.json()
+
+        return respGetReserva
     }
     
     
@@ -503,7 +607,8 @@ const reservas = () => {
         alterarReserva,
         loadReservasAtendente,
         createReservaCliente,
-        loadReservasCliente,        
+        loadReservasCliente,            
+        modalAlterarAtendimentoAtendente            
     }
 }
 

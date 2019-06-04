@@ -13,13 +13,16 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/logado.css">
     <link rel="stylesheet" href="/css/tabsNavigator.css">
+    <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <title>N A F</title>
   </head>
   <body>    
     <div id="app" class="d-flex page-logado page-logado-atendente">
+        <i class="fas fa-bars open-menu-mobile"></i>
         <div class="menu-lateral">
+            <i class="fas fa-times open-menu-mobile" style="color: white;"></i>
             <div class="title-naf w-100 d-flex justify-content-center align-items-center">
                 <a href="tela-gerente.html"><img src="../imagem/naf.png" style="width:200px;" ></a>
             </div>
@@ -31,30 +34,18 @@
                         <!--Cadastrar-->
                         <a class="nav-item nav-link" data-toggle="collapse" href="#multiCollapseCadastrar" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Cadastrar</a>
                         <div class="collapse nav nav-tabs multi-collapse collapse-tab" id="multiCollapseCadastrar">                  
-                            <a class="nav-item nav-link" id="cadastrar-cliente-tab" data-toggle="tab" href="#cadastrar-cliente" role="tab" aria-controls="cadastrar-cliente" aria-selected="false">Cadastrar Cliente</a>
-                            <a class="nav-item nav-link" id="cadastrar-reserva-tab" data-toggle="tab" href="#cadastrar-reserva" role="tab" aria-controls="cadastrar-reserva" aria-selected="false">Cadastrar Reserva</a>                             
+                            <a class="nav-item nav-link" id="cadastrar-cliente-tab" data-toggle="tab" href="#cadastrar-cliente" role="tab" aria-controls="cadastrar-cliente" aria-selected="false">Cadastrar Cliente</a>                            
                         </div>
-                                               
-                        <!--Deletar-->
-                        <a class="nav-item nav-link" data-toggle="collapse" href="#multiCollapseDeletar" role="button" aria-expanded="false" aria-controls="multiCollapseDeletar">Deletar</a>
-                        <div class="collapse nav nav-tabs multi-collapse collapse-tab" id="multiCollapseDeletar">
-                            
-                            
-                            
-                        </div>
-
-                        <!--Alterar-->
-                        <a class="nav-item nav-link" data-toggle="collapse" href="#multiCollapseAlterar" role="button" aria-expanded="false" aria-controls="multiCollapseDeletar">Alterar</a>
-                        <div class="collapse nav nav-tabs multi-collapse collapse-tab" id="multiCollapseAlterar">                            
-
-                        </div>
+                              
+                        
+                        <a class="nav-item nav-link" id="alterar-cliente-tab" data-toggle="tab" href="#alterar-cliente" role="tab" aria-controls="alterar-cliente" aria-selected="false">Clientes</a>
 
                     </div>
                 </nav>                
             </ul>
         </div>
-        <div class="w-100">       
-            <div class="menu-superior w-100 ">
+        <div class="w-100 conteudo-app">       
+            <div class="menu-superior  w-100 ">
                 <div class="container-fluid d-flex justify-content-end">
                     <ul class="container-btn-drop-account">
                         <div class="container-btn-open-option-acount">
@@ -98,6 +89,8 @@
                                         <td>Cliente</td>
                                         <td>Data</td>
                                         <td>Status</td>
+                                        <td>Observação</td>
+                                        <td>Alterar</td>
                                     </tr>      
                                 </thead>      
                                 <tbody id="body-reservas-atendente">                                             
@@ -107,8 +100,30 @@
                     </div>
                 </div>
                 <!--Fim Reservas-->
-               
 
+                <!--Incio Lista Clientes-->
+                <div class="tab-pane" id="alterar-cliente" role="tabpanel" aria-labelledby="alterar-cliente-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Clientes</h1>
+                        </div>                        
+                        <div class="container-lists-reservas w-100 mt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>                                                                                   
+                                        <td>Nome</td>
+                                        <td>CPF</td>                                        
+                                        <td>Alterar</td>                                            
+                                    </tr>      
+                                </thead>      
+                                <tbody id="body-lista-clientes">                                             
+                                </tbody>                                                                                                                     
+                            </table>                                
+                        </div>
+                    </div>
+                </div>
+                    <!--Fim Lista Clientes-->
+               
                 <!--Inicio Cadastrar Cliente-->
                 <div class="tab-pane" id="cadastrar-cliente" role="tabpanel" aria-labelledby="reservas-tab">
                     <div class="container-reservas w-100 d-flex align-items-center flex-column ">
@@ -163,47 +178,7 @@
                         </div>
                     </div>
                 </div>
-                <!--Fim Cadastrar Cliente-->
-                
-
-                <!--Inicio Cadastrar Reserva-->
-                <div class="tab-pane" id="cadastrar-reserva" role="tabpanel" aria-labelledby="cadastrar-reserva-tab">
-                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
-                        <div class="title-reservas">
-                            <h1 class="mt-5">Cadastrar Reserva</h1>
-                        </div>
-                        <div class="container-lists-reservas w-100 mt-4">
-                            <div class="container">
-                                <form action="">                                                                        
-                                    <div class="form-group row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Serviço</label>
-                                        <div class="col-sm-10">
-                                            <select id="selectServico" class="custom-select">
-                                                    <option selected>Selecione a reserva</option>                                                        
-                                            </select>
-                                        </div>
-                                    </div>                                    
-                                    <div class="form-group row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Status</label>
-                                        <div class="col-sm-10">
-                                            <select id="selectStatus" class="custom-select">
-                                                    <option selected>Selecione o status do atendimento</option>
-                                                    <option value="E">Lista de espera</option>
-                                                    <option value="A">Em Atendimento</option>
-                                                    <option value="C">Cancelado</option>
-                                                    <option value="F">Finalizado</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group w-100 d-flex justify-content-end pr-3">
-                                        <button type="button" class="btn btn-primary w-25 btn-cadastrar-reserva">Enviar</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--Fim Cadastrar Reserva-->
+                <!--Fim Cadastrar Cliente-->                               
             </div>           
         </div>
     </div>

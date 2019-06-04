@@ -116,4 +116,12 @@ a:hover{
    color: white;
 }
 
+.open-menu-mobile{
+    display: none !important;
+}
 
+.icon-alterar-atendimento {
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+}

@@ -43,7 +43,7 @@ const horarios = ( ) => {
                         })
     
                         if(respCreateHorario.status === 200){
-                            alert('Serviço cadastrado com sucesso')
+                            alert('Horario cadastrado com sucesso')
                             utils.loadEvent()
                             setTimeout(() => {
                                 window.location.reload() //Atualiza a pagina
@@ -156,7 +156,7 @@ const horarios = ( ) => {
                                                 <input type="text" class="form-control" id="alterarHorarioHorario-${horario.id}" aria-describedby="emailHelp" placeholder="Ano" value="${agendamento[1]}">
                                             </div>
                                         </div>                     
-                                        <button id="alterar-horario-${horario.id}" type="button" class="btn btn-primary">Alterar</button>
+                                        <button id="alterar-horario-${horario.id}" type="button" data-dismiss="modal" class="btn btn-primary">Alterar</button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">

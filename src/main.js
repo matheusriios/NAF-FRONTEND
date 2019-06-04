@@ -21,6 +21,7 @@ function main() {
 
     servicos().createServico()
     servicos().alterarServico()
+    servicos().deletarServico()
 
     reservas().createReserva()
     reservas().createReservaCliente()    

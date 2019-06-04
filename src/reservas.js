@@ -50,17 +50,10 @@ const reservas = () => {
             const loadServicos   = await servicos().loadTodosServicos()
             const loadClientes   = await cliente().loadTodosClientes()
             
-            const selectAtendente = document.getElementById('selectAtendente')
             const selectDataHorario = document.getElementById('selectDataHorario')
             const selectServico = document.getElementById('selectServico')
             const selectCliente = document.getElementById('selectCliente')
             const selectStatus = document.getElementById('selectStatus')
-
-            if(loadAtendentes.length > 0){
-                loadAtendentes.map(atendente => {
-                    selectAtendente.innerHTML += `<option value='${atendente.id}'>${atendente.user.name}</option>   `
-                })
-            }
 
             if(loadHorarios.length > 0){
                 loadHorarios.map(horario => {
@@ -82,14 +75,12 @@ const reservas = () => {
 
             const btnCadastrarReserva = document.querySelector('.btn-cadastrar-reserva')
             btnCadastrarReserva.addEventListener('click', async (e) => {
-                const selectedAtendente = selectAtendente.options[selectAtendente.selectedIndex].value                           
                 const selectedDataHorario = selectDataHorario.options[selectDataHorario.selectedIndex].value
                 const selectedServico = selectServico.options[selectServico.selectedIndex].value                 
                 const selectedCliente = selectCliente.options[selectCliente.selectedIndex].value
                 const selectedStatus = selectStatus.options[selectStatus.selectedIndex].value                            
                 
                 const formData = new FormData()
-                formData.append('id_atendente', `${selectedAtendente}`)
                 formData.append('id_horario', `${selectedDataHorario}`)
                 formData.append('id_servico', `${selectedServico}`)
                 formData.append('id_cliente', `${selectedCliente}`)
@@ -155,89 +146,99 @@ const reservas = () => {
     const alterarReserva = async () => { 
         if(document.getElementById('body-listar-reserva') !== null) {
             const bodyListarReservas = document.getElementById('body-listar-reserva')
-            let todasReservas = await loadTodasReservas()
-            todasReservas.map((reservas, index) => {                
+            let todasReservas = await loadTodasReservas()            
+            todasReservas.map((reservas, index) => {                                       
                 bodyListarReservas.innerHTML += `
                     <tr>
-                        <td>${reservas.atendente.user.name}</td>
+                        <td>${reservas.atendente !== null ? reservas.atendente.user.name : 'Atendente removido'}</td>
                         <td>${reservas.servico.nome}</td>
                         <td>${utils.validarUsuario(reservas)}</td>
                         <td>${reservas.horario.data}</td>
                         <td>${reservas.status}</td>
-                        <td>${reservas.obs}</td>
+                        <td>${reservas.obs !== null ? reservas.obs : 'Nenhuma observação'}</td>
                         <td><button data-target="#modalReservas-${reservas.id}" data-toggle="modal" idReservas="${reservas.id}" class="btn btn-warning alterar-dados">Alterar</button></td>                    
                     </tr>  
                 `
             })    
         }        
-        //openModalDadosReservas()
+        openModalDadosReservas()
     }
 
     const openModalDadosReservas = async () => { 
         if(document.querySelector('.page-logado-gerente') !== null) {
 
-
-            let dadosAtendentes = await loadTodosAtendentes()
+            let todasReservas = await loadTodasReservas()
     
-            dadosAtendentes.map((atendente) => {
-                let status = ""
-                if (atendente.perfil === "G") {
-                    status = "Gerente"
-                } else {
-                    status = "Atendente"
-                }
+            todasReservas.map((reserva) => {
                 const divModal = document.createElement('div')                       
                 divModal.innerHTML = `
-                    <div class="modal fade" id="modalDadosAtendente-${atendente.id}" tabindex="-1" role="dialog" aria-labelledby="modalDadosAtendente" aria-hidden="true">
+                    <div class="modal fade" id="modalReservas-${reserva.id}" tabindex="-1" role="dialog" aria-labelledby="modalReservas" aria-hidden="true">
                         <div class="modal-dialog container-modal" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                <h5 class="modal-title" id="modalReservaAtendente">Dados do Atendente ${atendente.user.name}</h5>
+                                <h5 class="modal-title" id="modalReservaAtendente">Dados da Reserva</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                                     <span aria-hidden="true">&times</span>
                                 </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="exampleInputEmail1">Nome</label>
-                                                <input type="text" class="form-control" id="alterarNome-${atendente.id}" aria-describedby="emailHelp" placeholder="Nome" value="${atendente.user.name}">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="exampleInputEmail1">Cpf</label>
-                                                <input type="text" class="form-control" id="alterarCpf-${atendente.id}" aria-describedby="emailHelp" placeholder="Cpf" value="${atendente.user.cpf}"">
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="exampleInputEmail1">Email</label>
-                                                <input type="email" class="form-control" id="alterarEmail-${atendente.id}" aria-describedby="emailHelp" placeholder="Email" value="${atendente.user.email}"">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="exampleInputPassword1">Senha</label>
-                                                <input type="text" class="form-control" id="alterarSenha-${atendente.id}" placeholder="Senha">
+                                    <form action="">
+                                        <div class="form-group row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Atendente</label>
+                                            <div class="col-sm-10">
+                                                <label>${reserva.atendente !== null ? reserva.atendente.user.name : 'Atendente removido'}</label>
+                                                <select id="selectAlterarAtendente-${reserva.id}" class="custom-select">
+                                                    <option selected>Selecione o Atendente</option>                                                        
+                                                </select>
                                             </div>
                                         </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="exampleInputEmail1">Celular</label>
-                                                <input type="text" class="form-control" id="alterarCelular-${atendente.id}" aria-describedby="emailHelp" placeholder="Celular" value="${atendente.celular}"">
+                                        <div class="form-group row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Data/Horario</label>
+                                            <div class="col-sm-10">
+                                                <label>${reserva.horario.data}</label>
+                                                <select id="selectAlterarDataHorario-${reserva.id}" class="custom-select">
+                                                    <option selected>Selecione a data/hora</option>                                                        
+                                                </select>
                                             </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="exampleInputEmail1">Telefone fixo</label>
-                                                <input type="text" class="form-control" id="alterarTelefone-${atendente.id}" aria-describedby="emailHelp" placeholder="Telefone" value="${atendente.telefone}">
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Serviço</label>
+                                            <div class="col-sm-10">
+                                                <label>${reserva.servico.nome}</label>
+                                                <select id="selectAlterarServico-${reserva.id}" class="custom-select">
+                                                    <option selected>Selecione o serviço</option>                                                        
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Cliente</label>
+                                            <div class="col-sm-10">
+                                                <label>${reserva.cliente !== null ? reserva.cliente.user.name : 'Cliente removido'}</label>
+                                                <select id="selectAlterarCliente-${reserva.id}" class="custom-select">
+                                                    <option selected>Selecione o cliente</option>                                                        
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Status</label>
+                                            <div class="col-sm-10">
+                                                <label>${utils.tratamentoStatusAtendimento(reserva)}</label>
+                                                <select id="selectAlterarStatus-${reserva.id}" class="custom-select">
+                                                    <option selected>Selecione o status do atendimento</option>
+                                                    <option value="E">Lista de espera</option>
+                                                    <option value="A">Em Atendimento</option>
+                                                    <option value="C">Cancelado</option>
+                                                    <option value="F">Finalizado</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Perfil atual ${status}</label>
-                                            <select id="alterarPerfilAtendente-${atendente.id}" class="custom-select">
-                                                <option selected>Selecione o Perfil</option>
-                                                <option value="G">Gerente</option>
-                                                <option value="U">Atendente</option>
-                                            </select>
-                                        </div>                            
-                                        <button id="alterar-dados-atendente-${atendente.id}" type="button" class="btn btn-primary">Alterar</button>
+                                            <label for="exampleFormControlTextarea1">Observação</label>
+                                            <textarea class="form-control" id="textareaAlterarObservacao-${reserva.id}" rows="3">${reserva.obs}</textarea>
+                                        </div>
+                                        <div class="form-group w-100 d-flex justify-content-end pr-3">
+                                            <button id="btnModalAlterarReserva-${reserva.id}" type="button" data-dismiss="modal" class="btn btn-primary w-25 btn-cadastrar-reserva">Enviar</button>
+                                        </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -248,40 +249,76 @@ const reservas = () => {
                     </div>
                 `          
                 document.body.appendChild(divModal)
-            })
+            })            
             
-            dadosAtendentes.map( (atendente) => {
-                var btn = document.querySelector(`#alterar-dados-atendente-${atendente.id}`)
+            todasReservas.map( async (reserva) => {
+                const loadAtendentes = await atendente().loadTodosAtendentes()
+                const loadHorarios   = await horario().loadTodosHorarios()
+                const loadServicos   = await servicos().loadTodosServicos()
+                const loadClientes   = await cliente().loadTodosClientes()  
+                
+                const selectAtendente = document.getElementById(`selectAlterarAtendente-${reserva.id}`)
+                const selectDataHorario = document.getElementById(`selectAlterarDataHorario-${reserva.id}`)
+                const selectServico = document.getElementById(`selectAlterarServico-${reserva.id}`)
+                const selectCliente = document.getElementById(`selectAlterarCliente-${reserva.id}`)
+                const selectStatus = document.getElementById(`selectAlterarStatus-${reserva.id}`)
+
+                if(loadAtendentes.length > 0){
+                    loadAtendentes.map(atendente => {
+                        selectAtendente.innerHTML += `<option value='${atendente.id}'>${atendente.user.name}</option>   `
+                    })
+                }
+
+                if(loadHorarios.length > 0){
+                    loadHorarios.map(horario => {
+                        selectDataHorario.innerHTML += `<option value='${horario.id}'>${horario.data}</option>   `
+                    })
+                }
+
+                if(loadServicos.length > 0){
+                    loadServicos.map(servico => {
+                        selectServico.innerHTML += `<option value='${servico.id}'>${servico.nome}</option>   `
+                    })
+                }
+
+                if(loadClientes.length > 0){
+                    loadClientes.map(cliente => {
+                        selectCliente.innerHTML += `<option value='${cliente.id}'>${cliente.user.name}</option>   `
+                    })
+                }          
+
+                var btn = document.querySelector(`#btnModalAlterarReserva-${reserva.id}`)
                 btn.addEventListener('click', async (e)=>{
                     e.preventDefault()
-                 
-                    const nomeAtendente    = document.getElementById(`alterarNome-${atendente.id}`).value
-                    const telFixo          = document.getElementById(`alterarTelefone-${atendente.id}`).value
-                    const celularAtendente = document.getElementById(`alterarCelular-${atendente.id}`).value
-                    const emailAtendente   = document.getElementById(`alterarEmail-${atendente.id}`).value
-                    const senhaAtendente   = document.getElementById(`alterarSenha-${atendente.id}`).value
-                    const cpfAtendente     = document.getElementById(`alterarCpf-${atendente.id}`).value
-                    let perfilAtendente    = document.getElementById(`alterarPerfilAtendente-${atendente.id}`)
-                    perfilAtendente        = perfilAtendente.options[perfilAtendente.selectedIndex].value                            
-                    const token            = window.localStorage.getItem('token')                    
-                    
-                    //console.log(`${nomeAtendente} ${telFixo} ${celularAtendente} ${emailAtendente} ${senhaAtendente} ${cpfAtendente} ${perfilAtendente}`)
-                    
-                    var formData = new FormData()
-    
-                    if(senhaAtendente != "")
-                        formData.append('password', `${senhaAtendente}`)
-    
-                    if(perfilAtendente != "Selecione o Perfil")
-                        formData.append('perfil', `${perfilAtendente}`)
-    
-                    formData.append('celular', `${celularAtendente}`)
-                    formData.append('telefone', `${telFixo}`)
-                    formData.append('name', `${nomeAtendente}`)
-                    formData.append('email', `${emailAtendente}`)
-                    formData.append('cpf', `${cpfAtendente}`)
                    
-                    var url = `${baseUrl.alterarAtendente}/${atendente.id}/editar`
+                    const selectedAtendente = selectAtendente.options[selectAtendente.selectedIndex].value                           
+                    const selectedDataHorario = selectDataHorario.options[selectDataHorario.selectedIndex].value
+                    const selectedServico = selectServico.options[selectServico.selectedIndex].value                 
+                    const selectedCliente = selectCliente.options[selectCliente.selectedIndex].value
+                    const selectedStatus = selectStatus.options[selectStatus.selectedIndex].value                            
+                    const textAreaObservacao    = document.getElementById(`textareaAlterarObservacao-${reserva.id}`).value
+                    const token            = window.localStorage.getItem('token') 
+
+                    const formData = new FormData()
+                    if(selectedAtendente != "Selecione o Atendente")
+                        formData.append('id_atendente', `${selectedAtendente}`)
+
+                    if(selectedDataHorario != "Selecione a data/hora")
+                        formData.append('id_horario', `${selectedDataHorario}`)
+
+                    if(selectedServico != "Selecione o serviço")
+                        formData.append('id_servico', `${selectedServico}`)
+
+                    if(selectedCliente != "Selecione o cliente")
+                        formData.append('id_cliente', `${selectedCliente}`)
+                    
+                    if(selectedStatus != "Selecione o status do atendimento")
+                        formData.append('status', `${selectedStatus}`)
+
+                    
+                    formData.append('obs', `${textAreaObservacao}`)                    
+                   
+                    var url = `${baseUrl.alterarReserva}/${reserva.id}/editar`
                     
                     const respCreateAtendete = await fetch(url, {
                         method: 'POST',
@@ -292,22 +329,20 @@ const reservas = () => {
                         body: formData
                     })
                     
-                    if(respCreateAtendete.status === 200) {
-                        alert('Atendente alterado com sucesso')
-                        utils.loadEvent()
-                        setTimeout(() => {
-                            window.location.reload() //Atualiza a pagina
-                        }, 2000)
-                        return 
+                    if(respCreateAtendete.status !== 200) {
+                        return alert('Houve um problema ao tentar alterar a reserva, tente novamente')                        
                     }
-                    return alert('Houve um problema ao tentar alterar o atendente, tente novamente')
-                    
+
+                    alert('reserva alterado com sucesso')
+                    utils.loadEvent()
+                    setTimeout(() => {
+                        window.location.reload() //Atualiza a pagina
+                    }, 2000)                                    
                 })
             })
 
         }
     }
-
 
     /* Cliente */
     const createReservaCliente = async () => {
@@ -350,7 +385,10 @@ const reservas = () => {
                     },
                     body: formData
                 })
-
+                if(respCreateReserva.status === 422){
+                    const responseHorarioIndisponiveis = await respCreateReserva.json()                    
+                    return alert(responseHorarioIndisponiveis.error)
+                }
                 if(respCreateReserva.status !== 200)
                     return alert('Não foi possível efetuar a reserva')
 

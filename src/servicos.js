@@ -56,6 +56,44 @@ const servicos = ( ) => {
         }
     }
 
+    const deletarServico = async () => {
+        if(document.querySelector('.page-logado-gerente') !== null) {
+            const btnDeletarServico   = document.querySelector('.btn-deletar-servico')    
+            const selectServicosDelete = document.getElementById('selectServicoDelete')                                                
+            const todosServicos = await loadTodosServicos()
+            
+            
+            if(selectServicosDelete === null)
+                return
+                
+            todosServicos.forEach(servicos => {                     
+                selectServicosDelete.innerHTML += `<option value=${servicos.id}>${servicos.nome}</option>`
+            })
+            btnDeletarServico.addEventListener('click', async (e) => {
+                e.preventDefault()
+                const selectedServico = selectServicosDelete.options[selectServicosDelete.selectedIndex].value    
+                
+                const respDeleteServico = await fetch(`${baseUrl.deleteServicos}/${selectedServico}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
+                        'Accept': 'application/json'
+                    }
+                })
+
+    
+                if(respDeleteServico.status !== 200)    
+                    return alert('Não foi possível deletar a tarefa')
+                
+                alert('Servico deletado com sucesso')
+                utils.loadEvent()
+                setTimeout(() => {
+                    window.location.reload() //Atualiza a pagina
+                }, 2000)
+            })
+        }
+    }
+
     const alterarServico = async () => { 
         if(document.querySelector('.page-logado-gerente') !== null) {
             const bodyListaServico = document.getElementById('body-lista-servico')
@@ -107,7 +145,7 @@ const servicos = ( ) => {
                                                 <input type="text" class="form-control" id="alterarDescricaoServico-${servico.id}" aria-describedby="emailHelp" placeholder="Descrição" value="${servico.descricao}"">
                                             </div>
                                         </div>                          
-                                        <button id="alterar-servicos-${servico.id}" type="button" class="btn btn-primary">Alterar</button>
+                                        <button id="alterar-servicos-${servico.id}" type="button" data-dismiss="modal" class="btn btn-primary">Alterar</button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -127,8 +165,7 @@ const servicos = ( ) => {
                  
                     const nomeServico      = document.getElementById(`alterarNomeServico-${servico.id}`).value;
                     const descricaoServico = document.getElementById(`alterarDescricaoServico-${servico.id}`).value;                        
-                    const token     = window.localStorage.getItem('token'); 
-                    console.log(descricaoServico + " " + nomeServico);
+                    const token     = window.localStorage.getItem('token');                     
 
                     var formData = new FormData();
 
@@ -168,7 +205,8 @@ const servicos = ( ) => {
     return {
         loadTodosServicos,
         createServico,
-        alterarServico
+        alterarServico,
+        deletarServico
     }
 }
 

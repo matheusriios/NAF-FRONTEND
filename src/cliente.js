@@ -19,8 +19,8 @@ const cliente = () => {
     }
     
     const createCliente = () => {        
-        if((document.querySelector('.page-logado-gerente') !== null) ) {            
-            const btnCadastrarCliente = document.getElementById('btn-cadastrar-cliente')
+        if((document.querySelector('.page-logado-gerente') !== null || document.querySelector('.page-logado-atendente') !== null) ) {            
+            const btnCadastrarCliente = document.getElementById('btn-cadastrar-cliente')            
             if(btnCadastrarCliente !== null){
                 btnCadastrarCliente.addEventListener('click', async (e) => {
                     e.preventDefault()
@@ -164,7 +164,7 @@ const cliente = () => {
                         </div>
                         <div class="form-group col-md-6">
                             <label for="exampleInputPassword1">Senha</label>
-                            <input type="text" class="form-control" id="alterarSenhaCliente-${cliente.id}" placeholder="Senha">
+                            <input type="password" class="form-control" id="alterarSenhaCliente-${cliente.id}" placeholder="Senha">
                         </div>
                     </div>
                     <div class="form-row">
@@ -177,7 +177,7 @@ const cliente = () => {
                             <input type="text" class="form-control" id="alterarTelefoneCliente-${cliente.id}" aria-describedby="emailHelp" placeholder="Telefone" value="${cliente.telefone}">
                         </div>
                     </div>                       
-                    <button id="alterar-dados-cliente-${cliente.id}" type="button" class="btn btn-primary">Alterar</button>
+                    <button id="alterar-dados-cliente-${cliente.id}" type="button" data-dismiss="modal" class="btn btn-primary">Alterar</button>
                 </form>
             ` 
             var btn = document.querySelector(`#alterar-dados-cliente-${cliente.id}`);
@@ -226,7 +226,7 @@ const cliente = () => {
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="exampleInputPassword1">Senha</label>
-                                                <input type="text" class="form-control" id="alterarSenhaCliente-${cliente.id}" placeholder="Senha">
+                                                <input type="password" class="form-control" id="alterarSenhaCliente-${cliente.id}" placeholder="Senha">
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -239,7 +239,7 @@ const cliente = () => {
                                                 <input type="text" class="form-control" id="alterarTelefoneCliente-${cliente.id}" aria-describedby="emailHelp" placeholder="Telefone" value="${cliente.telefone}">
                                             </div>
                                         </div>                       
-                                        <button id="alterar-dados-cliente-${cliente.id}" type="button" class="btn btn-primary">Alterar</button>
+                                        <button id="alterar-dados-cliente-${cliente.id}" data-dismiss="modal" type="button" class="btn btn-primary">Alterar</button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -280,9 +280,10 @@ const cliente = () => {
                 </tr>  
             `
             
-        }        
+        }
         
-        openModalConfirmarExclusao()       
+        openModalConfirmarExclusao()
+       
     }
 
     const openModalConfirmarExclusao = async ( ) =>{
@@ -328,7 +329,7 @@ const cliente = () => {
                 const token            = window.localStorage.getItem('token');        
                 var url = `${baseUrl.deleteCliente}/${cliente.id}`;
 
-                if(cpfCliente == cliente.user.cpf ){                    
+                if(cpfCliente === cliente.user.cpf ){                    
                     const respExcluirCliente = await fetch(url, {
                         method: 'DELETE',
                         headers: {
@@ -349,6 +350,7 @@ const cliente = () => {
                 } else {
                     alert('Cpf incorreto, tente novamente');
                 }
+
             })
         }
     }

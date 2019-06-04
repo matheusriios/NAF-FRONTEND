@@ -50,6 +50,7 @@
                             <a class="nav-item nav-link " id="deletar-atendente-tab" data-toggle="tab" href="#deletar-atendente" role="tab" aria-controls="deletar-atendente" aria-selected="false">Deletar Atendente</a>                        
                             <a class="nav-item nav-link " id="deletar-cliente-tab" data-toggle="tab" href="#deletar-cliente" role="tab" aria-controls="deletar-cliente" aria-selected="false">Deletar Cliente</a>                        
                             <a class="nav-item nav-link " id="deletar-reserva-tab" data-toggle="tab" href="#deletar-reserva" role="tab" aria-controls="deletar-reserva" aria-selected="false">Deletar Reserva</a>
+                            <a class="nav-item nav-link " id="deletar-reserva-tab" data-toggle="tab" href="#deletar-servico" role="tab" aria-controls="deletar-servico" aria-selected="false">Deletar Serviço</a>
                             <a class="nav-item nav-link " id="deletar-data-tab" data-toggle="tab" href="#deletar-data" role="tab" aria-controls="deletar-data" aria-selected="false">Deletar Data</a> 
                             
                         </div>
@@ -353,15 +354,7 @@
                         </div>
                         <div class="container-lists-reservas w-100 mt-4">
                             <div class="container">
-                                <form action="">
-                                    <div class="form-group row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Atendente</label>
-                                        <div class="col-sm-10">
-                                            <select id="selectAtendente" class="custom-select">
-                                                    <option selected>Selecione o Atendente</option>                                                        
-                                            </select>
-                                        </div>
-                                    </div>
+                                <form action="">                                    
                                     <div class="form-group row">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Data/Horario</label>
                                         <div class="col-sm-10">
@@ -416,7 +409,7 @@
                             <h1 class="mt-5">Alterar dados dos Atendentes</h1>
                         </div>                
                         <div class="container-lists-reservas w-100 mt-4">
-                            <table class="table tb2">
+                            <table class="table">
                                 <thead>
                                     <tr>
                                         <td>Nome</td>
@@ -437,10 +430,10 @@
                 <div class="tab-pane" id="alterar-cliente" role="tabpanel" aria-labelledby="alterar-cliente-tab">
                     <div class="container-reservas w-100 d-flex align-items-center flex-column ">                
                         <div class="title-reservas">
-                            <h1 class="mt-5">Alterar dados dos Clientes</h1>
+                            <h1 class="mt-5">Alterar dados dos Atendentes</h1>
                         </div>                
                         <div class="container-lists-reservas w-100 mt-4">
-                            <table class="table tb3">
+                            <table class="table">
                                 <thead>
                                     <tr>
                                         <td>Nome</td>
@@ -637,6 +630,36 @@
                     </div>
                 </div>
                 <!--Fim Deletar Data-->
+
+                <!--Inicio Deletar Serviço-->   
+                <div class="tab-pane" id="deletar-servico" role="tabpanel" aria-labelledby="deletar-data-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Deletar Serviço</h1>
+                        </div>
+
+                        <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                            <div class="container mt-4">
+                                <form action="">                                    
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Serviço</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectServicoDelete" class="custom-select">
+                                                <option>Selecione o servico</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-100 d-flex justify-content-end pr-3">
+                                        <button type="button" class="btn btn-primary w-25 btn-deletar-servico">Deletar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--Fim Deletar Serviço-->
 
             </div>           
         </div>

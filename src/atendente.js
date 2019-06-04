@@ -83,7 +83,7 @@ const atendente = () => {
                                 <td>${r.cliente !== null ? r.cliente.user.name : 'Cliente removido'}</td>
                                 <td>${r.servico.nome}</td>
                                 <td>${r.horario.data}</td>
-                                <td>${r.status}</td>
+                                <td>${utils.tratamentoStatusAtendimento(r)}</td>
                                 <td>${r.servico.descricao}</td>
                     `
                 })                                
@@ -247,7 +247,7 @@ const atendente = () => {
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="exampleInputPassword1">Senha</label>
-                                                <input type="text" class="form-control" id="alterarSenha-${atendente.id}" placeholder="Senha">
+                                                <input type="password" class="form-control" id="alterarSenha-${atendente.id}" placeholder="Senha">
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -268,7 +268,7 @@ const atendente = () => {
                                                 <option value="U">Atendente</option>
                                             </select>
                                         </div>                            
-                                        <button id="alterar-dados-atendente-${atendente.id}" type="button" class="btn btn-primary">Alterar</button>
+                                        <button id="alterar-dados-atendente-${atendente.id}" type="button" data-dismiss="modal" class="btn btn-primary">Alterar</button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -426,7 +426,7 @@ const atendente = () => {
                                 </div>
                             </div>                       
                             <div class="w-100 d-flex justify-content-end">
-                                <button id="alterar-dados-cliente" data-dismiss="modal" type="button" class="btn btn-primary">Alterar</button>
+                                <button id="alterar-dados-cliente" data-dismiss="modal" type="button" data-dismiss="modal" class="btn btn-primary">Alterar</button>
                             </div>
                         </form>
                     ` 

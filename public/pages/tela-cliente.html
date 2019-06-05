@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="/js/verificar.js"></script>
+
+    <!-- CSS | Bootstrap CSS  | Font awesome  -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/loader.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/logado.css">
+    <link rel="stylesheet" href="/css/tabsNavigator.css">
+    <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <title>N A F</title>
+</head>
+
+<body>
+    <div id="app" class="d-flex page-logado page-logado-cliente">
+        <div class="menu-lateral">
+            <div class="title-naf w-100 d-flex justify-content-center align-items-center">
+                <a href="tela-gerente.html"><img src="../imagem/naf.png" style="width:200px;"></a>
+            </div>
+            <ul>
+                <nav>
+                    <div class="nav nav-tabs flex-column" id="nav-tab" role="tablist">
+
+                        <a class="nav-item nav-link" id="reservas-tab" data-toggle="tab" href="#reservas" role="tab" aria-controls="reservas" aria-selected="true">Suas Reservas</a>
+
+                        <!--Cadastrar-->
+                        <a class="nav-item nav-link" id="cadastrar-reserva-tab" data-toggle="tab" href="#cadastrar-reserva" role="tab" aria-controls="cadastrar-reserva" aria-selected="true">Reservar atendimento</a>
+
+                        <!--Alterar-->
+                        <a class="nav-item nav-link" data-toggle="tab" href="#alterar-dados-Pagecliente" role="button" aria-expanded="false" aria-controls="multiCollapseDeletar">Alterar</a>
+
+                        <!--Deletar-->
+                        <a class="nav-item nav-link" data-toggle="tab" href="#excluir-conta-Pagecliente" role="button" aria-expanded="false" aria-controls="multiCollapseDeletar">Excluir conta</a>
+                    </div>
+                </nav>
+            </ul>
+        </div>
+        <div class="w-100">
+            <div class="menu-superior w-100 ">
+                <div class="container-fluid d-flex justify-content-end">
+                    <ul class="container-btn-drop-account">
+                        <div class="container-btn-open-option-acount">
+                            <a href=""><span class="user-logado btn-open-option-acount">MINHA CONTA</span></a>
+                            <i class="fas fa-angle-down btn-open-option-acount"></i>
+                        </div>
+                        <ul class="drop-down-acount">
+                            <div class="header-down-acount container d-flex justify-content-start flex-column align-items-start">
+                                <span class="nome user-logado">MINHA CONTA</span>
+                                <span class="email user-logado">MINHA CONTA</span>
+                            </div>
+                            <div class="body-down-acount container d-flex justify-content-start flex-column align-items-start">
+                                <li class="btn-configurar-conta">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Alterar dados</span>
+                                </li>
+                            </div>
+                            <div class="footer-down-acount container d-flex justify-content-start flex-column align-items-start">
+                                <li class="btn-logout">
+                                    <i class="fas fa-power-off"></i>
+                                    <span>Sair</span>
+                                </li>
+                            </div>
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content" id="nav-tabContent">
+
+                <!--Incio Listar Reservas-->
+                <div class="tab-pane fade show active" id="reservas" role="tabpanel" aria-labelledby="reservas-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Suas Reservas</h1>
+                        </div>
+                        <div class="container-lists-reservas w-100 mt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Serviço</td>
+                                        <td>Atendente</td>
+                                        <td>Data do atendimento</td>
+                                        <td>Status</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="body-reserva-cliente">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--Fim Listar Reservas-->
+
+                <!--Inicio Cadastrar Reserva-->
+                <div class="tab-pane" id="cadastrar-reserva" role="tabpanel" aria-labelledby="cadastrar-reserva-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Reservar atendimento</h1>
+                        </div>
+                        <div class="container-lists-reservas w-100 mt-4">
+                            <div class="container">
+                                <form action="">
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Data/Horario</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectDataHorario" class="custom-select">
+                                                    <option selected>Selecione a data/hora</option>                                                        
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Serviço</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectServico" class="custom-select">
+                                                    <option selected>Selecione o serviço</option>                                                        
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-100 d-flex justify-content-end pr-3">
+                                        <button type="button" class="btn btn-primary w-25 btn-cadastrar-reserva">Enviar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Fim Cadastrar Reserva-->
+
+                <!--Inicio Alterar dados dos Clientes-->
+                <div class="tab-pane" id="alterar-dados-Pagecliente" role="tabpanel" aria-labelledby="alterar-cliente-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Alterar seus dados</h1>
+                        </div>
+                        <div class="container-lists-reservas w-100 mt-4">
+                            <div id="body-alterar-pagecliente-dados"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--Fim Alterar dados dos Clientes-->
+
+                <!--Inicio Excluir conta Cliente-->
+                <div class="tab-pane" id="excluir-conta-Pagecliente" role="tabpanel" aria-labelledby="excluir-conta-Pagecliente-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Excluir conta</h1>
+                        </div>
+                        <div class="container-lists-reservas w-100 mt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Nome</td>
+                                        <td>Cpf</td>
+                                        <td>Email</td>
+                                        <td>Excluir</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="body-excluir-conta-pagecliente"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--Inicio Excluir conta Cliente-->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="../bundle-.js"></script>
+</body>
+
+</html>

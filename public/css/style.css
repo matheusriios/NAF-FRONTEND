@@ -1,0 +1,179 @@
+body.disable {
+    display: none;
+}
+
+
+/*Home*/
+#app.login{
+    height: 100vh;
+    width: 100%;
+    background-image: #2962ff !important;
+}
+
+.title-naf h1{
+    margin-top: 2%;
+    color: #47525E;
+    font-weight: bold;
+    font-size: 50px;
+    font-family: 'Lato', sans-serif;
+}
+.page-login{
+    background-image: url(../img/background.jpg);
+}
+
+.content{
+    margin-top: 3%;
+    width: 100%;
+}
+
+/*Conteudos forms*/
+.content-form .container-form{
+    padding: 4em;
+    width: 75%;
+    border-radius: 5px !important;
+    background: #151F42 !important;
+}
+
+.content-form input{
+    font-family: 'Lato', sans-serif;
+}
+.content-form{
+    margin-top: 5%;
+}
+
+.container-form p{
+    color: #8190A5;
+    font-size: 11px;
+    
+}
+.container-form h3{
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    color: white;
+}
+
+.container-btn-login button{
+    background: #72B34D;
+    color: white;
+    transition: all .2s ease-in;
+    opacity: .9;
+}
+.container-btn-login button:hover{
+    background: rgb(122, 209, 71);
+    color: white;
+    opacity: 1;
+}
+
+#btn-esqueceu{
+    color: #72B34D !important;
+}
+
+/******************************/
+/*Conteudo img*/
+.content-img{
+    position: relative;
+}
+.content-img img{
+    width: 70%;
+    position: absolute;
+    top: 18%;
+    left: 25%;
+}
+/**************************/
+/* TELA LOGADO */
+.menu-lateral{
+    height: auto;
+    border-right: 1px solid #8492A6;
+    width: 18%;
+}
+
+.menu-lateral ul{
+    list-style: none;
+}
+
+/**************************/
+/*Menu Superior*/
+.menu-superior {
+    padding: 1.5%;
+    background-image: url(../img/bgmenu.jpg);
+    box-shadow: 1px 1px 15px rgba(0,0,0,.1);
+    background-size: cover;
+}
+
+.menu-superior .container-btn-drop-account {
+    padding: 0px !important;
+    margin: 0px !important;
+    position: relative;
+    padding-right: 20px !important;
+}
+
+.container-btn-open-option-acount{
+    cursor: pointer;    
+    transition: all ease-in-out .2s;
+}
+.container-btn-open-option-acount:hover {
+    opacity: .5;
+}
+.menu-superior ul a {
+    color: white;
+}
+.btn-open-option-acount{
+    color: white !important;
+    font-size: 20px;
+    margin: 4px;
+}
+.drop-down-acount{
+    position: absolute !important;
+    top: 0;
+    width: 257px;
+    text-align: center;
+    height: auto;
+    background: white;
+    top: 46px;
+    right: -29px;
+    color: white;
+    border-radius: 5px;
+    padding: 0px !important;
+    display: none;
+    box-shadow: 1px 1px 15px rgba(0,0,0,.1);
+}
+.drop-down-acount.active {
+    display: block !important;
+}
+.drop-down-acount.active .btn-logout {
+    cursor: pointer;
+}
+
+.header-down-acount, .body-down-acount, .footer-down-acount {
+    padding: 6%;
+    padding-top: 10%;
+
+}
+
+.header-down-acount{
+    padding-bottom: 12%;
+    padding-left: 10%;
+    background: rgb(8, 43, 124);
+} 
+
+.nome.user-logado{
+    font-weight: bold;
+}
+
+.btn-logout, .btn-configurar-conta{
+    color: #212529;
+    transition: all ease-in-out .2s;
+    cursor: pointer;
+}
+
+.btn-logout:hover, .btn-configurar-conta:hover {
+    color: #2125299e;
+}
+.btn-logout i {
+    margin-right: 5px;
+}
+.btn-primary{
+      border: none;
+    background: #151F42;
+}
+/*Menu Superior*/

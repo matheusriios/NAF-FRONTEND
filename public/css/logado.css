@@ -1,0 +1,127 @@
+ul li{
+    list-style: none;
+}
+a{
+    text-decoration: none !important;
+}
+
+a:hover{
+    opacity: 0.8;
+}
+
+/***********************/
+.container-status{
+    position: absolute;
+    
+    top: 80%;
+}
+.title-status{
+    font-weight: bold;
+}
+.lista-status .item-status span{
+    font-size: 12px;
+}
+.lista-status .item-status .agendado{
+    color: #FFD700;
+}
+.lista-status .item-status .concluid{
+    color: green;
+}
+.lista-status .item-status .cancelado{
+    color: red;
+}
+/**********************/
+#app{
+    height: auto;
+    width: 100%;
+    background: white;
+}
+
+.title-naf{    
+    padding: 2em
+}
+
+.title-naf h1{
+    margin-top: 2%;
+    color: white;
+    font-weight: bold;
+    font-size: 50px;
+    font-family: 'Lato', sans-serif;
+}
+/**************************/
+/* TELA LOGADO */
+.menu-lateral{
+    height: auto;
+    border-right: 1px solid rgb(71, 82, 94, 0.2);
+    width: 22%;
+    background-image: url(../img/bgmenu.jpg);
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.menu-lateral ul{
+    list-style: none;
+    padding-left: 0px;
+}
+
+.dropdown-toggle::after{
+    margin-left: 8.255em;
+    color: white;
+}
+
+.item-menu-conta::after{
+    margin-left: 9.05em;
+    color: white;
+}
+
+.item-menu-agenda, .item-menu-conta{
+    margin-left: -2em;
+    border-bottom: 1px solid rgb(71, 82, 94, 0.2);
+    color: white;
+    margin-top: 5%;
+}
+/*********************/
+.title-reservas h1{
+    font-family: 'Lato', sans-serif;
+    color: #47525E;
+}
+
+.container-lists-reservas{
+    padding: 23px;
+}
+
+/******** Modal Reserva Atendente **********/
+.modalReservaAtendente {
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.container-modal{
+    max-width: 80%
+}
+
+.modal-header{
+    border-bottom: none !important;
+}
+
+.modal-footer {
+    border-top: none !important;
+}
+
+.container-lists-reservas table thead{
+    background: rgb(8, 43, 124);
+}
+.container-lists-reservas table thead tr td{
+   color: white;
+}
+
+.open-menu-mobile{
+    display: none !important;
+}
+
+.icon-alterar-atendimento {
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+}

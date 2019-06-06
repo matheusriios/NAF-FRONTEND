@@ -12,8 +12,7 @@ const atendente = () => {
                 'Authorization': `Bearer ${token}`
             }
         })
-        const body = await response.json()  
-        
+        const body = await response.json()          
         return body
     }
 
@@ -22,13 +21,13 @@ const atendente = () => {
             const bodyListaAtendentes = document.getElementById('body-lista-atendentes')
             let todosAtendentes = await loadTodosAtendentes()
     
-            todosAtendentes.map((atendente, index) => {
+            todosAtendentes.map((atendente, index) => {                        
                 bodyListaAtendentes.innerHTML += `
                     <tr>
                         <td>${atendente.user.name}</td>
                         <td>${atendente.user.email}</td>
                         <td>${atendente.celular}</td>
-                        <td>${atendente.perfil}</td>
+                        <td>${utils.tratamentoPerfilGerente(atendente.perfil)}</td>
                         <td><button type="button" data-target="#modalReservaAtendente" data-toggle="modal" class="btn btn-secondary btn-modal-reserva">Reservas</button></td>                    
                     </tr>  
                 `
@@ -195,7 +194,7 @@ const atendente = () => {
                         <td>${atendente.user.cpf}</td>
                         <td>${atendente.user.email}</td>
                         <td>${atendente.celular}</td>
-                        <td>${atendente.perfil}</td>               
+                        <td>${utils.tratamentoPerfilGerente(atendente.perfil)}</td>               
                     </tr>  
                 `
             })    

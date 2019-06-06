@@ -31,6 +31,7 @@ function main() {
     reservas().alterarReserva()    
     reservas().modalAlterarAtendimentoAtendente()
     reservas().deleteReserva()
+    reservas().cardIndicativosAtendimento()
 
     cliente().createCliente()
     cliente().deleteCliente()
@@ -43,5 +44,7 @@ function main() {
     horario().deleteHorario()
     horario().alterarHorario()
 }
-
-main()
+// utils.loadEvent()
+window.addEventListener('load', e => {
+    main()
+})

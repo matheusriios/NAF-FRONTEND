@@ -27,7 +27,8 @@
             </div>
             <ul>
                 <nav>                    
-                    <div class="nav nav-tabs flex-column" id="nav-tab" role="tablist">                       
+                    <div class="nav nav-tabs flex-column" id="nav-tab" role="tablist">               
+                        <a class="nav-item nav-link" id="dash-tab" data-toggle="tab" href="#dash" role="tab" aria-controls="dash" aria-selected="true">Dash</a>        
                         <a class="nav-item nav-link" id="reservas-tab" data-toggle="tab" href="#reservas" role="tab" aria-controls="reservas" aria-selected="true">Reservas</a>
                         <a class="nav-item nav-link" id="atendente-tab" data-toggle="tab" href="#atendente" role="tab" aria-controls="atendente" aria-selected="false">Atendentes</a>
 
@@ -99,11 +100,68 @@
                         </ul>
                     </ul>
                 </div>
-            </div>        
+            </div>  
+            
             <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="dash" role="tabpanel" aria-labelledby="dash-tab">
+                    <!--Cards Dashboard-->      
+                    <div class="container-fluid mt-5 d-flex flex-column">
+                        <div class="container title-reservas">
+                            <h1 class="text-center">Dashboard - Página Inicial</h1>
+                        </div>
+                        <div class="w-100 d-flex flex-wrap">
+                            <div class="card container-card-info-atendimentos m-4" style="width: 18rem;">                    
+                                <div class="card-body">
+                                    <h5 class="card-title">Atendimentos em lista de espera</h5>
+                                    <p class="card-text descp-espera">0</p>                        
+                                </div>
+                            </div>
+            
+                            <div class="card container-card-info-atendimentos m-4" style="width: 18rem;">                    
+                                <div class="card-body">
+                                    <h5 class="card-title">Atendimentos em andamento</h5>
+                                    <p class="card-text descp-em-atendimento">0</p>                        
+                                </div>
+                            </div>
+        
+                            <div class="card container-card-info-atendimentos m-4" style="width: 18rem;">                    
+                                <div class="card-body">
+                                    <h5 class="card-title">Atendimentos cancelados</h5>
+                                    <p class="card-text descp-cancelado">0</p>                        
+                                </div>
+                            </div>
+            
+                            <div class="card container-card-info-atendimentos m-4" style="width: 18rem;">                    
+                                <div class="card-body">
+                                    <h5 class="card-title">Atendimentos finalizados</h5>
+                                    <p class="card-text descp-finalizado">0</p>                        
+                                </div>
+                            </div>
+
+                            <div class="card container-card-info-atendimentos servicos-cadastrados m-4" style="width: 18rem;">                    
+                                <div class="card-body">
+                                    <h5 class="card-title">Serviços cadastrados</h5>
+                                    <div class="descp-servicos-cadastrados">
+                                        <table class="table">
+                                            <thead style="background: rgb(8, 43, 124)">
+                                                <tr class="tr-servicos-cadastrados">
+                                                    <td>Nome</td>
+                                                    <td>Documentos</td>                                                    
+                                                </tr>      
+                                            </thead>      
+                                            <tbody id="body-servicos">                                             
+                                            </tbody>                                                                                                                     
+                                        </table>        
+                                    </div>                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!--Cards Dashboard-->      
+                </div>
 
                 <!--Incio Reservas-->
-                <div class="tab-pane fade show active" id="reservas" role="tabpanel" aria-labelledby="reservas-tab">
+                <div class="tab-pane fade " id="reservas" role="tabpanel" aria-labelledby="reservas-tab">
                     <div class="container-reservas w-100 d-flex align-items-center flex-column ">
                         <div class="title-reservas">
                             <h1 class="mt-5">Reservas</h1>
@@ -116,6 +174,7 @@
                                         <td>Serviço</td>
                                         <td>Atendente</td>
                                         <td>Cliente</td>
+                                        <td>Data/Horario</td>
                                         <td>Status</td>
                                     </tr>      
                                 </thead>      

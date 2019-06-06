@@ -19,6 +19,8 @@ body.disable {
 }
 .page-login{
     background-image: url(../img/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .content{
@@ -139,6 +141,7 @@ body.disable {
 }
 .drop-down-acount.active {
     display: block !important;
+    z-index: 9;
 }
 .drop-down-acount.active .btn-logout {
     cursor: pointer;
@@ -177,3 +180,13 @@ body.disable {
     background: #151F42;
 }
 /*Menu Superior*/
+
+
+/*Full HD*/
+@media(min-width: 1750px){
+    .content-form .container-form {
+        padding-top: 6em;
+        padding-bottom: 7em;
+    }
+}
+/*Full HD*/

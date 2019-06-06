@@ -142,5 +142,18 @@ export default {
             default:
                 break;
         }
-    }    
+    },
+    
+    tratamentoPerfilGerente: ( perfil ) => {
+        switch (perfil) {
+            case "G":
+                return "Gerente"
+                break;
+            case "U":
+                return "Atendente"
+                break;            
+            default:
+                break;
+        }
+    }  
 }

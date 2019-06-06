@@ -17,8 +17,50 @@ const reservas = () => {
                 'Authorization': `Bearer ${token}`
             }
         })
-        const body = await response.json()                 
+        const body = await response.json()           
         return body
+    }
+
+    const cardIndicativosAtendimento = async () => {
+        if(document.querySelector('.page-logado-gerente') !== null) {
+            const todosAtendimentos = await loadTodasReservas()
+            const todosServicos = await servicos().loadTodosServicos()
+            
+            const cardBodyEspera = document.querySelector('.container-card-info-atendimentos .descp-espera')
+            const cardBodyEmAtendimento = document.querySelector('.container-card-info-atendimentos .descp-em-atendimento')
+            const cardBodyFinalizado = document.querySelector('.container-card-info-atendimentos .descp-finalizado')
+            const cardBodyCancelado = document.querySelector('.container-card-info-atendimentos .descp-cancelado')
+            const cardBodyTabelServicos = document.getElementById('body-servicos')
+            
+            //Quantidade de atendimentos e seus repectivos status            
+            let countEmAtendimento = 0,
+                countListaDeEspera = 0,
+                countCancelado = 0,
+                countFinalizado = 0
+            todosAtendimentos.map(atd => {            
+                if(utils.tratamentoStatusAtendimento(atd) === 'Em Atendimento'){
+                    countEmAtendimento++
+                    cardBodyEmAtendimento.innerHTML = countEmAtendimento
+                }else if(utils.tratamentoStatusAtendimento(atd) === 'Lista de espera'){
+                    countListaDeEspera++
+                    cardBodyEspera.innerHTML = countListaDeEspera
+                }else if(utils.tratamentoStatusAtendimento(atd) === 'Finalizado') {
+                    countFinalizado++
+                    cardBodyFinalizado.innerHTML = countFinalizado
+                }else if(utils.tratamentoStatusAtendimento(atd) === 'Cancelado') {
+                    countCancelado++
+                    cardBodyCancelado.innerHTML = countCancelado
+                }                    
+            })        
+            
+            //Lista com todos os serviços cadastrados
+            todosServicos.map(servico => {                
+                cardBodyTabelServicos.innerHTML += `<tr>
+                                                        <td>${servico.nome}</td>
+                                                        <td>${servico.descricao}</td>
+                                                    </tr>`
+            })
+        }
     }
 
     const listaReservas = async () => {        
@@ -27,14 +69,15 @@ const reservas = () => {
             const todasReservas = await loadTodasReservas()     
                         
             if(bodyReservas !== null) {   
-                todasReservas.map((reserva, index) => {                    
+                todasReservas.map((reserva, index) => {                                        
                     bodyReservas.innerHTML += `
                         <tr>
                             <td>${reserva.servico.nome}</td>
                             <td>${reserva.atendente !== null ? reserva.atendente.user.name 
                                                            : 'Atendente removido' }</td>
                             <td>${reserva.cliente !== null ? reserva.cliente.user.name 
-                                                           : 'Cliente removido' }</td>                            
+                                                           : 'Cliente removido' }</td>
+                            <td>${reserva.horario.data}</td>
                             <td>${utils.tratamentoStatusAtendimento(reserva)}</td>                        
                         </tr>  
                     `            
@@ -154,7 +197,7 @@ const reservas = () => {
                         <td>${reservas.servico.nome}</td>
                         <td>${utils.validarUsuario(reservas)}</td>
                         <td>${reservas.horario.data}</td>
-                        <td>${reservas.status}</td>
+                        <td>${utils.tratamentoStatusAtendimento(reservas)}</td>
                         <td>${reservas.obs !== null ? reservas.obs : 'Nenhuma observação'}</td>
                         <td><button data-target="#modalReservas-${reservas.id}" data-toggle="modal" idReservas="${reservas.id}" class="btn btn-warning alterar-dados">Alterar</button></td>                    
                     </tr>  
@@ -300,19 +343,19 @@ const reservas = () => {
                     const token            = window.localStorage.getItem('token') 
 
                     const formData = new FormData()
-                    if(selectedAtendente != "Selecione o Atendente")
+                    if(selectedAtendente !== "Selecione o Atendente")
                         formData.append('id_atendente', `${selectedAtendente}`)
 
-                    if(selectedDataHorario != "Selecione a data/hora")
+                    if(selectedDataHorario !== "Selecione a data/hora")
                         formData.append('id_horario', `${selectedDataHorario}`)
 
-                    if(selectedServico != "Selecione o serviço")
+                    if(selectedServico !== "Selecione o serviço")
                         formData.append('id_servico', `${selectedServico}`)
 
-                    if(selectedCliente != "Selecione o cliente")
+                    if(selectedCliente !== "Selecione o cliente")
                         formData.append('id_cliente', `${selectedCliente}`)
                     
-                    if(selectedStatus != "Selecione o status do atendimento")
+                    if(selectedStatus !== "Selecione o status do atendimento")
                         formData.append('status', `${selectedStatus}`)
 
                     
@@ -320,7 +363,7 @@ const reservas = () => {
                    
                     var url = `${baseUrl.alterarReserva}/${reserva.id}/editar`
                     
-                    const respCreateAtendete = await fetch(url, {
+                    const respCreateReserva = await fetch(url, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
@@ -329,7 +372,11 @@ const reservas = () => {
                         body: formData
                     })
                     
-                    if(respCreateAtendete.status !== 200) {
+                    if(respCreateReserva.status === 422){
+                        const error = await respCreateReserva.json() 
+                        return alert(error.error)
+                    }
+                    if(respCreateReserva.status !== 200) {
                         return alert('Houve um problema ao tentar alterar a reserva, tente novamente')                        
                     }
 
@@ -608,7 +655,8 @@ const reservas = () => {
         loadReservasAtendente,
         createReservaCliente,
         loadReservasCliente,            
-        modalAlterarAtendimentoAtendente            
+        modalAlterarAtendimentoAtendente,
+        cardIndicativosAtendimento          
     }
 }
 

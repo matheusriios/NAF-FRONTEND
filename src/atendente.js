@@ -12,8 +12,7 @@ const atendente = () => {
                 'Authorization': `Bearer ${token}`
             }
         })
-        const body = await response.json()  
-        
+        const body = await response.json()          
         return body
     }
 
@@ -22,13 +21,13 @@ const atendente = () => {
             const bodyListaAtendentes = document.getElementById('body-lista-atendentes')
             let todosAtendentes = await loadTodosAtendentes()
     
-            todosAtendentes.map((atendente, index) => {
+            todosAtendentes.map((atendente, index) => {                        
                 bodyListaAtendentes.innerHTML += `
                     <tr>
                         <td>${atendente.user.name}</td>
                         <td>${atendente.user.email}</td>
                         <td>${atendente.celular}</td>
-                        <td>${atendente.perfil}</td>
+                        <td>${utils.tratamentoPerfilGerente(atendente.perfil)}</td>
                         <td><button type="button" data-target="#modalReservaAtendente" data-toggle="modal" class="btn btn-secondary btn-modal-reserva">Reservas</button></td>                    
                     </tr>  
                 `
@@ -83,7 +82,7 @@ const atendente = () => {
                                 <td>${r.cliente !== null ? r.cliente.user.name : 'Cliente removido'}</td>
                                 <td>${r.servico.nome}</td>
                                 <td>${r.horario.data}</td>
-                                <td>${r.status}</td>
+                                <td>${utils.tratamentoStatusAtendimento(r)}</td>
                                 <td>${r.servico.descricao}</td>
                     `
                 })                                
@@ -195,7 +194,7 @@ const atendente = () => {
                         <td>${atendente.user.cpf}</td>
                         <td>${atendente.user.email}</td>
                         <td>${atendente.celular}</td>
-                        <td>${atendente.perfil}</td>               
+                        <td>${utils.tratamentoPerfilGerente(atendente.perfil)}</td>               
                     </tr>  
                 `
             })    
@@ -247,7 +246,7 @@ const atendente = () => {
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="exampleInputPassword1">Senha</label>
-                                                <input type="text" class="form-control" id="alterarSenha-${atendente.id}" placeholder="Senha">
+                                                <input type="password" class="form-control" id="alterarSenha-${atendente.id}" placeholder="Senha">
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -268,7 +267,7 @@ const atendente = () => {
                                                 <option value="U">Atendente</option>
                                             </select>
                                         </div>                            
-                                        <button id="alterar-dados-atendente-${atendente.id}" type="button" class="btn btn-primary">Alterar</button>
+                                        <button id="alterar-dados-atendente-${atendente.id}" type="button" data-dismiss="modal" class="btn btn-primary">Alterar</button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -426,7 +425,7 @@ const atendente = () => {
                                 </div>
                             </div>                       
                             <div class="w-100 d-flex justify-content-end">
-                                <button id="alterar-dados-cliente" data-dismiss="modal" type="button" class="btn btn-primary">Alterar</button>
+                                <button id="alterar-dados-cliente" data-dismiss="modal" type="button" data-dismiss="modal" class="btn btn-primary">Alterar</button>
                             </div>
                         </form>
                     ` 

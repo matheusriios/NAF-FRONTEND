@@ -1,3 +1,4 @@
+import storage from './storage'
 import atendente from './atendente';
 import cliente from './cliente';
 import reservas from './reservas';
@@ -6,12 +7,12 @@ import horario from './horarios';
 import login from './login'
 import utils from './utils'
 
-function main() {         
+
+function main() {
     utils.openDropDownMenuAccount()
-    utils.exibeNomeUserMenu()    
-    utils.menuMobile()    
+    utils.exibeNomeUserMenu()
+    utils.menuMobile()
     login.login()
-    login.logout()
 
     atendente().listaAtendentes()
     atendente().createAtendente()
@@ -21,6 +22,7 @@ function main() {
 
     servicos().createServico()
     servicos().alterarServico()
+    servicos().deletarServico()
 
     reservas().createReserva()
     reservas().createReservaCliente()    
@@ -30,6 +32,7 @@ function main() {
     reservas().alterarReserva()    
     reservas().modalAlterarAtendimentoAtendente()
     reservas().deleteReserva()
+    reservas().cardIndicativosAtendimento()
 
     cliente().createCliente()
     cliente().deleteCliente()
@@ -42,5 +45,7 @@ function main() {
     horario().deleteHorario()
     horario().alterarHorario()
 }
-
-main()
+// utils.loadEvent()
+window.addEventListener('load', e => {
+    main()
+})

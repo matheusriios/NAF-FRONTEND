@@ -34,7 +34,7 @@ a:hover{
 #app{
     height: auto;
     width: 100%;
-    background: white;
+    background: #f2f3f8;
 }
 
 .title-naf{    
@@ -83,7 +83,7 @@ a:hover{
 /*********************/
 .title-reservas h1{
     font-family: 'Lato', sans-serif;
-    color: #47525E;
+    color: rgb(8, 43, 124);
 }
 
 .container-lists-reservas{
@@ -116,12 +116,39 @@ a:hover{
    color: white;
 }
 
-.btn-alterar-atd {
-    width: 100%;   
+.open-menu-mobile{
+    display: none !important;
 }
 
 .icon-alterar-atendimento {
     font-size: 20px;
     color: black;
     cursor: pointer;
+}
+
+
+.container-card-info-atendimentos {
+    width: 21% !important;
+}
+
+.container-card-info-atendimentos.servicos-cadastrados {
+    width: 45% !important;
+}
+
+.container-card-info-atendimentos .card-text {
+    font-size: 41px;
+}
+
+.container-card-info-atendimentos .card-body {
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+}
+
+.btn-modal-reserva, .btn.btn-warning.alterar-dados {
+    background: rgb(8, 43, 124);
+    color: white;
+    border-color: rgb(8, 43, 124);
+}
+
+.tr-servicos-cadastrados td{
+    color: white;
 }

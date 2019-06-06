@@ -1,20 +1,23 @@
-import baseUrl from './service';
+import baseurl from './service';
 
-const userAuth = async (content) => {                                
-    if(window.localStorage.getItem('token') !== undefined) {
-        const respUserAuth = await fetch(`${baseUrl.usuarioAutenticado}`, {
+/*
+    Aqui faremos a requisição para ter acesso as informaçoes do usuario logado
+*/
+
+const userAuth = async() => {
+    if (window.localStorage.getItem('token') !== undefined) {
+        const respUserAuth = await fetch(`${baseurl.usuarioAutenticado}`, {
             headers: {
                 'Authorization': `Bearer ${window.localStorage.getItem('token')}`
             }
         });
-                    
-        if(respUserAuth.status !== 200) {
+
+        if (respUserAuth.status !== 200) {
             return alert('Ocorreu um problema, entre em contato com o adminstrador')
-        }            
-                    
-        return await respUserAuth.json(); 
-    }        
+        }
+
+        return await respUserAuth.json();
+    }
 }
 
 export default userAuth
-

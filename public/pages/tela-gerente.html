@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <script src="../js/verificar.js"></script>
     <!-- CSS | Bootstrap CSS  | Font awesome  -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/fonts.css">
@@ -27,7 +27,8 @@
             </div>
             <ul>
                 <nav>                    
-                    <div class="nav nav-tabs flex-column" id="nav-tab" role="tablist">                       
+                    <div class="nav nav-tabs flex-column" id="nav-tab" role="tablist">               
+                        <a class="nav-item nav-link" id="dash-tab" data-toggle="tab" href="#dash" role="tab" aria-controls="dash" aria-selected="true">Dash</a>        
                         <a class="nav-item nav-link" id="reservas-tab" data-toggle="tab" href="#reservas" role="tab" aria-controls="reservas" aria-selected="true">Reservas</a>
                         <a class="nav-item nav-link" id="atendente-tab" data-toggle="tab" href="#atendente" role="tab" aria-controls="atendente" aria-selected="false">Atendentes</a>
 
@@ -50,6 +51,7 @@
                             <a class="nav-item nav-link " id="deletar-atendente-tab" data-toggle="tab" href="#deletar-atendente" role="tab" aria-controls="deletar-atendente" aria-selected="false">Deletar Atendente</a>                        
                             <a class="nav-item nav-link " id="deletar-cliente-tab" data-toggle="tab" href="#deletar-cliente" role="tab" aria-controls="deletar-cliente" aria-selected="false">Deletar Cliente</a>                        
                             <a class="nav-item nav-link " id="deletar-reserva-tab" data-toggle="tab" href="#deletar-reserva" role="tab" aria-controls="deletar-reserva" aria-selected="false">Deletar Reserva</a>
+                            <a class="nav-item nav-link " id="deletar-reserva-tab" data-toggle="tab" href="#deletar-servico" role="tab" aria-controls="deletar-servico" aria-selected="false">Deletar Serviço</a>
                             <a class="nav-item nav-link " id="deletar-data-tab" data-toggle="tab" href="#deletar-data" role="tab" aria-controls="deletar-data" aria-selected="false">Deletar Data</a> 
                             
                         </div>
@@ -98,11 +100,68 @@
                         </ul>
                     </ul>
                 </div>
-            </div>        
+            </div>  
+            
             <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="dash" role="tabpanel" aria-labelledby="dash-tab">
+                    <!--Cards Dashboard-->      
+                    <div class="container-fluid mt-5 d-flex flex-column">
+                        <div class="container title-reservas">
+                            <h1 class="text-center">Dashboard - Página Inicial</h1>
+                        </div>
+                        <div class="w-100 d-flex flex-wrap">
+                            <div class="card container-card-info-atendimentos m-4" style="width: 18rem;">                    
+                                <div class="card-body">
+                                    <h5 class="card-title">Atendimentos em lista de espera</h5>
+                                    <p class="card-text descp-espera">0</p>                        
+                                </div>
+                            </div>
+            
+                            <div class="card container-card-info-atendimentos m-4" style="width: 18rem;">                    
+                                <div class="card-body">
+                                    <h5 class="card-title">Atendimentos em andamento</h5>
+                                    <p class="card-text descp-em-atendimento">0</p>                        
+                                </div>
+                            </div>
+        
+                            <div class="card container-card-info-atendimentos m-4" style="width: 18rem;">                    
+                                <div class="card-body">
+                                    <h5 class="card-title">Atendimentos cancelados</h5>
+                                    <p class="card-text descp-cancelado">0</p>                        
+                                </div>
+                            </div>
+            
+                            <div class="card container-card-info-atendimentos m-4" style="width: 18rem;">                    
+                                <div class="card-body">
+                                    <h5 class="card-title">Atendimentos finalizados</h5>
+                                    <p class="card-text descp-finalizado">0</p>                        
+                                </div>
+                            </div>
+
+                            <div class="card container-card-info-atendimentos servicos-cadastrados m-4" style="width: 18rem;">                    
+                                <div class="card-body">
+                                    <h5 class="card-title">Serviços cadastrados</h5>
+                                    <div class="descp-servicos-cadastrados">
+                                        <table class="table">
+                                            <thead style="background: rgb(8, 43, 124)">
+                                                <tr class="tr-servicos-cadastrados">
+                                                    <td>Nome</td>
+                                                    <td>Documentos</td>                                                    
+                                                </tr>      
+                                            </thead>      
+                                            <tbody id="body-servicos">                                             
+                                            </tbody>                                                                                                                     
+                                        </table>        
+                                    </div>                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!--Cards Dashboard-->      
+                </div>
 
                 <!--Incio Reservas-->
-                <div class="tab-pane fade show active" id="reservas" role="tabpanel" aria-labelledby="reservas-tab">
+                <div class="tab-pane fade " id="reservas" role="tabpanel" aria-labelledby="reservas-tab">
                     <div class="container-reservas w-100 d-flex align-items-center flex-column ">
                         <div class="title-reservas">
                             <h1 class="mt-5">Reservas</h1>
@@ -115,6 +174,7 @@
                                         <td>Serviço</td>
                                         <td>Atendente</td>
                                         <td>Cliente</td>
+                                        <td>Data/Horario</td>
                                         <td>Status</td>
                                     </tr>      
                                 </thead>      
@@ -353,15 +413,7 @@
                         </div>
                         <div class="container-lists-reservas w-100 mt-4">
                             <div class="container">
-                                <form action="">
-                                    <div class="form-group row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Atendente</label>
-                                        <div class="col-sm-10">
-                                            <select id="selectAtendente" class="custom-select">
-                                                    <option selected>Selecione o Atendente</option>                                                        
-                                            </select>
-                                        </div>
-                                    </div>
+                                <form action="">                                    
                                     <div class="form-group row">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Data/Horario</label>
                                         <div class="col-sm-10">
@@ -464,7 +516,7 @@
                             <h1 class="mt-5">Alterar reservas</h1>
                         </div>                
                         <div class="container-lists-reservas w-100 mt-4">
-                            <table class="table">
+                            <table class="table tb4">
                                 <thead>
                                     <tr>
                                         <td>Atendente</td>
@@ -531,7 +583,7 @@
                 <div class="tab-pane" id="deletar-atendente" role="tabpanel" aria-labelledby="deletar-atendente-tab">
                     <div class="container-reservas w-100 d-flex align-items-center flex-column ">
                         <div class="title-reservas">
-                            <h1 class="mt-5">Deletar Cliente</h1>
+                            <h1 class="mt-5">Deletar Atendente</h1>
                         </div>
                         <div class="container-reservas w-100 d-flex align-items-center flex-column ">
                             <div class="container mt-4">
@@ -637,6 +689,36 @@
                     </div>
                 </div>
                 <!--Fim Deletar Data-->
+
+                <!--Inicio Deletar Serviço-->   
+                <div class="tab-pane" id="deletar-servico" role="tabpanel" aria-labelledby="deletar-data-tab">
+                    <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                        
+                        <div class="title-reservas">
+                            <h1 class="mt-5">Deletar Serviço</h1>
+                        </div>
+
+                        <div class="container-reservas w-100 d-flex align-items-center flex-column ">
+                            <div class="container mt-4">
+                                <form action="">                                    
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Serviço</label>
+                                        <div class="col-sm-10">
+                                            <select id="selectServicoDelete" class="custom-select">
+                                                <option>Selecione o servico</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-100 d-flex justify-content-end pr-3">
+                                        <button type="button" class="btn btn-primary w-25 btn-deletar-servico">Deletar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--Fim Deletar Serviço-->
 
             </div>           
         </div>

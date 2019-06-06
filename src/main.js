@@ -1,3 +1,4 @@
+import storage from './storage'
 import atendente from './atendente';
 import cliente from './cliente';
 import reservas from './reservas';
@@ -6,12 +7,12 @@ import horario from './horarios';
 import login from './login'
 import utils from './utils'
 
-function main() {         
+
+function main() {
     utils.openDropDownMenuAccount()
-    utils.exibeNomeUserMenu()    
-    utils.menuMobile()    
+    utils.exibeNomeUserMenu()
+    utils.menuMobile()
     login.login()
-    login.logout()
 
     atendente().listaAtendentes()
     atendente().createAtendente()

@@ -363,7 +363,7 @@ const reservas = () => {
                    
                     var url = `${baseUrl.alterarReserva}/${reserva.id}/editar`
                     
-                    const respCreateReserva = await fetch(url, {
+                    const respAlterarReserva = await fetch(url, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
@@ -372,11 +372,11 @@ const reservas = () => {
                         body: formData
                     })
                     
-                    if(respCreateReserva.status === 422){
-                        const error = await respCreateReserva.json() 
+                    if(respAlterarReserva.status === 422){
+                        const error = await respAlterarReserva.json() 
                         return alert(error.error)
                     }
-                    if(respCreateReserva.status !== 200) {
+                    if(respAlterarReserva.status !== 200) {
                         return alert('Houve um problema ao tentar alterar a reserva, tente novamente')                        
                     }
 

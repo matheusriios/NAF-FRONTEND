@@ -8,10 +8,10 @@ const endPoints = {
 
     listarAtendentes: `${baseUrl}/api/v1/atendentes`,
     listaHorarios: `${baseUrl}/api/v1/horarios`,
-    listaServicos: `${baseUrl}/api/v1/servicos`,
-    listaServicos: `${baseUrl}/api/v1/servicos`,
+    listaServicos: `${baseUrl}/api/v1/servicos`,    
     listaClientes: `${baseUrl}/api/v1/clientes`,    
-    listaReservas: `${baseUrl}/api/v1/reservas`,  
+    listaReservas: `${baseUrl}/api/v1/reservas?where[data]=1999-01-19&and[data]=2099-01-25`,  
+    reservaFiltrado: `${baseUrl}/api/v1/reservas`,
 
     //localhost:8000/api/v1/atendentes/;id
     getAtendente: `${baseUrl}/api/v1/atendentes`,

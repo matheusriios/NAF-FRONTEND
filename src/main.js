@@ -7,12 +7,13 @@ import horario from './horarios';
 import login from './login'
 import utils from './utils'
 
-
 function main() {
     utils.openDropDownMenuAccount()
     utils.exibeNomeUserMenu()
     utils.menuMobile()
-    login.login()
+    utils.gerarPdfReservas()
+    login.login()    
+    
 
     atendente().listaAtendentes()
     atendente().createAtendente()
@@ -29,10 +30,11 @@ function main() {
     reservas().listaReservas()
     reservas().loadReservasCliente()
     reservas().loadReservasAtendente()
-    reservas().alterarReserva()    
+    // reservas().alterarReserva()    
     reservas().modalAlterarAtendimentoAtendente()
     reservas().deleteReserva()
     reservas().cardIndicativosAtendimento()
+    reservas().filtrarReservas()
 
     cliente().createCliente()
     cliente().deleteCliente()

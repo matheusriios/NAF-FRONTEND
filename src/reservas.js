@@ -21,11 +21,146 @@ const reservas = () => {
         return body
     }
 
+    const getReservaFiltrada = async (dataInicio, dataFinal) => {
+        const token     = window.localStorage.getItem('token')        
+        
+        if(dataInicio === undefined || dataFinal === undefined)
+            return alert('Error ao filtrar informação')
+        const response  = await fetch(`${baseUrl.reservaFiltrado}?where[data]=${dataInicio}&and[data]=${dataFinal}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        
+        const respBody = await response.json()
+        
+        return respBody
+    }
+
+    const filtrarReservas = () => {       
+        document.querySelectorAll('.jsCalendar-current').forEach(item => item.classList.remove('jsCalendar-current'))        
+        if(document.querySelector('.page-logado-gerente') !== null) {
+            const btnFiltrar = document.getElementById('btnFiltrar'),
+                  btnLimparFiltrar = document.getElementById('btnLimparFiltrar')
+
+            let dataInicio = '',
+                dataFinal = ''            
+            const calendar1 = jsCalendar.new("#calendar1", "now", {
+                "language": "pt"
+            })
+            
+            const calendar2 = jsCalendar.new("#calendar2", "now", {
+                "language": "pt"
+            })         
+            
+            calendar1.onDateClick((event, date) => {                
+                event.target.classList.add('jsCalendar-selecionado')                
+                event.target.parentElement.parentNode.childNodes.forEach(tr => {
+                    tr.childNodes.forEach(td => {                        
+                        if(td !== event.target)
+                            td.classList.remove('jsCalendar-selecionado')
+                    })
+                })
+
+                const mes = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1 // +1 pois no getMonth Janeiro começa com zero.
+                const dia = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
+                dataInicio = `${date.getFullYear()}-${mes}-${dia}`                                
+            })
+
+            calendar2.onDateClick((event, date) => {                          
+                event.target.classList.add('jsCalendar-selecionado')                
+                event.target.parentElement.parentNode.childNodes.forEach(tr => {
+                    tr.childNodes.forEach(td => {                        
+                        if(td !== event.target)
+                            td.classList.remove('jsCalendar-selecionado')
+                    })
+                })
+                const mes = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1 // +1 pois no getMonth Janeiro começa com zero.
+                const dia = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
+                dataFinal = `${date.getFullYear()}-${mes}-${dia}`                                
+            })
+
+                
+            //Limpar FILTRO      
+            btnLimparFiltrar.addEventListener('click', async e => {
+                if(document.querySelector('.page-logado-gerente') !== null){
+                    const bodyReservas = document.getElementById('body-reserva')
+                    const todasReservas = await loadTodasReservas()     
+                    bodyReservas.innerHTML = ''               
+                    if(bodyReservas !== null) {   
+                        todasReservas.map((reserva, index) => {         
+                            
+                            bodyReservas.innerHTML += `
+                                <tr>
+                                    <td>${reserva.servico.nome}</td>
+                                    <td>${reserva.atendente !== null ? reserva.atendente.user.name 
+                                                                   : 'Atendente removido' }</td>
+                                    <td>${reserva.cliente !== null ? reserva.cliente.user.name 
+                                                                   : 'Cliente removido' }</td>
+                                    <td>${utils.converterDataHorario(reserva.horario.data)}</td>
+                                    <td>${utils.tratamentoStatusAtendimento(reserva)}</td>                        
+                                </tr>  
+                            `            
+                        })    
+                    }        
+                }
+            })
+
+
+
+            btnFiltrar.addEventListener('click', async e => {
+                if(dataFinal === '' || dataFinal === '')
+                    return alert('Selecione uma data')
+                    
+                                    
+                const reservasFiltradas = await getReservaFiltrada(dataInicio, dataFinal)
+                const bodyReservas = document.getElementById('body-reserva')                                   
+                if(bodyReservas !== null) { 
+                    
+                    if(reservasFiltradas.length === 0)
+                    return alert('Nenhuma reserva foi encontrada nessa data, tente novamente selecionando outra data')
+                    
+                    bodyReservas.innerHTML = '' 
+                    if(reservasFiltradas.length > 1) {
+                        reservasFiltradas.map((reserva) => {                                 
+                            bodyReservas.innerHTML += `
+                                <tr>
+                                    <td>${reserva.servico.nome}</td>
+                                    <td>${reserva.atendente !== null ? reserva.atendente.user.name 
+                                                                   : 'Atendente removido' }</td>
+                                    <td>${reserva.cliente !== null ? reserva.cliente.user.name 
+                                                                   : 'Cliente removido' }</td>
+                                    <td>${utils.converterDataHorario(reserva.horario.data)}</td>
+                                    <td>${utils.tratamentoStatusAtendimento(reserva)}</td>                        
+                                </tr>  
+                            `            
+                        })    
+                    }else {                       
+                        reservasFiltradas.map((reserva) => {                                 
+                            bodyReservas.innerHTML = `
+                                <tr>
+                                    <td>${reserva.servico.nome}</td>
+                                    <td>${reserva.atendente !== null ? reserva.atendente.user.name 
+                                                                   : 'Atendente removido' }</td>
+                                    <td>${reserva.cliente !== null ? reserva.cliente.user.name 
+                                                                   : 'Cliente removido' }</td>
+                                    <td>${utils.converterDataHorario(reserva.horario.data)}</td>
+                                    <td>${utils.tratamentoStatusAtendimento(reserva)}</td>                        
+                                </tr>  
+                            `            
+                        })    
+                    }                    
+                }       
+            })
+        }
+    }
+
     const cardIndicativosAtendimento = async () => {
         if(document.querySelector('.page-logado-gerente') !== null) {
             const todosAtendimentos = await loadTodasReservas()
             const todosServicos = await servicos().loadTodosServicos()
-            
             const cardBodyEspera = document.querySelector('.container-card-info-atendimentos .descp-espera')
             const cardBodyEmAtendimento = document.querySelector('.container-card-info-atendimentos .descp-em-atendimento')
             const cardBodyFinalizado = document.querySelector('.container-card-info-atendimentos .descp-finalizado')
@@ -69,7 +204,8 @@ const reservas = () => {
             const todasReservas = await loadTodasReservas()     
                         
             if(bodyReservas !== null) {   
-                todasReservas.map((reserva, index) => {                                        
+                todasReservas.map((reserva, index) => {         
+                    
                     bodyReservas.innerHTML += `
                         <tr>
                             <td>${reserva.servico.nome}</td>
@@ -77,7 +213,7 @@ const reservas = () => {
                                                            : 'Atendente removido' }</td>
                             <td>${reserva.cliente !== null ? reserva.cliente.user.name 
                                                            : 'Cliente removido' }</td>
-                            <td>${reserva.horario.data}</td>
+                            <td>${utils.converterDataHorario(reserva.horario.data)}</td>
                             <td>${utils.tratamentoStatusAtendimento(reserva)}</td>                        
                         </tr>  
                     `            
@@ -656,7 +792,8 @@ const reservas = () => {
         createReservaCliente,
         loadReservasCliente,            
         modalAlterarAtendimentoAtendente,
-        cardIndicativosAtendimento          
+        cardIndicativosAtendimento,
+        filtrarReservas        
     }
 }
 

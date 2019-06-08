@@ -81,7 +81,7 @@ const atendente = () => {
                     bodyReservaAtendente.innerHTML += `
                                 <td>${r.cliente !== null ? r.cliente.user.name : 'Cliente removido'}</td>
                                 <td>${r.servico.nome}</td>
-                                <td>${r.horario.data}</td>
+                                <td>${utils.converterDataHorario(r.horario.data)}</td>
                                 <td>${utils.tratamentoStatusAtendimento(r)}</td>
                                 <td>${r.servico.descricao}</td>
                     `

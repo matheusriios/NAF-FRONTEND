@@ -1,5 +1,5 @@
 import baseUrl from './service'
-import jsPDF from 'jspdf'
+import * as jsPDF from 'jspdf'
 export default {    
     openDropDownMenuAccount: () => {
         const containerBtnDropAccount = document.querySelector('.container-btn-drop-account')
@@ -172,8 +172,13 @@ export default {
     },
 
     gerarPdfReservas: () => {
-        const doc = new jsPDF()
+        const gerarPDF = document.getElementById('gerarPDF')       
 
-        doc.text('Hello world', 10, 10)
+        gerarPDF.addEventListener('click', e => {
+            const doc = new jsPDF('portrait', 'pt', 'a4')
+            
+            doc.setTableHeaderRow('<h1>Relatorio de reservas</h1>')
+            doc.save()
+        })
     }
 }

@@ -125,12 +125,13 @@ const cliente = () => {
             let todosClietes = await loadTodosClientes()
             todosClietes.map((cliente, index) => {
                 bodyListaClientes.innerHTML += `
-                    <tr data-target="#modalDadosCliente-${cliente.id}" data-toggle="modal" idCliente="${cliente.id} class="alterar-dados">
+                    <tr>
                         <td>${cliente.user.name}</td>
                         <td>${cliente.user.cpf}</td>
                         <td>${cliente.user.email}</td>
                         <td>${cliente.telefone}</td>               
                         <td>${cliente.celular}</td>
+                        <td><button data-target="#modalDadosCliente-${cliente.id}" data-toggle="modal" idCliente="${cliente.id}"  class="btn btn-warning alterar-dados">Alterar</button></td>
                     </tr>  
                 `
             })    

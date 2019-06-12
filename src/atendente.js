@@ -189,12 +189,13 @@ const atendente = () => {
             let todosAtendentes = await loadTodosAtendentes()
             todosAtendentes.map((atendente, index) => {
                 bodyListaAtendentes.innerHTML += `
-                    <tr data-target="#modalDadosAtendente-${atendente.id}" data-toggle="modal" idAtendente="${atendente.id} class="alterar-dados">
+                    <tr>
                         <td>${atendente.user.name}</td>
                         <td>${atendente.user.cpf}</td>
                         <td>${atendente.user.email}</td>
                         <td>${atendente.celular}</td>
-                        <td>${utils.tratamentoPerfilGerente(atendente.perfil)}</td>               
+                        <td>${utils.tratamentoPerfilGerente(atendente.perfil)}</td>      
+                        <td><button data-target="#modalDadosAtendente-${atendente.id}" data-toggle="modal" idAtendente="${atendente.id}" class="btn btn-warning alterar-dados">Alterar</button></td>         
                     </tr>  
                 `
             })    

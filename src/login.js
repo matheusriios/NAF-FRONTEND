@@ -67,9 +67,12 @@ const login = () => {
             loginRedirect(userAuthenticated);
             alert('aqui')
         }else {
-            alert('aqui não')
             if(userAuthenticated.id && userAuthenticated.name) {
-                alert(`Sr. ${userAuthenticated.name} sua conta foi excluida`)
+                utils.modalMensagemError({
+                    msgError : `Sr. ${userAuthenticated.name} sua conta foi excluida`,
+                    btn : `<button type="button" class="btn btn-primary">Recuperar conta</button>`,
+                    title : `Conta excluida`
+                })
             }
         }
        

@@ -1,4 +1,6 @@
 import baseUrl from './service'
+import recuperar from './login'
+
 export default {    
     openDropDownMenuAccount: () => {
         const containerBtnDropAccount = document.querySelector('.container-btn-drop-account')
@@ -181,7 +183,7 @@ export default {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">${msg.title}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -189,7 +191,7 @@ export default {
                             ${msg.msgError}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
                             ${msg.btn}
                         </div>
                     </div>
@@ -199,47 +201,63 @@ export default {
         document.body.appendChild(modalMsgError);
 
         $('#modalMsgError').modal('show');
-    },
+        if(msg.id && msg.btn) {
+            const abrirModal = document.querySelector(`#${msg.id}`)
+            if(abrirModal) {
+                abrirModal.addEventListener('click',(e)=>{
+                    e.preventDefault();
+                    recuperConta();
+                    $('#modalMsgError').modal('hide');
+                    destroyModal();
+                })
+            }
+        }
 
-    modalRecuperConta: () => {
-        `
-            <div class="modal fade" id="modalMsgError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Recuperação de conta</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
+        const btnclose = document.querySelector('.btn-close');
+        if(btnclose){
+            btnclose.addEventListener('click',(e)=>{
+                e.preventDefault();
+                destroyModal();
+            })
+        }
+    },    
 
-                            <form>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                </div>
-                                <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                           
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            ${msg.btn}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `
+}
+
+const destroyModal = ( ) =>{
+    var node = document.getElementById("modalMsgError");
+    if (node.parentNode) {
+        node.parentNode.removeChild(node);
     }
+}
 
+const recuperConta = () => {
+    const login = document.querySelector('#containerLogin');
+    login.style.display = "none";
+    const paiLogin = document.querySelector('#paiContainerLogin')
+    
+    paiLogin.innerHTML =
+    `   
+        <div class="container-form shadow-sm bg-white rounded">
+            <h3 class="text-center">Recuperar Senha</h3>
+            <p class="text-center">Para prosseguir digite suas credenciais</p>
+            <form action="" class="d-flex form-login flex-column w-100 justify-content-center align-items-center">
+                <div class="w-100 d-flex flex-column justify-content-center align-items-center content-input">
+                    <input type="text" id="cpfRecuperar" class="mb-2 w-75 p-1 form-control" placeholder="Cpf">
+                    <input type="text" id="emailRecuperar" class="mb-2 w-75 p-1 form-control" placeholder="Email">
+                </div>
+                <a href="" class="w-100 d-flex justify-content-center container-btn-login">
+                    <button type="button" class="btn btn-dark mt-3 p-2 w-75 btn-recuperar">Recuperar</button>
+                </a>
+            </form>
+        </div>    
+    `
+
+    const btnRecuperar = document.querySelector('.btn-recuperar');
+    if(btnRecuperar) {
+        btnRecuperar.addEventListener('click', (e)=>{
+            e.preventDefault();
+            recuperar.recuperarConta();
+        })
+    }
 }

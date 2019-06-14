@@ -5,6 +5,7 @@ const endPoints = {
     usuarioAutenticado: `${baseUrl}/api/v1/auth/me`,
     authUsuario: `${baseUrl}/oauth/token`,
     logout: `${baseUrl}/api/v1/auth/logout`,
+    recuperar: `${baseUrl}/api/v1/auth/restore`,
 
     listarAtendentes: `${baseUrl}/api/v1/atendentes`,
     listaHorarios: `${baseUrl}/api/v1/horarios`,

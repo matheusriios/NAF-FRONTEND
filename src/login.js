@@ -39,7 +39,6 @@ const login = () => {
                 
                 //Salva o token na memoria do navegador
                 const bodyAuth = await respAuth.json()
-                console.log(bodyAuth);
                 storage().set({
                     token: bodyAuth.access_token
                 })
@@ -52,7 +51,6 @@ const login = () => {
 
     const getLoginDados = async() => {
         const userAuthenticated = await userAuth()
-        console.log(userAuthenticated)
         if(userAuthenticated.atendente || userAuthenticated.cliente) {
             var perfilUser = userAuthenticated.atendente == null ? null : userAuthenticated.atendente.perfil;
 
@@ -65,12 +63,12 @@ const login = () => {
             })
     
             loginRedirect(userAuthenticated);
-            alert('aqui')
         }else {
             if(userAuthenticated.id && userAuthenticated.name) {
                 utils.modalMensagemError({
                     msgError : `Sr. ${userAuthenticated.name} sua conta foi excluida`,
-                    btn : `<button type="button" class="btn btn-primary">Recuperar conta</button>`,
+                    id : 'btnRecuperarConta',
+                    btn : `<button id="btnRecuperarConta" type="button" class="btn btn-primary">Recuperar conta</button>`,
                     title : `Conta excluida`
                 })
             }
@@ -88,6 +86,7 @@ const login = () => {
             logout();
         })
     }
+    
 }
 
 /*
@@ -129,6 +128,35 @@ const logout = async() => {
     }
 }
 
+const recuperarConta = async () => {
+    const cpf = document.getElementById('cpfRecuperar').value;
+    const email = document.getElementById('emailRecuperar').value;
+    const userAuthenticated = await userAuth()
+    
+    if(userAuthenticated.cpf == cpf && userAuthenticated == email) {
+        const formData = new FormData()
+        formData.append('email', `${email}`)
+
+        //Recupera a conta do usuario
+        const respAuth = await fetch(`${baseurl.recuperar}`, {
+            method: 'POST',
+            body: formData,
+        });
+    
+        const bodyAuth = await respAuth.json()
+        if(respAuth.status == 200) {
+            alert('conta recuperada')
+        }
+    } else {
+        utils.modalMensagemError({
+            title: "Dados Incorretos",
+            msgError : `Informaçoes incorretas, por favor tente novamente`,
+        })
+    }
+
+}
+
 export default {
     login,
+    recuperarConta
 }

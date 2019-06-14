@@ -31,13 +31,15 @@ const login = () => {
                 body: formData,
             });
 
+            
             if (respAuth.status !== 200)
-                alert("Verifique suas credenciais")
-
+            alert("Verifique suas credenciais")
+            
             if (respAuth.status == 200) {
-
+                
                 //Salva o token na memoria do navegador
                 const bodyAuth = await respAuth.json()
+                console.log(bodyAuth);
                 storage().set({
                     token: bodyAuth.access_token
                 })
@@ -50,17 +52,27 @@ const login = () => {
 
     const getLoginDados = async() => {
         const userAuthenticated = await userAuth()
-        var perfilUser = userAuthenticated.atendente == null ? null : userAuthenticated.atendente.perfil;
+        console.log(userAuthenticated)
+        if(userAuthenticated.atendente || userAuthenticated.cliente) {
+            var perfilUser = userAuthenticated.atendente == null ? null : userAuthenticated.atendente.perfil;
 
-        storage().set({
-            nome: userAuthenticated.name,
-            perfil: perfilUser,
-            email: userAuthenticated.email,
-            cliente: userAuthenticated.cliente,
-            isLogged: true
-        })
-
-        loginRedirect(userAuthenticated);
+            storage().set({
+                nome: userAuthenticated.name,
+                perfil: perfilUser,
+                email: userAuthenticated.email,
+                cliente: userAuthenticated.cliente,
+                isLogged: true
+            })
+    
+            loginRedirect(userAuthenticated);
+            alert('aqui')
+        }else {
+            alert('aqui não')
+            if(userAuthenticated.id && userAuthenticated.name) {
+                alert(`Sr. ${userAuthenticated.name} sua conta foi excluida`)
+            }
+        }
+       
     }
 
     /*

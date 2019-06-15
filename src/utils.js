@@ -213,11 +213,13 @@ export default {
             }
         }
 
-        const btnclose = document.querySelector('.btn-close');
+        const btnclose = document.querySelectorAll('.btn-close');
         if(btnclose){
-            btnclose.addEventListener('click',(e)=>{
-                e.preventDefault();
-                destroyModal();
+            btnclose.forEach((btn)=>{
+                btn.addEventListener('click',(e)=>{
+                    e.preventDefault();
+                    destroyModal();
+                })
             })
         }
     },    

@@ -33,7 +33,11 @@ const login = () => {
 
             
             if (respAuth.status !== 200)
-            alert("Verifique suas credenciais")
+            utils.modalMensagemError({
+                title: "Dados Incorretos",
+                msgError : `Verifique suas credenciais`,
+            })
+        
             
             if (respAuth.status == 200) {
                 
@@ -145,7 +149,10 @@ const recuperarConta = async () => {
     
         const bodyAuth = await respAuth.json()
         if(respAuth.status == 200) {
-            alert('conta recuperada')
+            utils.modalMensagemError({
+                title: "Parabéns!",
+                msgError : `Conta recuperada com sucesso`,
+            })
         }
     } else {
         utils.modalMensagemError({

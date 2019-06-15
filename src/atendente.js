@@ -241,13 +241,9 @@ const atendente = () => {
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group col-md-12">
                                                 <label for="exampleInputEmail1">Email</label>
                                                 <input type="email" class="form-control" id="alterarEmail-${atendente.id}" aria-describedby="emailHelp" placeholder="Email" value="${atendente.user.email}"">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="exampleInputPassword1">Senha</label>
-                                                <input type="password" class="form-control" id="alterarSenha-${atendente.id}" placeholder="Senha">
                                             </div>
                                         </div>
                                         <div class="form-row">

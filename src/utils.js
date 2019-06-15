@@ -208,7 +208,8 @@ export default {
                     e.preventDefault();
                     recuperConta();
                     $('#modalMsgError').modal('hide');
-                    destroyModal();
+                    const id ="modalMsgError"
+                    destroyModal(id);
                 })
             }
         }
@@ -218,16 +219,24 @@ export default {
             btnclose.forEach((btn)=>{
                 btn.addEventListener('click',(e)=>{
                     e.preventDefault();
-                    destroyModal();
+                    const id ="modalMsgError"
+                    destroyModal(id);
                 })
             })
         }
-    },    
+    },
+    
+    removerModal : ( id ) =>{
+        var node = document.getElementById(id);
+        if (node.parentNode) {
+            node.parentNode.removeChild(node);
+        }
+    }
 
 }
 
-const destroyModal = ( ) =>{
-    var node = document.getElementById("modalMsgError");
+const destroyModal = ( id ) =>{
+    var node = document.getElementById(id);
     if (node.parentNode) {
         node.parentNode.removeChild(node);
     }

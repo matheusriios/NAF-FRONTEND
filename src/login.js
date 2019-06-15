@@ -90,6 +90,75 @@ const login = () => {
             logout();
         })
     }
+
+    /*
+        Chamada do Metodo responsavel alterar a senha do usuario
+    */
+
+    const btnAlterarSenha = document.querySelectorAll('.alterarSenha');
+    if(btnAlterarSenha) {
+        btnAlterarSenha.forEach((alterarSenha)=>{
+            alterarSenha.addEventListener('click',(e)=>{
+                e.preventDefault();
+                
+                utils.modalMensagemError({
+                    title: "Alterar senha",
+                    msgError : 
+                    ` 
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="exampleInputEmail1">Infome sua nova senha</label>
+                                    <input type="password" class="form-control" id="alterarSenha" aria-describedby="emailHelp" placeholder="Senha">
+                                </div>
+                                <div class="form-group col-md-12">                                    
+                                    <input type="password" class="form-control" id="alterarSenhaConfirmacao" aria-describedby="emailHelp" placeholder="Confirme a senha">
+                                </div>
+                            </div>
+                        </form>
+                    `,
+                    btn : `<button id="btnSenhaAlterar" type="button" class="btn btn-primary">Alterar senha</button>`,
+                })
+                const btn = document.querySelector('#btnSenhaAlterar');
+                if(btn){
+                    btn.addEventListener('click',(e)=>{
+                        e.preventDefault();
+                        const senha = document.querySelector('#alterarSenha').value;
+                        const senhaAux = document.querySelector('#alterarSenhaConfirmacao').value;
+                       
+                        if(senha && senhaAux) {
+                            if(senha===senhaAux) {
+                                alterarSenhaCliente({
+                                    senhaCliente: senha,
+                                    senhaClienteConfirmacao: senhaAux,
+                                    token: storage().get('token')
+                                });
+                            } else {
+                                $('#modalMsgError').modal('hide');
+                                utils.removerModal("modalMsgError")
+                                
+                                utils.modalMensagemError({
+                                    title: "Erro ao tentar alterar a senha",
+                                    msgError : `As senhas são diferentes tente novamente`,
+                                })
+                        
+                            }
+                        } else {
+                            $('#modalMsgError').modal('hide');
+                            utils.removerModal("modalMsgError")
+                            
+                            utils.modalMensagemError({
+                                title: "Erro ao tentar alterar a senha",
+                                msgError : `Informe as senhas antes de prosseguir`,
+                            })
+                        }
+
+                    })
+                }
+               
+            })
+        })
+    }
     
 }
 
@@ -161,6 +230,41 @@ const recuperarConta = async () => {
         })
     }
 
+}
+
+const alterarSenhaCliente = async ( dados ) => {
+    var formData = new FormData();
+
+    formData.append('password', `${dados.senhaCliente}`)
+    formData.append('password_confirmation', `${dados.senhaCliente}`)
+
+    var url = `${baseurl.password}`;
+    const respAlterarSenha = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${dados.token}`
+        },
+        body: formData
+    })
+
+    if(respAlterarSenha.status == 200) {
+        $('#modalMsgError').modal('hide');
+        utils.removerModal("modalMsgError")
+        setTimeout(()=>{
+            utils.modalMensagemError({
+                title: "Alteração de senha",
+                msgError : `Senha Alterada com Sucesso`,
+            })
+        },1000)
+    } else {
+        $('#modalMsgError').modal('hide');
+        utils.removerModal("modalMsgError")
+        utils.modalMensagemError({
+            title: "Alteração de senha",
+            msgError : `Erro ao tentar alterar senha`,
+        })
+    }
 }
 
 export default {

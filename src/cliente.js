@@ -203,7 +203,7 @@ const cliente = () => {
                         <div class="modal-dialog container-modal" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                <h5 class="modal-title" id="modalReservaAtendente">Dados do Atendente ${cliente.user.name}</h5>
+                                <h5 class="modal-title" id="modalReservaAtendente">Dados do Cliente ${cliente.user.name}</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -221,14 +221,10 @@ const cliente = () => {
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group col-md-12">
                                                 <label for="exampleInputEmail1">Email</label>
                                                 <input type="email" class="form-control" id="alterarEmailCliente-${cliente.id}" aria-describedby="emailHelp" placeholder="Email" value="${cliente.user.email}"">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="exampleInputPassword1">Senha</label>
-                                                <input type="password" class="form-control" id="alterarSenhaCliente-${cliente.id}" placeholder="Senha">
-                                            </div>
+                                            </div>                                           
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
@@ -275,7 +271,6 @@ const cliente = () => {
             bodyListaClientes.innerHTML += `
                 <tr>
                     <td>${cliente.user.name}</td>
-                    <td>${cliente.user.cpf}</td>
                     <td>${cliente.user.email}</td>
                     <td><button data-target="#modalDadosCliente-${cliente.id}" data-toggle="modal" idCliente="${cliente.id}" class="alterar-dados btn btn-danger">Excluir conta</button></td>                  
                 </tr>  
@@ -362,15 +357,10 @@ const cliente = () => {
         const telFixoCliente        = document.getElementById(`alterarTelefoneCliente-${cliente.id}`).value
         const celularCliente = document.getElementById(`alterarCelularCliente-${cliente.id}`).value
         const emailCliente   = document.getElementById(`alterarEmailCliente-${cliente.id}`).value
-        const senhaCliente   = document.getElementById(`alterarSenhaCliente-${cliente.id}`).value
         const cpfCliente     = document.getElementById(`alterarCpfCliente-${cliente.id}`).value                       
         const token            = window.localStorage.getItem('token');                    
         
         var formData = new FormData();
-      
-        if(senhaCliente) {
-            formData.append('password', `${senhaCliente}`)
-        }
         
         formData.append('celular', `${celularCliente}`)
         formData.append('telefone', `${telFixoCliente}`)
@@ -410,3 +400,4 @@ const cliente = () => {
     }
 }
 export default cliente;
+

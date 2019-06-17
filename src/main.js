@@ -11,7 +11,6 @@ function main() {
     utils.openDropDownMenuAccount()
     utils.exibeNomeUserMenu()
     utils.menuMobile()
-    utils.gerarPdfReservas()
     login.login()    
     
 

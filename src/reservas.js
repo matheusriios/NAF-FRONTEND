@@ -558,7 +558,7 @@ const reservas = () => {
                 formData.append('id_horario', `${selectedDataHorario}`)
                 formData.append('id_servico', `${selectedServico}`)
                 formData.append('id_cliente', `${selectedCliente}`)      
-                formData.append('status', `A`)
+                formData.append('status', `E`)
                 
                 const respCreateReserva = await fetch(`${baseUrl.createReserva}`, {
                     method: 'POST',

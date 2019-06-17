@@ -1,5 +1,7 @@
 import baseUrl from './service'
 import * as jsPDF from 'jspdf'
+import recuperar from './login'
+
 export default {    
     openDropDownMenuAccount: () => {
         const containerBtnDropAccount = document.querySelector('.container-btn-drop-account')
@@ -170,15 +172,116 @@ export default {
 
         return dataConvertida
     },
+    
+    /*
+        No metodo abaixo se passa por parametro um objeto contendo :
+        msgError : para a mensagem  que serar mostrado
+        title : o titulo da modal 
+        btn : caso queira inserir algum  botao para envento
+    */
 
-    gerarPdfReservas: () => {
-        const gerarPDF = document.getElementById('gerarPDF')       
+    modalMensagemError: ( msg ) => {
+        if(!msg.btn) {
+            msg.btn = " ";
+        }
+        if(!msg.title) {
+            msg.title = " ";
+        }
+        if(!msg.msgError) {
+            msg.msgError = " ";
+        }
+        const modalMsgError = document.createElement('div');
+        modalMsgError.innerHTML = `
+            <div class="modal fade" id="modalMsgError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">${msg.title}</h5>
+                            <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ${msg.msgError}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Close</button>
+                            ${msg.btn}
+                        </div>
+                    </div>
+                </div>
+            </div>        
+        `
+        document.body.appendChild(modalMsgError);
 
-        gerarPDF.addEventListener('click', e => {
-            const doc = new jsPDF('portrait', 'pt', 'a4')
-            
-            doc.setTableHeaderRow('<h1>Relatorio de reservas</h1>')
-            doc.save()
-        })
+        $('#modalMsgError').modal('show');
+        if(msg.id && msg.btn) {
+            const abrirModal = document.querySelector(`#${msg.id}`)
+            if(abrirModal) {
+                abrirModal.addEventListener('click',(e)=>{
+                    e.preventDefault();
+                    recuperConta();
+                    $('#modalMsgError').modal('hide');
+                    const id ="modalMsgError"
+                    destroyModal(id);
+                })
+            }
+        }
+
+        const btnclose = document.querySelectorAll('.btn-close');
+        if(btnclose){
+            btnclose.forEach((btn)=>{
+                btn.addEventListener('click',(e)=>{
+                    e.preventDefault();
+                    const id ="modalMsgError"
+                    destroyModal(id);
+                })
+            })
+        }
+    },
+    
+    removerModal: ( id ) =>{
+        var node = document.getElementById(id);
+        if (node.parentNode) {
+            node.parentNode.removeChild(node);
+        }
+    },
+    
+    destroyModal: ( id ) =>{
+        var node = document.getElementById(id);
+        if (node.parentNode) {
+            node.parentNode.removeChild(node);
+        }
+    },
+
+    recuperConta: () => {
+        const login = document.querySelector('#containerLogin');
+        login.style.display = "none";
+        const paiLogin = document.querySelector('#paiContainerLogin')
+        
+        paiLogin.innerHTML =
+        `   
+            <div class="container-form shadow-sm bg-white rounded">
+                <h3 class="text-center">Recuperar Senha</h3>
+                <p class="text-center">Para prosseguir digite suas credenciais</p>
+                <form action="" class="d-flex form-login flex-column w-100 justify-content-center align-items-center">
+                    <div class="w-100 d-flex flex-column justify-content-center align-items-center content-input">
+                        <input type="text" id="cpfRecuperar" class="mb-2 w-75 p-1 form-control" placeholder="Cpf">
+                        <input type="text" id="emailRecuperar" class="mb-2 w-75 p-1 form-control" placeholder="Email">
+                    </div>
+                    <a href="" class="w-100 d-flex justify-content-center container-btn-login">
+                        <button type="button" class="btn btn-dark mt-3 p-2 w-75 btn-recuperar">Recuperar</button>
+                    </a>
+                </form>
+            </div>    
+        `
+
+        const btnRecuperar = document.querySelector('.btn-recuperar');
+        if(btnRecuperar) {
+            btnRecuperar.addEventListener('click', (e)=>{
+                e.preventDefault();
+                recuperar.recuperarConta();
+            })
+        }
     }
 }

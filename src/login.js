@@ -18,8 +18,8 @@ const login = () => {
             formData.append('grant_type', 'password')
 
             //Cliente and secret heroku
-            formData.append('client_id', '22')
-            formData.append('client_secret', 'JHOdqoBLbhQjkASoUjdAMElhQskj2DKMfdEy4NwF')
+            formData.append('client_id', '2')
+            formData.append('client_secret', 'AnQ26yJHqbn9pGHECiDbVHwN17C1jrHewt52oosP')
 
             formData.append('username', `${email}`)
             formData.append('password', `${senha}`)
@@ -31,11 +31,15 @@ const login = () => {
                 body: formData,
             });
 
+            
             if (respAuth.status !== 200)
-                alert("Verifique suas credenciais")
-
-            if (respAuth.status == 200) {
-
+            utils.modalMensagemError({
+                title: "Dados Incorretos",
+                msgError : `Verifique suas credenciais`,
+            })
+        
+            
+            if (respAuth.status === 200) {                
                 //Salva o token na memoria do navegador
                 const bodyAuth = await respAuth.json()
                 storage().set({
@@ -50,17 +54,29 @@ const login = () => {
 
     const getLoginDados = async() => {
         const userAuthenticated = await userAuth()
-        var perfilUser = userAuthenticated.atendente == null ? null : userAuthenticated.atendente.perfil;
+        if(userAuthenticated.atendente || userAuthenticated.cliente) {
+            var perfilUser = userAuthenticated.atendente == null ? null : userAuthenticated.atendente.perfil;
 
-        storage().set({
-            nome: userAuthenticated.name,
-            perfil: perfilUser,
-            email: userAuthenticated.email,
-            cliente: userAuthenticated.cliente,
-            isLogged: true
-        })
-
-        loginRedirect(userAuthenticated);
+            storage().set({
+                nome: userAuthenticated.name,
+                perfil: perfilUser,
+                email: userAuthenticated.email,
+                cliente: userAuthenticated.cliente,
+                isLogged: true
+            })
+    
+            loginRedirect(userAuthenticated);
+        }else {
+            if(userAuthenticated.id && userAuthenticated.name) {
+                utils.modalMensagemError({
+                    msgError : `Sr. ${userAuthenticated.name} sua conta foi excluida`,
+                    id : 'btnRecuperarConta',
+                    btn : `<button id="btnRecuperarConta" type="button" class="btn btn-primary">Recuperar conta</button>`,
+                    title : `Conta excluida`
+                })
+            }
+        }
+       
     }
 
     /*
@@ -73,6 +89,76 @@ const login = () => {
             logout();
         })
     }
+
+    /*
+        Chamada do Metodo responsavel alterar a senha do usuario
+    */
+
+    const btnAlterarSenha = document.querySelectorAll('.alterarSenha');
+    if(btnAlterarSenha) {
+        btnAlterarSenha.forEach((alterarSenha)=>{
+            alterarSenha.addEventListener('click',(e)=>{
+                e.preventDefault();
+                
+                utils.modalMensagemError({
+                    title: "Alterar senha",
+                    msgError : 
+                    ` 
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="exampleInputEmail1">Infome sua nova senha</label>
+                                    <input type="password" class="form-control" id="alterarSenha" aria-describedby="emailHelp" placeholder="Senha">
+                                </div>
+                                <div class="form-group col-md-12">                                    
+                                    <input type="password" class="form-control" id="alterarSenhaConfirmacao" aria-describedby="emailHelp" placeholder="Confirme a senha">
+                                </div>
+                            </div>
+                        </form>
+                    `,
+                    btn : `<button id="btnSenhaAlterar" type="button" class="btn btn-primary">Alterar senha</button>`,
+                })
+                const btn = document.querySelector('#btnSenhaAlterar');
+                if(btn){
+                    btn.addEventListener('click',(e)=>{
+                        e.preventDefault();
+                        const senha = document.querySelector('#alterarSenha').value;
+                        const senhaAux = document.querySelector('#alterarSenhaConfirmacao').value;
+                       
+                        if(senha && senhaAux) {
+                            if(senha===senhaAux) {
+                                alterarSenhaCliente({
+                                    senhaCliente: senha,
+                                    senhaClienteConfirmacao: senhaAux,
+                                    token: storage().get('token')
+                                });
+                            } else {
+                                $('#modalMsgError').modal('hide');
+                                utils.removerModal("modalMsgError")
+                                
+                                utils.modalMensagemError({
+                                    title: "Erro ao tentar alterar a senha",
+                                    msgError : `As senhas são diferentes tente novamente`,
+                                })
+                        
+                            }
+                        } else {
+                            $('#modalMsgError').modal('hide');
+                            utils.removerModal("modalMsgError")
+                            
+                            utils.modalMensagemError({
+                                title: "Erro ao tentar alterar a senha",
+                                msgError : `Informe as senhas antes de prosseguir`,
+                            })
+                        }
+
+                    })
+                }
+               
+            })
+        })
+    }
+    
 }
 
 /*
@@ -114,6 +200,73 @@ const logout = async() => {
     }
 }
 
+const recuperarConta = async () => {
+    const cpf = document.getElementById('cpfRecuperar').value;
+    const email = document.getElementById('emailRecuperar').value;
+    const userAuthenticated = await userAuth()
+    
+    if(userAuthenticated.cpf == cpf && userAuthenticated == email) {
+        const formData = new FormData()
+        formData.append('email', `${email}`)
+
+        //Recupera a conta do usuario
+        const respAuth = await fetch(`${baseurl.recuperar}`, {
+            method: 'POST',
+            body: formData,
+        });
+    
+        const bodyAuth = await respAuth.json()
+        if(respAuth.status == 200) {
+            utils.modalMensagemError({
+                title: "Parabéns!",
+                msgError : `Conta recuperada com sucesso`,
+            })
+        }
+    } else {
+        utils.modalMensagemError({
+            title: "Dados Incorretos",
+            msgError : `Informaçoes incorretas, por favor tente novamente`,
+        })
+    }
+
+}
+
+const alterarSenhaCliente = async ( dados ) => {
+    var formData = new FormData();
+
+    formData.append('password', `${dados.senhaCliente}`)
+    formData.append('password_confirmation', `${dados.senhaCliente}`)
+
+    var url = `${baseurl.password}`;
+    const respAlterarSenha = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${dados.token}`
+        },
+        body: formData
+    })
+
+    if(respAlterarSenha.status == 200) {
+        $('#modalMsgError').modal('hide');
+        utils.removerModal("modalMsgError")
+        setTimeout(()=>{
+            utils.modalMensagemError({
+                title: "Alteração de senha",
+                msgError : `Senha Alterada com Sucesso`,
+            })
+        },1000)
+    } else {
+        $('#modalMsgError').modal('hide');
+        utils.removerModal("modalMsgError")
+        utils.modalMensagemError({
+            title: "Alteração de senha",
+            msgError : `Erro ao tentar alterar senha`,
+        })
+    }
+}
+
 export default {
     login,
+    recuperarConta
 }
